@@ -22,8 +22,14 @@ export default {
 <style lang="scss">
   header{
     padding-top: 50px;
+    padding-bottom: 50px;
+    max-height: 180px;
+    position: absolute;
+    top: 0;
+    width: 100%;
     #header__logo {
-      width: 200px;
+      width: 8em;
+      max-width: 150px;
     }
     #header__menu {
       display: flex;

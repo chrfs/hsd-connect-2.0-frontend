@@ -10,6 +10,12 @@
 
 body {
   font-size: 1rem;
+  @media (max-width: 1280px) {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 750px) {
+    font-size: 0.65rem;
+  }
 }
 
 * {
@@ -28,8 +34,9 @@ button {
   background-color: #e40529;
   padding: 15px 25px;
   color: white;
-  font-size: 14px;
-  letter-spacing: 0.25em;
+  font-size: 0.9em;
+  letter-spacing: 0.20em;
+  font-weight: bolder;
   cursor: pointer;
 }
 
