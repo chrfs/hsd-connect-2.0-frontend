@@ -9,6 +9,7 @@
 
 
 body {
+  min-width: 320px;
   font-size: 1rem;
   @media (max-width: 1280px) {
     font-size: 0.8rem;

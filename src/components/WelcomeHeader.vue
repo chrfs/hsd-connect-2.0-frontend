@@ -21,8 +21,7 @@ export default {
 
 <style lang="scss">
   header{
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 20px;
     max-height: 180px;
     position: absolute;
     top: 0;

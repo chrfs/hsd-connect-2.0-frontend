@@ -1,11 +1,11 @@
 <template>
   <section class="container-fluid">
     <main class="row">
-      <div id="left-side" class="col-12 col-md-7 col-lg-6 offset-lg-1 min-height-100vh">
+      <div id="left-side" class="col-12 col-lg-6 offset-lg-1 min-height-100vh">
         <WelcomeHeader></WelcomeHeader>
         <div class="articles">
           <transition-group :name="'translate-in-out-'+articleSlideDirection" mode="out-in">
-              <article class="row" v-show="article.active" v-for="(article, articleIndex) in articles" v-bind:key="articleIndex">
+              <article class="row" v-show="articleIndex === activeArticleIndex" v-for="(article, articleIndex) in articles" v-bind:key="articleIndex">
                 <div class="col-12">
                   <h1 class="article__headline" v-html="article.title"></h1>
                   <p class="article__paragraph" v-html="article.message"></p>
@@ -34,28 +34,23 @@ export default {
       articles: [
         {
           title: 'Projekte zusammen<br><span class="red-colored">meistern</span>',
-          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!',
-          active: true
+          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
         },
        {
           title: 'Second Article',
-          message: 'lorem ipsum..',
-          active: false 
+          message: 'lorem ipsum..'
        },
        {
           title: 'Third Article',
-          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!',
-          active: false
+          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
         },
         {
           title: 'Fourth Article',
-          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!',
-          active: false
+          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
         },
         {
           title: 'Fifth Article',
-          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!',
-          active: false
+          message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
         }
       ],
       activeArticleIndex: 0,
@@ -67,9 +62,7 @@ export default {
   methods: {
     showArticle: function(articleIndex){
       this.articleSlideDirection = articleIndex > this.activeArticleIndex ? 'right' : 'left';
-      this.articles[this.activeArticleIndex].active = false;
       this.activeArticleIndex = articleIndex;
-      this.articles[articleIndex].active = true;
     }
   },
   mounted: function(){
@@ -84,22 +77,30 @@ export default {
 
 <style lang="scss" scoped>
   section{
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 500px;
+    padding: 20px;
     #left-side {
         height: 100vh;
         min-height: 500px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-
-        @media(max-width: 970px){
+        @media(max-width: 991px){
           height: calc(100vh - 300px);
+          align-items: center;
+          justify-content: center;
         }
       .articles {
         top: 0px;
         position: relative;
-        height: 300px;
+        height: 400px;
         display: flex;
+        margin-top: auto;
+        top: -20%;
+        @media(max-width: 991px){
+          top: 0px;
+          margin-top: 0px;
+        }
         article {
           top: 0px;
           position: absolute;
@@ -143,7 +144,7 @@ export default {
         position: relative;
         min-height: 300px;
         transform: translateX(75px);
-        @media (max-width: 970px){
+        @media (max-width: 991px){
           transform: translateX(0px);
         }
       }
@@ -152,7 +153,7 @@ export default {
         position: absolute;
         bottom: 20%;
         transform: translateX(-50%);
-        @media (max-width: 970px){
+        @media (max-width: 991px){
           bottom: 100%;
           left: 50%;
           transform: translate(-50%, 50%);
