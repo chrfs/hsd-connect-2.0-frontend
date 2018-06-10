@@ -2,18 +2,7 @@
   <section class="container-fluid">
     <main class="row">
       <div class="col-12 col-md-7 col-lg-6 offset-lg-1 min-height-100vh">
-        <header class="row">
-          <div class="col-4">
-            <a href="/"><img id="header__logo" src="../assets/img/hsd_ci.png" alt="HSD" /></a>
-          </div>
-          <div class="col-8">
-            <ul id="header__menu">
-              <li><a href="login">Login</a></li>
-              <li><a href="register">Registrieren</a></li>
-              <li><a href="about-us">Über HSDConnect</a></li>
-            </ul>
-          </div>
-        </header>
+       <WelcomeHeader></WelcomeHeader>
         <transition-group :name="'translate-in-out-'+articleSlideDirection" mode="out-in">
           <article class="row" v-show="article.active" v-for="(article, articleIndex) in articles" v-bind:key="articleIndex">
             <div class="col-12">
@@ -37,6 +26,8 @@
 </template>
 
 <script>
+import WelcomeHeader from '../components/WelcomeHeader.vue';
+
 export default {
   data: () => {
     return {
@@ -72,9 +63,7 @@ export default {
       articleSlideDirection: 'Right'
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     showArticle: function(articleIndex){
       this.articleSlideDirection = articleIndex > this.activeArticleIndex ? 'right' : 'left';
@@ -90,28 +79,12 @@ export default {
         this.showArticle(nextSlide);
     }, 4000);
 
-  }
+  },
+  components: { WelcomeHeader }
 };
 </script>
 
 <style lang="scss" scoped>
-  header{
-    padding-top: 50px;
-    #header__logo {
-      width: 200px;
-    }
-    #header__menu {
-      display: flex;
-      justify-content: space-around;
-      font-size: 1em;
-      height: 100%;
-      align-items: center;
-      max-width: 500px;
-      flex-direction: flex-end;
-      margin-left: auto;
-    }
-  }
-
   article {
     align-content: center;
     position: absolute;
