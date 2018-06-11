@@ -9,5 +9,6 @@ export default new VueRouter({
     path: '/welcome',
     component: Index,
     alias: '/'
-  }]
+  }],
+  linkExactActiveClass: 'active-link'
 });

@@ -7,7 +7,6 @@
 <style lang="scss">
 @import './assets/scss/bootstrap-grid.scss';
 
-
 body {
   min-width: 320px;
   font-size: 1rem;
@@ -45,6 +44,59 @@ h1 {
   font-size: 3em;
   letter-spacing: 1px;
   line-height: 1.4em;
+}
+
+h2 {
+  font-size: 2.6em;
+  letter-spacing: 1px;
+  line-height: 1.4em;
+}
+
+h3 {
+  font-size: 1.2em;
+  letter-spacing: 1px;
+  line-height: 1.4em;
+}
+
+p {
+  line-height: 1.4em;
+  font-size: 1.1em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+input {
+  height: 25px;
+  border-bottom: 2px solid #000;
+  background: none;
+  margin: 20px auto;
+  width: 300px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #000;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    #000;
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    #000;
+  opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    #000;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    #000;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+  color:    #000;
 }
 
 .min-height-100vh{
