@@ -1,12 +1,12 @@
 <template>
   <header class="row">
     <div class="col-4">
-      <img id="header__logo" @click="changeComponent" src="../../assets/img/hsd_ci.png" alt="HSD" />
+      <img id="header__logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/hsd_ci.png" alt="HSD" />
     </div>
     <div class="col-8">
       <ul id="header__menu">
-        <li><router-link to="login" exact>Login</router-link></li>
-        <li><router-link to="register" exact>Registrieren</router-link></li>
+        <li @click="changeComponent(WelcomeLogin)"><a href="#" onClick="event.preventDefault()">Login</a></li>
+        <li @click="changeComponent(WelcomeRegister)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
         <li><router-link to="about-us" exact>Über HSDConnect</router-link></li>
       </ul>
     </div>
@@ -17,12 +17,14 @@
 export default {
   data: () => {
     return {
-      nextComponent: 'WelcomeIntro'
+      WelcomeIntro: 'WelcomeIntro',
+      WelcomeLogin: 'WelcomeLogin',
+      WelcomeRegister: 'WelcomeRegister'
     };
   },
   methods: {
-    changeComponent() {
-      this.$emit('changeComponent', this.nextComponent);
+    changeComponent(nextComponent) {
+      this.$emit('changeComponent', nextComponent);
     }
   }
 };

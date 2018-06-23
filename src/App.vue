@@ -10,6 +10,8 @@
 body {
   min-width: 320px;
   font-size: 1rem;
+  max-width: 100vw;
+  overflow: hidden;
   @media (max-width: 1280px) {
     font-size: 0.8rem;
   }
@@ -28,16 +30,6 @@ body {
   list-style: none;
   color: #000;
   font-family: Arial;
-}
-
-button {
-  background-color: #e40529;
-  padding: 15px 25px;
-  color: white;
-  font-size: 0.9em;
-  letter-spacing: 0.20em;
-  font-weight: bolder;
-  cursor: pointer;
 }
 
 h1 {
@@ -75,6 +67,24 @@ input {
   background: none;
   margin: 20px auto;
   width: 300px;
+}
+
+button, input.button {
+  background-color: #e40529;
+  padding: 15px 25px;
+  color: white;
+  font-size: 0.9em;
+  letter-spacing: 0.20em;
+  font-weight: bolder;
+  cursor: pointer;
+  margin-top: 25px;
+  height: auto;
+  border: none;
+}
+
+.validation-error {
+  color: #E14D2E;
+  font-size: 0.85em;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */

@@ -18,18 +18,20 @@
             </div>
         </div>
       </div>
-        <transition-group name="translate-component" class="col-12 col-lg-5" id="right-side" tag="div" mode="out-in">
-          <WelcomeIntro @changeComponent="changeComponent" v-show="this.currentComponent === 'WelcomeIntro'" :key="'WelcomeIntro'"></WelcomeIntro>
-          <WelcomeLogin @changeComponent="changeComponent" v-show="this.currentComponent === 'WelcomeLogin'" :key="'WelcomeLogin'"></WelcomeLogin>
-        </transition-group>
+        <div id="right-side" class="col-12 col-lg-5">
+          <WelcomeIntro @changeComponent="changeComponent" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
+          <WelcomeRegister @changeComponent="changeComponent" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
+          <WelcomeLogin @changeComponent="changeComponent" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
+        </div>
     </main>
   </section>
 </template>
 
 <script>
-import WelcomeHeader from '../components/welcome/Header.vue';
-import WelcomeIntro from '../components/welcome/Intro.vue';
-import WelcomeLogin from '../components/welcome/Login.vue';
+import WelcomeHeader from '../../components/welcome/Header.vue';
+import WelcomeIntro from '../../components/welcome/Intro.vue';
+import WelcomeLogin from '../../components/welcome/Login.vue';
+import WelcomeRegister from '../../components/welcome/Register.vue';
 
 export default {
   data: () => {
@@ -37,10 +39,8 @@ export default {
       articles: {
         entries: [
           {
-            title:
-              'Projekte zusammen<br><span class="red-colored">meistern</span>',
-            message:
-              'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            title: 'Projekte zusammen<br><span class="red-colored">meistern</span>',
+            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
           },
           {
             title: 'Second Article',
@@ -48,18 +48,15 @@ export default {
           },
           {
             title: 'Third Article',
-            message:
-              'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
           },
           {
             title: 'Fourth Article',
-            message:
-              'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
           },
           {
             title: 'Fifth Article',
-            message:
-              'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
           }
         ],
         activeArticleIndex: 0,
@@ -89,14 +86,14 @@ export default {
       this.showArticle(nextSlide);
     }, 4000);
   },
-  components: { WelcomeHeader, WelcomeIntro, WelcomeLogin }
+  components: { WelcomeHeader, WelcomeIntro, WelcomeRegister, WelcomeLogin }
 };
 </script>
 
 <style lang="scss" scoped>
 section {
   height: 100vh;
-  min-height: 500px;
+  min-height: 800px;
   #left-side {
     padding: 20px;
     height: 100vh;
@@ -156,6 +153,25 @@ section {
   #right-side {
     padding: 0px;
     position: relative;
+    @media (max-width: 991px) {
+      min-height: 400px;
+      height: 50vh;
+      padding-top: 25px;
+      overflow-y: hidden;
+    }
+    .right-side__component {
+      position: absolute;
+      transform: translateX(100%);
+      z-index: 0;
+      transition: transform .5s cubic-bezier(.55,.62,.36,.34);
+      @media (max-width: 991px) {
+        transform: translateY(100%);
+      }
+      &.right-side__component--show {
+        transform: translate(0%);
+        z-index: 1;
+      }
+    }
   }
 
   .translate-article-right-enter-active {
@@ -182,19 +198,6 @@ section {
     /* .translate-article-left-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
-  }
-   .translate-component-enter-active, .translate-component-leave-active {
-    transition: all 0.4s cubic-bezier(.55,.62,.36,.34);
-    position: absolute;
-    bottom: 0px;
-  }
-  .translate-component-enter, .translate-component-leave-to
-    /* .translate-component-leave-active below version 2.1.8 */ {
-    transform: translateX(100%);
-    @media (max-width: 991px) {
-      transform: none;
-      opacity: 0;
-    }
   }
 }
 </style>

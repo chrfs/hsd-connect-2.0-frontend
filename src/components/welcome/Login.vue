@@ -1,29 +1,69 @@
 <template>
     <div id="login-background" class="login min-height-100vh">
       <h3>Login</h3>
-      <form id="login__form">
-        <input type="text" placeholder="E-Mail" v-model="user.email" required>
-        <input type="password" placeholder="Passwort" v-model="user.password" required>
-        <button @click="submitLogin">Login</button>
-      </form>
+      <Form name="login" @submit="submitLogin" :validation="validation" :data="user"></Form>
     </div>
 </template>
 
 <script>
+import Form from '../../components/partial/Form.vue';
+
 export default {
   data: () => {
     return {
       user: {
         email: '',
         password: ''
+      },
+      validation: {
+        fields: {
+          login: {
+            input: false,
+            message: ''
+          },
+          email: {
+            input: true,
+            placeholder: 'E-Mail',
+            name: 'email',
+            isValid: true,
+            type: 'email',
+            message: ''
+          },
+          password: {
+            input: true,
+            placeholder: 'Password',
+            name: 'password',
+            isValid: true,
+            type: 'password',
+            message: ''
+          }
+        }
       }
     };
   },
   methods: {
-    submitLogin(e) {
-      e.preventDefault();
+    submitLogin() {
+      this.$http.post(this.$httpRoutes.POST_LOGIN, { user: this.user }).then(({ data }) => {
+        if(!!data && !!data.data && data.status === 'success') {
+          const res = data.data;
+          this.$store.dispatch('setAuthToken', res.auth_token);
+        }else {
+          throw new Error('Unexpected response.');
+        }
+      }).catch(({ response }) => {
+        if(!!response && !!response.data && response.data.status === 'error') {
+          const data = response.data;
+          Object.keys(data.errors).forEach(entry => {
+            this.validation.fields[entry].message = data.errors[entry].message;
+            this.validation.fields[entry].isValid = false;
+          });
+        } else {
+          throw new Error('Unexpected response.');
+        }
+      });
     }
-  }
+  },
+  components: { Form }
 };
 </script>
 

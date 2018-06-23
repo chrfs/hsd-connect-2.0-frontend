@@ -3,6 +3,7 @@ export default (((env) => {
   switch (env) {
     case 'development': {
       return {
+        TYPE: 'development',
         API: {
           URL: 'http://localhost',
           PATH: '/api/v1',
