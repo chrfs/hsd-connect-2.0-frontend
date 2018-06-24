@@ -1,7 +1,7 @@
 <template>
     <div id="register-background" class="register min-height-100vh">
       <h3>Register</h3>
-      <Form name="register" @submit="submitRegister" :validation="validation" :data="user"></Form>
+      <Form name="register" @submit="submitRegister" :isActive="isActive" :validation="validation" :data="user"></Form>
     </div>
 </template>
 
@@ -75,7 +75,8 @@ export default {
       }
     }
   },
-  components: { Form }
+  components: { Form },
+  props: ['isActive']
 };
 </script>
 

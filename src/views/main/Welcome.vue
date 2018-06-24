@@ -19,9 +19,9 @@
         </div>
       </div>
         <div id="right-side" class="col-12 col-lg-5">
-          <WelcomeIntro @changeComponent="changeComponent" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
-          <WelcomeRegister @changeComponent="changeComponent" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
-          <WelcomeLogin @changeComponent="changeComponent" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
+          <WelcomeIntro @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeIntro'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
+          <WelcomeRegister @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeRegister'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
+          <WelcomeLogin @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeLogin'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
         </div>
     </main>
   </section>

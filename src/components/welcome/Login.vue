@@ -1,7 +1,7 @@
 <template>
     <div id="login-background" class="login min-height-100vh">
       <h3>Login</h3>
-      <Form name="login" @submit="submitLogin" :validation="validation" :data="user"></Form>
+      <Form name="login" @submit="submitLogin" :isActive="isActive" :validation="validation" :data="user"></Form>
     </div>
 </template>
 
@@ -63,7 +63,8 @@ export default {
       });
     }
   },
-  components: { Form }
+  components: { Form },
+  props: ['isActive']
 };
 </script>
 
@@ -89,6 +90,9 @@ export default {
     }
     #login__form {
       margin-top: 25px;
+      #field-invalid {
+        border-color: red;
+      }
     }
 }
 </style>
