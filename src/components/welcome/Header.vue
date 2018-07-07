@@ -20,14 +20,14 @@ export default {
       WelcomeIntro: 'WelcomeIntro',
       WelcomeLogin: 'WelcomeLogin',
       WelcomeRegister: 'WelcomeRegister'
-    };
+    }
   },
   methods: {
-    changeComponent(nextComponent) {
-      this.$emit('changeComponent', nextComponent);
+    changeComponent (nextComponent) {
+      this.$emit('changeComponent', nextComponent)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

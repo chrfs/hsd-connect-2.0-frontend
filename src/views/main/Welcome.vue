@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import WelcomeHeader from '../../components/welcome/Header.vue';
-import WelcomeIntro from '../../components/welcome/Intro.vue';
-import WelcomeLogin from '../../components/welcome/Login.vue';
-import WelcomeRegister from '../../components/welcome/Register.vue';
+import WelcomeHeader from '../../components/welcome/Header.vue'
+import WelcomeIntro from '../../components/welcome/Intro.vue'
+import WelcomeLogin from '../../components/welcome/Login.vue'
+import WelcomeRegister from '../../components/welcome/Register.vue'
 
 export default {
   data: () => {
@@ -64,30 +64,30 @@ export default {
         slideDirection: 'right'
       },
       currentComponent: 'WelcomeIntro'
-    };
+    }
   },
   computed: {},
   methods: {
-    showArticle(articleIndex){
+    showArticle (articleIndex) {
       this.articles.slideDirection =
-        articleIndex > this.articles.activeArticleIndex ? 'right' : 'left';
-      this.articles.activeArticleIndex = articleIndex;
+        articleIndex > this.articles.activeArticleIndex ? 'right' : 'left'
+      this.articles.activeArticleIndex = articleIndex
     },
-    changeComponent(nextComponent){
-      this.currentComponent = nextComponent;
+    changeComponent (nextComponent) {
+      this.currentComponent = nextComponent
     }
   },
-  mounted() {
+  mounted () {
     setInterval(() => {
       const nextSlide =
         this.articles.activeArticleIndex + 1 >= this.articles.entries.length
           ? 0
-          : this.articles.activeArticleIndex + 1;
-      this.showArticle(nextSlide);
-    }, 4000);
+          : this.articles.activeArticleIndex + 1
+      this.showArticle(nextSlide)
+    }, 4000)
   },
   components: { WelcomeHeader, WelcomeIntro, WelcomeRegister, WelcomeLogin }
-};
+}
 </script>
 
 <style lang="scss" scoped>

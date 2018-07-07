@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Form from '../../components/partial/Form.vue';
+import Form from '../../components/partial/Form.vue'
 
 export default {
   data: () => {
@@ -50,34 +50,34 @@ export default {
           }
         }
       }
-    };
+    }
   },
   methods: {
-    submitRegister() {
+    submitRegister () {
       if (this.user.confirmPassword === this.user.password) {
         this.$http
           .post(this.$httpRoutes['POST_REGISTER'], { user: this.user })
           .then(({ response }) => {})
           .catch(({ response }) => {
-            if(!!response && !!response.data && response.data.status === 'error') {
-              const data = response.data;
+            if (!!response && !!response.data && response.data.status === 'error') {
+              const data = response.data
               Object.keys(data.errors).forEach(entry => {
-                this.validation.fields[entry].message = data.errors[entry].message;
-                this.validation.fields[entry].isValid = false;
-              });
+                this.validation.fields[entry].message = data.errors[entry].message
+                this.validation.fields[entry].isValid = false
+              })
             } else {
-              throw new Error('Unexpected response.');
+              throw new Error('Unexpected response.')
             }
-          });
+          })
       } else {
-        this.validation.fields.confirmPassword.message = 'Passwörter stimmen nicht überein, bitte prüfe Deine Eingaben.';
-          this.validation.fields.confirmPassword.isValid = false;
+        this.validation.fields.confirmPassword.message = 'Passwörter stimmen nicht überein, bitte prüfe Deine Eingaben.'
+        this.validation.fields.confirmPassword.isValid = false
       }
     }
   },
   components: { Form },
   props: ['isActive']
-};
+}
 </script>
 
 <style lang="scss">

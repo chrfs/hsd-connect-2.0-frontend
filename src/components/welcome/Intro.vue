@@ -9,15 +9,15 @@ export default {
   data: () => {
     return {
       nextComponent: 'WelcomeLogin'
-    };
+    }
   },
   methods: {
-    changeComponent() {
-      console.log('changed', this.nextComponent);
-      this.$emit('changeComponent', this.nextComponent);
+    changeComponent () {
+      console.log('changed', this.nextComponent)
+      this.$emit('changeComponent', this.nextComponent)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

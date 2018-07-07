@@ -1,15 +1,15 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import './registerServiceWorker';
-import http from './http';
-import * as httpRoutes from './http/routes';
-import env from './config/env';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import './registerServiceWorker'
+import http from './http'
+import * as httpRoutes from './http/routes'
+import env from './config/env'
 
-Vue.config.productionTip = (env.TYPE === 'production');
-Vue.prototype.$http = http;
-Vue.prototype.$httpRoutes = httpRoutes;
+Vue.config.productionTip = env.TYPE === 'production'
+Vue.prototype.$http = http
+Vue.prototype.$httpRoutes = httpRoutes
 
 new Vue({
   router,

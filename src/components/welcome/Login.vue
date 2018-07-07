@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Form from '../../components/partial/Form.vue';
+import Form from '../../components/partial/Form.vue'
 
 export default {
   data: () => {
@@ -39,33 +39,33 @@ export default {
           }
         }
       }
-    };
+    }
   },
   methods: {
-    submitLogin() {
-      this.$http.post(this.$httpRoutes.POST_LOGIN, { user: this.user }).then(({ data }) => {
-        if(!!data && !!data.data && data.status === 'success') {
-          const res = data.data;
-          this.$store.dispatch('setAuthToken', res.auth_token);
-        }else {
-          throw new Error('Unexpected response.');
+    submitLogin () {
+      this.$http.post(this.$httpRoutes.POST_LOGIN, { user: this.user }).then(({ data }) => {
+        if (!!data && !!data.data && data.status === 'success') {
+          const res = data.data
+          this.$store.dispatch('setAuthToken', res.authToken)
+        } else {
+          throw new Error('Unexpected response.')
         }
       }).catch(({ response }) => {
-        if(!!response && !!response.data && response.data.status === 'error') {
-          const data = response.data;
+        if (!!response && !!response.data && response.data.status === 'error') {
+          const data = response.data
           Object.keys(data.errors).forEach(entry => {
-            this.validation.fields[entry].message = data.errors[entry].message;
-            this.validation.fields[entry].isValid = false;
-          });
+            this.validation.fields[entry].message = data.errors[entry].message
+            this.validation.fields[entry].isValid = false
+          })
         } else {
-          throw new Error('Unexpected response.');
+          throw new Error('Unexpected response.')
         }
-      });
+      })
     }
   },
   components: { Form },
   props: ['isActive']
-};
+}
 </script>
 
 <style lang="scss">

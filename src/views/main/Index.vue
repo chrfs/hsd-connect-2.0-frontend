@@ -3,23 +3,23 @@
 </template>
 
 <script>
-import Welcome from './Welcome.vue';
-import Projects from './Projects.vue';
+import Welcome from './Welcome.vue'
+import Projects from './Projects.vue'
 
 export default {
   data: () => {
-    return {};
+    return {}
   },
   computed: {
-    authToken: function(){
-      return this.$store.getters.authToken;
+    authToken () {
+      return this.$store.getters.authToken
     },
-    currentComponent: function(){
-      return !!this.authToken ? 'Projects' : 'Welcome';
+    currentComponent () {
+      return this.authToken ? 'Projects' : 'Welcome'
     }
   },
   components: { Welcome, Projects }
-};
+}
 </script>
 
 <style lang="scss" scoped>
