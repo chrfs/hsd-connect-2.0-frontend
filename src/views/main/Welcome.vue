@@ -40,23 +40,23 @@ export default {
         entries: [
           {
             title: 'Projekte zusammen<br><span class="red-colored">meistern</span>',
-            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'
           },
           {
-            title: 'Second Article',
-            message: 'lorem ipsum..'
+            title: 'Gemeinsam an Aufgaben <span class="red-colored">wachsen</span>',
+            message: 'Herausfordernde Projektaufgaben gemeinsam im Team lösen!'
           },
           {
-            title: 'Third Article',
-            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            title: 'Erfahrungen <span class="red-colored">austauschen</span>',
+            message: 'Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! '
           },
           {
-            title: 'Fourth Article',
-            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            title: 'Studierende besser <span class="red-colored">kennenlernen</span>',
+            message: 'Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!'
           },
           {
-            title: 'Fifth Article',
-            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um.<br> Poste jetzt dein Projekt!'
+            title: 'Ziele <span class="red-colored">erreichen</span>',
+            message: 'Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!'
           }
         ],
         activeArticleIndex: 0,

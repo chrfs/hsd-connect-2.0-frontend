@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import vuexPersistentStorage from 'vuex-persistedstate'
 import * as mutationTypes from './mutationTypes'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {

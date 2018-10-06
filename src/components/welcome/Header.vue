@@ -35,6 +35,7 @@ header{
   padding: 50px 20px;
   max-height: 180px;
   position: absolute;
+  text-transform: uppercase;
   top: 0;
   width: 100%;
   #header__logo {

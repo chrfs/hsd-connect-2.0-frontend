@@ -81,6 +81,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/variables';
+
 .register {
   display: flex;
   justify-content: center;
@@ -91,13 +93,14 @@ export default {
   height: 100%;
   width: 100%;
   &#register-background {
-    background: #f2f2f2;
+    background-image: $blueGradient;
     min-height: 300px;
     @media (max-width: 991px) {
       transform: translateX(0px);
     }
   }
   h3 {
+    color:white;
     width: 300px;
   }
   #register__form {

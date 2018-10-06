@@ -1,0 +1,50 @@
+$basePath: 'assets/fonts/';
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src: url('#{$basePath}Montserrat/light/Montserrat-Light.eot');
+  src: url('#{$basePath}Montserrat/light/Montserrat-Light.woff2') format('woff2'),
+       url('#{$basePath}Montserrat/light/Montserrat-Light.woff') format('woff'),
+       url('#{$basePath}Montserrat/light/Montserrat-Light.ttf') format('truetype'),
+       url('#{$basePath}Montserrat/light/Montserrat-Light.svg#Montserrat-Light') format('svg'),
+       url('#{$basePath}Montserrat/light/Montserrat-Light.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('#{$basePath}Montserrat/bold/Montserrat-Bold.eot');
+  src: url('#{$basePath}Montserrat/bold/Montserrat-Bold.woff2') format('woff2'),
+       url('#{$basePath}Montserrat/bold/Montserrat-Bold.woff') format('woff'),
+       url('#{$basePath}Montserrat/bold/Montserrat-Bold.ttf') format('truetype'),
+       url('#{$basePath}Montserrat/bold/Montserrat-Bold.svg#Montserrat-Bold') format('svg'),
+       url('#{$basePath}Montserrat/bold/Montserrat-Bold.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat-Medium';
+  src: url('#{$basePath}Montserrat/medium/Montserrat-Medium.eot');
+  src: url('#{$basePath}Montserrat/medium/Montserrat-Medium.woff2') format('woff2'),
+       url('#{$basePath}Montserrat/medium/Montserrat-Medium.woff') format('woff'),
+       url('#{$basePath}Montserrat/medium/Montserrat-Medium.ttf') format('truetype'),
+       url('#{$basePath}Montserrat/medium/Montserrat-Medium.svg#Montserrat-Medium') format('svg'),
+       url('#{$basePath}Montserrat/medium/Montserrat-Medium.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  src: url('#{$basePath}Montserrat/semibold/Montserrat-SemiBold.eot');
+  src: url('#{$basePath}Montserrat/semibold/Montserrat-SemiBold.woff2') format('woff2'),
+       url('#{$basePath}Montserrat/semibold/Montserrat-SemiBold.woff') format('woff'),
+       url('#{$basePath}Montserrat/semibold/Montserrat-SemiBold.ttf') format('truetype'),
+       url('#{$basePath}Montserrat/semibold/Montserrat-SemiBold.svg#Montserrat-SemiBold') format('svg'),
+       url('#{$basePath}Montserrat/semibold/Montserrat-SemiBold.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}

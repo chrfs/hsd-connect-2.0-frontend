@@ -21,5 +21,11 @@ export default {
 </script>
 
 <style>
+input{
+  border-bottom:1px solid white;
+}
+input::placeholder{
+  color:white;
+}
 
 </style>

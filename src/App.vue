@@ -6,6 +6,8 @@
 
 <style lang="scss">
 @import './assets/scss/bootstrap-grid.scss';
+@import './assets/scss/variables.scss';
+@import './assets/scss/_fonts.scss';
 
 body {
   min-width: 320px;
@@ -29,16 +31,20 @@ body {
   box-sizing: border-box;
   list-style: none;
   color: #000;
-  font-family: Arial;
+  font-family: 'Montserrat-Light';
 }
 
 h1 {
+  font-family: 'Montserrat-Bold';
+  text-transform: uppercase;
   font-size: 3em;
   letter-spacing: 1px;
   line-height: 1.4em;
 }
 
 h2 {
+  font-family: 'Montserrat-Medium';
+  text-transform: uppercase;
   font-size: 2.6em;
   letter-spacing: 1px;
   line-height: 1.4em;
@@ -73,6 +79,7 @@ button, input.button {
   background-color: #e40529;
   padding: 15px 25px;
   color: white;
+  text-transform: uppercase;
   font-size: 0.9em;
   letter-spacing: 0.20em;
   font-weight: bolder;
@@ -118,6 +125,7 @@ button, input.button {
 }
 
 .red-colored {
+  font:'Montserrat-SemiBold';
   color: #e40529;
 }
 </style>

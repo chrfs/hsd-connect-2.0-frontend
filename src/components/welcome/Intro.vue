@@ -21,13 +21,15 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/variables';
+
 .lets-connect {
-    background-color: #f2f2f2;
+    background-image: url('../../assets/img/welcome/symbol_connect_white.svg'),$blueGradient;
     height: 100%;
     width: 100%;
     position: relative;
     &#lets-connect__symbol-background{
-      background-image: url('../../assets/img/welcome/symbol_connect.svg');
+     // background-image: url('../../assets/img/welcome/symbol_connect.svg');
       background-size: cover;
       position: relative;
       min-height: 300px;
