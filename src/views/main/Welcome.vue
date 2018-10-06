@@ -22,6 +22,7 @@
           <WelcomeIntro @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeIntro'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
           <WelcomeRegister @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeRegister'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
           <WelcomeLogin @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeLogin'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
+          <WelcomeAbout @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeAbout'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeAbout'}" :key="'WelcomeAbout'"></WelcomeAbout>
         </div>
     </main>
   </section>
@@ -32,6 +33,7 @@ import WelcomeHeader from '../../components/welcome/Header.vue'
 import WelcomeIntro from '../../components/welcome/Intro.vue'
 import WelcomeLogin from '../../components/welcome/Login.vue'
 import WelcomeRegister from '../../components/welcome/Register.vue'
+import WelcomeAbout from '../../components/welcome/About.vue'
 
 export default {
   data: () => {
@@ -86,7 +88,7 @@ export default {
       this.showArticle(nextSlide)
     }, 4000)
   },
-  components: { WelcomeHeader, WelcomeIntro, WelcomeRegister, WelcomeLogin }
+  components: { WelcomeHeader, WelcomeIntro, WelcomeRegister, WelcomeAbout, WelcomeLogin }
 }
 </script>
 

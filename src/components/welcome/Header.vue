@@ -1,13 +1,13 @@
 <template>
   <header class="row">
     <div class="col-4">
-      <img id="header__logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/hsd_ci.png" alt="HSD" />
+      <img id="header__logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/logo.jpg" alt="HSD" />
     </div>
     <div class="col-8">
       <ul id="header__menu">
         <li @click="changeComponent(WelcomeLogin)"><a href="#" onClick="event.preventDefault()">Login</a></li>
         <li @click="changeComponent(WelcomeRegister)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
-        <li><router-link to="about-us" exact>Über HSDConnect</router-link></li>
+        <li @click="changeComponent(WelcomeAbout)"><a href="#" onClick="event.preventDefault()">Über HSDConnect</a></li>
       </ul>
     </div>
   </header>
@@ -19,7 +19,8 @@ export default {
     return {
       WelcomeIntro: 'WelcomeIntro',
       WelcomeLogin: 'WelcomeLogin',
-      WelcomeRegister: 'WelcomeRegister'
+      WelcomeRegister: 'WelcomeRegister',
+      WelcomeAbout: 'WelcomeAbout'
     }
   },
   methods: {

@@ -1,6 +1,6 @@
 <template>
     <div id="register-background" class="register min-height-100vh">
-      <h3>Register</h3>
+      <h4>Register</h4>
       <Form name="register" @submit="submitRegister" :isActive="isActive" :validation="validation" :data="user"></Form>
     </div>
 </template>
@@ -99,9 +99,10 @@ export default {
       transform: translateX(0px);
     }
   }
-  h3 {
+  h4 {
     color:white;
     width: 300px;
+    font-size: 0.9em;
   }
   #register__form {
     margin-top: 25px;

@@ -1,6 +1,6 @@
 <template>
     <div id="login-background" class="login min-height-100vh">
-      <h3>Login</h3>
+      <h4>Login</h4>
       <Form name="login" @submit="submitLogin" :isActive="isActive" :validation="validation" :data="user"></Form>
     </div>
 </template>
@@ -87,9 +87,10 @@ export default {
         transform: translateX(0px);
       }
     }
-    h3 {
+    h4 {
       color:white;
       width: 300px;
+      font-size: 0.9em;
     }
     #login__form {
       margin-top: 25px;

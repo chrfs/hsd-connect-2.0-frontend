@@ -7,7 +7,7 @@
 <style lang="scss">
 @import './assets/scss/bootstrap-grid.scss';
 @import './assets/scss/variables.scss';
-@import './assets/scss/_fonts.scss';
+@import './assets/scss/fonts.scss';
 
 body {
   min-width: 320px;
@@ -43,7 +43,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Montserrat-Medium';
+  font-family: 'Montserrat-Light';
   text-transform: uppercase;
   font-size: 2.6em;
   letter-spacing: 1px;
@@ -54,6 +54,12 @@ h3 {
   font-size: 1.2em;
   letter-spacing: 1px;
   line-height: 1.4em;
+}
+
+h4 {
+  font-size: 1.1em;
+  line-height: 1.4em;
+  text-transform: uppercase;
 }
 
 p {
@@ -125,7 +131,7 @@ button, input.button {
 }
 
 .red-colored {
-  font:'Montserrat-SemiBold';
   color: #e40529;
+  font-family:'Montserrat-Bold';
 }
 </style>
