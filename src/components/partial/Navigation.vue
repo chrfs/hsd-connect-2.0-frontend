@@ -34,11 +34,13 @@ export default {}
 @import '../../assets/scss/variables';
 .side-panel {
   position:fixed;
+  left: 0px;
+  top: 0px;
   overflow:hidden;
   height: 100vh;
   min-height: 500px;
-  width: 30vh;
-  max-width: 320px;
+  width:20vw;
+  min-width: 250px;
   background-image: $blueGradient;
   padding-top:10vh;
   font-size: 0.9em;
@@ -76,7 +78,7 @@ export default {}
   }
   button{
     width: 100%;
-    margin-bottom:25vh;
+    margin-bottom:25  vh;
     margin-top:0;
     box-shadow: 0px -2px 32px rgba(19, 25, 54, 0.6),
                 0px 2px 32px rgba(19, 25, 54, 0.6);
