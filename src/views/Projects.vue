@@ -4,11 +4,11 @@
     <main class="right-side">
       <h1>Projects</h1>
       <div class="row">
-        <ProjectThumbnail class="col-4"></ProjectThumbnail>
-        <ProjectThumbnail class="col-4"></ProjectThumbnail>
-        <ProjectThumbnail class="col-4"></ProjectThumbnail>
-        <ProjectThumbnail class="col-4"></ProjectThumbnail>
-        <ProjectThumbnail class="col-4"></ProjectThumbnail>
+        <ProjectThumbnail></ProjectThumbnail>
+        <ProjectThumbnail></ProjectThumbnail>
+        <ProjectThumbnail></ProjectThumbnail>
+        <ProjectThumbnail></ProjectThumbnail>
+        <ProjectThumbnail></ProjectThumbnail>
       </div>
     </main>
   </section>

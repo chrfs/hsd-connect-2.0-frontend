@@ -1,5 +1,5 @@
 <template>
-    <div class="project-thumbnail">
+    <div class="project-thumbnail col-md-12 col-lg-6 col-xl-4">
       <div class="project-thumbnail_box">
         <div class="project-thumbnail_box_top">
           <img class="project_image">
@@ -14,10 +14,10 @@
              sed diam nonumy eirmod tempor invidunt ut labore et dolore
              magna aliquyam erat, sedsanctus est Lorem ipsum dolor sit amet.</p>
           <div class="row project_metadata">
-            <div class="col-6"><p>vor 30 Minuten</p></div>
-            <div class="col-2"><p>20</p></div>
-            <div class="col-2"><p>20</p></div>
-            <div class="col-2"><p>20</p></div>
+            <p class="col-6">vor 30 Minuten</p>
+            <p class="col-2">20</p>
+            <p class="col-2">20</p>
+            <p class="col-2">20</p>
           </div>
         </div>
       </div>
@@ -31,9 +31,8 @@ export default {}
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
 .project-thumbnail{
-  padding:15px;
-  height:430px;
-  width:30vh;
+  padding: 15px;
+  height: 430px;
   .project-thumbnail_box{
     background-color: white;
     box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);

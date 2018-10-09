@@ -7,11 +7,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    authToken: false
+    authToken: true,
+    user: {
+      id: 392049
+    }
   },
   getters: {
     authToken (state) {
       return state.authToken
+    },
+    user (state) {
+      return state.user
     }
   },
   mutations: {

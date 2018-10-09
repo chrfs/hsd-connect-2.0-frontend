@@ -1,64 +1,68 @@
 <template>
-  <section>
-    <div class="side-panel">
-      <ul class="side-panel-main-list">
-        <router-link to="/Projects" tag="li" exact>Projekte</router-link>
-        <router-link to="/Profil" tag="li" exact>Profil</router-link>
-        <router-link to="/Messages" tag="li" exact>Nachrichten</router-link>
-        <router-link to="/Projects" tag="li" exact>Eigene Projekte</router-link>
-        <router-link to="/Bookmark" tag="li" exact>Merkliste</router-link>
-      </ul>
-      <span class="line"></span>
-      <button>Projekt anlegen</button>
-      <ul class="side-panel-sub-list">
-        <router-link to="/About" tag="li" exact>Über HSDConnect</router-link>
-        <router-link to="/Toolbox" tag="li" exact>Toolbox</router-link>
-      </ul>
-      <span class="line"></span>
-      <div class="footer">
-        <p>Hochschule Düsseldorf &#9400; 2018<br>
-        <router-link to="/Inprint" exact>Impressum</router-link> |
-        <router-link to="/Privacy" exact>Datenschutz</router-link> |
-        <router-link to="/Contact" exact>Kontakt</router-link>
-        </p>
-      </div>
+  <section class="side-panel">
+    <ul class="side-panel-main-list">
+      <router-link to="/projects" tag="li" exact>Projekte</router-link>
+      <router-link :to="'/user/'+userId" tag="li" exact>Profil</router-link>
+      <router-link to="/user/:id/messages" tag="li" exact>Nachrichten</router-link>
+      <router-link to="/user/:id/projects" tag="li" exact>Eigene Projekte</router-link>
+      <router-link to="/user/:id/bookmarks" tag="li" exact>Merkliste</router-link>
+    </ul>
+    <button>Projekt anlegen</button>
+    <ul class="side-panel-sub-list">
+      <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
+      <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
+    </ul>
+    <div class="footer">
+      <p>Hochschule Düsseldorf &#9400; 2018<br>
+      <router-link to="/imprint" exact>Impressum</router-link> |
+      <router-link to="/privacy" exact>Datenschutz</router-link> |
+      <router-link to="/contact" exact>Kontakt</router-link>
+      </p>
     </div>
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    userId () {
+      return this.$store.getters.user.id
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
 .side-panel {
-  position:fixed;
+  position: fixed;
   left: 0px;
   top: 0px;
-  overflow:hidden;
+  overflow: hidden;
   height: 100vh;
   min-height: 500px;
-  width:20vw;
+  width: 20vw;
   min-width: 250px;
   background-image: $blueGradient;
-  padding-top:10vh;
   font-size: 0.9em;
+  display: flex;
+  flex-direction: column;
   .side-panel-main-list, .side-panel-sub-list {
-    padding-top:5vh;
-    padding-bottom:5vh;
-    li{
-      margin-left: 50px;
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    li {
+      padding-left: 48px;
+      border-left: 2px solid transparent;
       line-height: 2.4em;
       text-transform: uppercase;
-      color:white;
+      color: white;
       &:hover {
-        margin-left:0px;
+        transition: all .4s ease-in-out;
         cursor: pointer;
         border-left: 2px solid $baseRed;
-        background-color:#3e4159;
-        box-shadow: 0px -2px 5px rgba(19, 25, 29, 0.4),
-                    0px 2px 5px rgba(19, 25, 54, 0.4);
+        background-color: #3e4159;
       }
     }
     .active-link {
@@ -71,25 +75,24 @@ export default {}
   .side-panel-sub-list{
     border-top: 1px solid #313e5a;
     border-bottom: 1px solid #313e5a;
-    position:flex;
-    li{
+    margin-top: auto;
+    li {
       bottom: 0px;
     }
   }
   button{
     width: 100%;
-    margin-bottom:25  vh;
-    margin-top:0;
+    margin-bottom: 25vh;
+    margin-top: 0;
     box-shadow: 0px -2px 32px rgba(19, 25, 54, 0.6),
                 0px 2px 32px rgba(19, 25, 54, 0.6);
   }
   .footer{
-    padding-top:5vh;
     font-size: 0.6em;
     text-align: center;
     p, a {
-        color:#848484;
-         line-height: 2em;
+      color: #848484;
+      line-height: 2em;
     }
   }
 }

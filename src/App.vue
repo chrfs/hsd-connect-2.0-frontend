@@ -128,7 +128,7 @@ button, input.button {
   color:    #000;
 }
 
-.min-height-100vh{
+.min-height-100vh {
   min-height: 100vh;
 }
 
