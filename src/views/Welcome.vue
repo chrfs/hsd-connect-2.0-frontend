@@ -4,89 +4,93 @@
       <div id="left-side" class="col-12 col-lg-6 offset-lg-1 min-height-100vh">
         <WelcomeHeader @changeComponent="changeComponent"></WelcomeHeader>
         <div class="articles">
-          <transition-group :name="'translate-article-'+articles.slideDirection" tag="div" mode="out-in">
-              <article class="row" v-show="articleIndex === articles.activeArticleIndex" v-for="(article, articleIndex) in articles.entries" v-bind:key="articleIndex">
+          <transition-group :name="'translate-article-'+slider.activeSlideDirection" tag="div" mode="out-in">
+              <article class="row" v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
                 <div class="col-12">
                   <h2 class="article__headline" v-html="article.title"></h2>
-                  <p class="article__paragraph" v-html="article.message"></p>
+                  <p class="article__paragraph" v-html="article.description"></p>
                 </div>
               </article>
           </transition-group>
             <div id="articles__selector__bars">
-              <span class="articles__selector__bar" v-for="(articleBar, articleBarIndex) in articles.entries" :style="{left: ((articles.articleBarIndex)*articles.selectorBarWidth) + 'px', width: articles.selectorBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-              <span class="articles__selector__bar article-active" :style="{transform: 'translateX('+((articles.activeArticleIndex)*articles.selectorBarWidth) + 'px)', width: articles.selectorBarWidth+'px'}"></span>
+              <span class="articles__selector__bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
+              <span class="articles__selector__bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
             </div>
         </div>
       </div>
         <div id="right-side" class="col-12 col-lg-5">
-          <WelcomeIntro @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeIntro'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
-          <WelcomeRegister @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeRegister'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
-          <WelcomeLogin @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeLogin'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
-          <WelcomeAbout @changeComponent="changeComponent" :isActive="this.currentComponent === 'WelcomeAbout'" class="right-side__component" :class="{'right-side__component--show': this.currentComponent === 'WelcomeAbout'}" :key="'WelcomeAbout'"></WelcomeAbout>
+          <WelcomeIntro @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeIntro'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
+          <WelcomeRegister @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeRegister'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
+          <WelcomeLogin @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeLogin'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
+          <WelcomeAbout @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeAbout'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeAbout'}" :key="'WelcomeAbout'"></WelcomeAbout>
         </div>
     </main>
   </section>
 </template>
 
 <script>
-import WelcomeHeader from '../../components/welcome/Header.vue'
-import WelcomeIntro from '../../components/welcome/Intro.vue'
-import WelcomeLogin from '../../components/welcome/Login.vue'
-import WelcomeRegister from '../../components/welcome/Register.vue'
-import WelcomeAbout from '../../components/welcome/About.vue'
+import WelcomeHeader from '../components/Welcome/Navigation.vue'
+import WelcomeIntro from '../components/Welcome/Intro.vue'
+import WelcomeLogin from '../components/Welcome/Login.vue'
+import WelcomeRegister from '../components/Welcome/Register.vue'
+import WelcomeAbout from '../components/Welcome/About.vue'
 
 export default {
   data: () => {
     return {
-      articles: {
-        entries: [
+      slider: {
+        articles: [
           {
             title: 'Projekte zusammen<br><span class="red-colored">meistern</span>',
-            message: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'
+            description: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'
           },
           {
             title: 'Gemeinsam an Aufgaben <span class="red-colored">wachsen</span>',
-            message: 'Herausfordernde Projektaufgaben gemeinsam im Team lösen!'
+            description: 'Herausfordernde Projektaufgaben gemeinsam im Team lösen!'
           },
           {
             title: 'Erfahrungen <span class="red-colored">austauschen</span>',
-            message: 'Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! '
+            description: 'Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! '
           },
           {
             title: 'Studierende besser <span class="red-colored">kennenlernen</span>',
-            message: 'Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!'
+            description: 'Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!'
           },
           {
             title: 'Ziele <span class="red-colored">erreichen</span>',
-            message: 'Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!'
+            description: 'Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!'
           }
         ],
-        activeArticleIndex: 0,
-        selectorBarWidth: 50,
-        slideDirection: 'right'
+        activeIndex: 0,
+        activeBarWidth: 50,
+        activeSlideDirection: 'right'
       },
-      currentComponent: 'WelcomeIntro'
+      activeComponent: 'WelcomeIntro'
     }
   },
-  computed: {},
   methods: {
-    showArticle (articleIndex) {
-      this.articles.slideDirection =
-        articleIndex > this.articles.activeArticleIndex ? 'right' : 'left'
-      this.articles.activeArticleIndex = articleIndex
+    startSlider () {
+      setInterval(() => {
+        if (!document.hidden) {
+          const nextSlide =
+            this.slider.activeIndex + 1 >= this.slider.articles.length
+              ? 0
+              : this.slider.activeIndex + 1
+          this.changeSlide(nextSlide)
+        }
+      }, 4000)
+    },
+    changeSlide (articleIndex) {
+      this.slider.activeSlideDirection =
+        articleIndex > this.slider.activeIndex ? 'right' : 'left'
+      this.slider.activeIndex = articleIndex
     },
     changeComponent (nextComponent) {
-      this.currentComponent = nextComponent
+      this.activeComponent = nextComponent
     }
   },
   mounted () {
-    setInterval(() => {
-      const nextSlide =
-        this.articles.activeArticleIndex + 1 >= this.articles.entries.length
-          ? 0
-          : this.articles.activeArticleIndex + 1
-      this.showArticle(nextSlide)
-    }, 4000)
+    this.startSlider()
   },
   components: { WelcomeHeader, WelcomeIntro, WelcomeRegister, WelcomeAbout, WelcomeLogin }
 }
@@ -94,12 +98,12 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  height: 100vh;
-  min-height: 800px;
+  height: 100%;
+  min-height: 100vh;
   #left-side {
     padding: 20px;
     height: 100vh;
-    min-height: 500px;
+    min-height: 600px;
     display: flex;
     flex-direction: column;
     @media (max-width: 991px) {

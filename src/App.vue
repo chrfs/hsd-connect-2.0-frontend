@@ -5,15 +5,14 @@
 </template>
 
 <style lang="scss">
-@import './assets/scss/bootstrap-grid.scss';
-@import './assets/scss/variables.scss';
-@import './assets/scss/fonts.scss';
+@import './assets/scss/bootstrap-grid';
+@import './assets/scss/variables';
+@import './assets/scss/fonts';
 
 body {
   min-width: 320px;
   font-size: 1rem;
   max-width: 100vw;
-  overflow: hidden;
   @media (max-width: 1280px) {
     font-size: 0.8rem;
   }

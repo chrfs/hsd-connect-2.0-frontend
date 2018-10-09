@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Navigation from '../../components/partial/Navigation.vue'
-import ProjectThumbnail from '../../components/partial/ProjectThumbnail'
+import Navigation from '../components/Navigation.vue'
+import ProjectThumbnail from '../components/ProjectThumbnail'
 export default {
   components: { Navigation, ProjectThumbnail }
 }

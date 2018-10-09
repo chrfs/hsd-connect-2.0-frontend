@@ -20,15 +20,14 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables';
+@import '../assets/scss/variables';
 .project-thumbnail{
   padding:15px;
   height:400px;
   width:30vh;
   .project-thumbnail_box{
     background-color: white;
-    box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1),
-                0px 2px 40px rgba(0,0,0, 0.1);
+    box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
     height:100%;
     width: 100%
   }

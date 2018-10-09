@@ -1,51 +1,43 @@
 <template>
     <div id="register-background" class="register min-height-100vh">
       <h4>Register</h4>
-      <Form name="register" @submit="submitRegister" :isActive="isActive" :validation="validation" :data="user"></Form>
+      <Form id="register" @submit="submitRegister" :isActive="isActive" :form="form"></Form>
     </div>
 </template>
 
 <script>
-import Form from '../../components/partial/Form.vue'
+import Form from '../Form.vue'
 
 export default {
   data: () => {
     return {
-      user: {
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      },
-      validation: {
+      form: {
         fields: {
           register: {
-            input: false,
             message: ''
           },
           email: {
-            input: true,
+            elementType: 'input',
+            inputType: 'email',
             placeholder: 'E-Mail',
+            isRequired: true,
             name: 'email',
-            isValid: true,
-            type: 'email',
             message: ''
           },
           password: {
-            input: true,
+            elementType: 'input',
+            inputType: 'password',
             placeholder: 'Password',
+            isRequired: true,
             name: 'password',
-            isValid: true,
-            type: 'password',
             message: ''
           },
           confirmPassword: {
-            input: true,
+            elementType: 'input',
+            inputType: 'password',
             placeholder: 'Password bestätigen',
+            isRequired: true,
             name: 'confirmPassword',
-            isValid: true,
-            type: 'password',
             message: ''
           }
         }

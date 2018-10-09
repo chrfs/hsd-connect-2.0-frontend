@@ -1,40 +1,35 @@
 <template>
     <div id="login-background" class="login min-height-100vh">
       <h4>Login</h4>
-      <Form name="login" @submit="submitLogin" :isActive="isActive" :validation="validation" :data="user"></Form>
+      <Form id="login" @submit="submitLogin" :isActive="isActive" :form="form"></Form>
     </div>
 </template>
 
 <script>
-import Form from '../../components/partial/Form.vue'
+import Form from '../../components/Form.vue'
 
 export default {
   data: () => {
     return {
-      user: {
-        email: '',
-        password: ''
-      },
-      validation: {
+      form: {
         fields: {
           login: {
-            input: false,
             message: ''
           },
           email: {
-            input: true,
+            elementType: 'input',
+            inputType: 'email',
             placeholder: 'E-Mail',
             name: 'email',
-            isValid: true,
-            type: 'email',
+            isRequired: true,
             message: ''
           },
           password: {
-            input: true,
+            elementType: 'input',
+            inputType: 'password',
             placeholder: 'Password',
             name: 'password',
-            isValid: true,
-            type: 'password',
+            isRequired: true,
             message: ''
           }
         }
