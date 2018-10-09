@@ -55,14 +55,14 @@ export default {}
       &:hover {
         margin-left:0px;
         cursor: pointer;
-        border-left: 2px solid red;
+        border-left: 2px solid $baseRed;
         background-color:#3e4159;
         box-shadow: 0px -2px 5px rgba(19, 25, 29, 0.4),
                     0px 2px 5px rgba(19, 25, 54, 0.4);
       }
     }
     .active-link {
-      border-left: 2px solid red;
+      border-left: 2px solid $baseRed;
       background-color:#3e4159;
       box-shadow: 0px -2px 5px rgba(19, 25, 29, 0.4),
                   0px 2px 5px rgba(19, 25, 54, 0.4);

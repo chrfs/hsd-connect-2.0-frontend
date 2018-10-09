@@ -29,7 +29,7 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style: none;
-  color: #000;
+  color: $baseBlue;;
   font-family: 'Montserrat-Light';
 }
 
@@ -61,6 +61,13 @@ h4 {
   text-transform: uppercase;
 }
 
+h5 {
+  font-size: 1.0em;
+  line-height: 1.4em;
+  font-family: 'Montserrat-SemiBold';
+  text-transform: uppercase;
+}
+
 p {
   line-height: 1.4em;
   font-size: 1.1em;
@@ -81,7 +88,7 @@ input {
 }
 
 button, input.button {
-  background-color: #e40529;
+  background-color: $baseRed;
   padding: 15px 25px;
   color: white;
   text-transform: uppercase;
@@ -130,7 +137,7 @@ button, input.button {
 }
 
 .red-colored {
-  color: #e40529;
+  color: $baseRed;
   font-family:'Montserrat-Bold';
 }
 </style>
