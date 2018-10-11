@@ -1,10 +1,10 @@
 <template>
   <header class="row">
     <div class="col-4">
-      <img id="header__logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/logo.jpg" alt="HSD" />
+      <img id="header_logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/logo.jpg" alt="HSD" />
     </div>
     <div class="col-8">
-      <ul id="header__menu">
+      <ul id="header_menu">
         <li @click="changeComponent(WelcomeLogin)"><a href="#" onClick="event.preventDefault()">Login</a></li>
         <li @click="changeComponent(WelcomeRegister)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
         <li @click="changeComponent(WelcomeAbout)"><a href="#" onClick="event.preventDefault()">Über HSDConnect</a></li>
@@ -39,12 +39,12 @@ header{
   text-transform: uppercase;
   top: 0;
   width: 100%;
-  #header__logo {
+  #header_logo {
     width: 8em;
     max-width: 150px;
     cursor: pointer
   }
-  #header__menu {
+  #header_menu {
     display: flex;
     justify-content: space-around;
     font-size: 1em;

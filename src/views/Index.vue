@@ -15,7 +15,7 @@ export default {
       return this.$store.getters.authToken
     },
     currentComponent () {
-      return this.authToken ? 'Projects' : 'Welcome'
+      // this.authToken ? 'Projects' : 'Welcome'
     }
   },
   components: { Welcome, Projects }

@@ -1,6 +1,6 @@
 <template>
   <section class="side-panel">
-    <ul class="side-panel-main-list">
+    <ul class="side-panel_main-list">
       <router-link to="/projects" tag="li" exact>Projekte</router-link>
       <router-link :to="'/user/'+userId" tag="li" exact>Profil</router-link>
       <router-link to="/user/:id/messages" tag="li" exact>Nachrichten</router-link>
@@ -8,15 +8,15 @@
       <router-link to="/user/:id/bookmarks" tag="li" exact>Merkliste</router-link>
     </ul>
     <button>Projekt anlegen</button>
-    <ul class="side-panel-sub-list">
+    <ul class="side-panel_sub-list">
       <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
       <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
     </ul>
-    <div class="footer">
+    <div class="side-panel_footer">
       <p>Hochschule Düsseldorf &#9400; 2018<br>
-      <router-link to="/imprint" exact>Impressum</router-link> |
-      <router-link to="/privacy" exact>Datenschutz</router-link> |
-      <router-link to="/contact" exact>Kontakt</router-link>
+        <router-link to="/imprint" exact>Impressum</router-link> |
+        <router-link to="/privacy" exact>Datenschutz</router-link> |
+        <router-link to="/contact" exact>Kontakt</router-link>
       </p>
     </div>
   </section>
@@ -37,9 +37,9 @@ export default {
 .side-panel {
   position: fixed;
   left: 0px;
-  top: 0px;
+  top: 10vh;
   overflow: hidden;
-  height: 100vh;
+  height: 90vh;
   min-height: 500px;
   width: 20vw;
   min-width: 250px;
@@ -47,7 +47,7 @@ export default {
   font-size: 0.9em;
   display: flex;
   flex-direction: column;
-  .side-panel-main-list, .side-panel-sub-list {
+  .side-panel_main-list, .side-panel_sub-list {
     margin: 25px auto;
     display: flex;
     flex-direction: column;
@@ -67,29 +67,33 @@ export default {
     }
     .active-link {
       border-left: 2px solid $baseRed;
-      background-color:#3e4159;
+      background-color: #3e4159;
       box-shadow: 0px -2px 5px rgba(19, 25, 29, 0.4),
                   0px 2px 5px rgba(19, 25, 54, 0.4);
     }
   }
-  .side-panel-sub-list{
+  .side-panel_sub-list{
     border-top: 1px solid #313e5a;
     border-bottom: 1px solid #313e5a;
     margin-top: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
     li {
       bottom: 0px;
     }
   }
-  button{
+  button {
     width: 100%;
     margin-bottom: 25vh;
     margin-top: 0;
     box-shadow: 0px -2px 32px rgba(19, 25, 54, 0.6),
                 0px 2px 32px rgba(19, 25, 54, 0.6);
   }
-  .footer{
+  .side-panel_footer {
     font-size: 0.6em;
-    text-align: center;
+    text-align: left;
+    padding-bottom: 10px;
+    margin-left: 50px;
     p, a {
       color: #848484;
       line-height: 2em;

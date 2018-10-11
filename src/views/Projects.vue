@@ -1,5 +1,6 @@
 <template>
   <section class="container-fluid">
+    <Header></Header>
     <Navigation></Navigation>
     <main class="right-side">
       <h1>Projects</h1>
@@ -17,15 +18,16 @@
 <script>
 import Navigation from '../components/Navigation.vue'
 import ProjectThumbnail from '../components/ProjectThumbnail'
+import Header from '../components/Header'
 export default {
-  components: { Navigation, ProjectThumbnail }
+  components: { Navigation, ProjectThumbnail, Header }
 }
 </script>
 
 <style lang="scss" scoped>
 .right-side {
   position: absolute;
-  top: 0px;
+  top: 10vh;
   left: 25vw;
   width: 70vw;
 }

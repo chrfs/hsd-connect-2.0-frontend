@@ -30,49 +30,53 @@ export default {}
 
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
-.project-thumbnail{
+.project-thumbnail {
   padding: 15px;
   height: 430px;
-  .project-thumbnail_box{
+  .project-thumbnail_box {
     background-color: white;
     box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
-    height:100%;
+    height: 100%;
     width: 100%;
-    .project-thumbnail_box_top{
+    .project-thumbnail_box_top {
       position: relative;
-      height:50%;
+      height: 50%;
       background-color: #f4f4f4;
       img {
-        position:absolute;
+        position: absolute;
       }
-      .project_status{
-        position:relative;
-        width: 40%;
-        top:25px;
-        background-color:$baseBlue;
+      .project_status {
+        position: absolute;
+        top: 25px;
+        background-color: $baseBlue;
         border-right: 2px solid $fbBlue;
-        p{
-          text-align: left;
-          color:white;
+        right: 0;
+        p {
+          margin-right: 20px;
+          margin-left: 10px;
+          text-align: right;
+          color: white;
           padding: 5px;
         }
       }
     }
-    .project-thumbnail_box_bottom{
-      height:50%;
-      padding:15px;
-      .project_info{
-        font-size:0.8em;
-        color: $baseRed;
-      }
-      .project_description{
-        font-size:0.9em;
-        margin-top:10px;
-        margin-bottom:10px;
-      }
-      .project_metadata{
+    .project-thumbnail_box_bottom {
+      height: 50%;
+      padding: 15px;
+      .project_info {
         font-size: 0.8em;
-        p {color: $baseGrey;}
+        color: $baseRed;
+    }
+      .project_description {
+        font-size: 0.9em;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .project_metadata {
+        font-size: 0.8em;
+        p {
+          color: $baseGrey;
+        }
       }
     }
   }

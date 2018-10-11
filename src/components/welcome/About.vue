@@ -41,16 +41,16 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-    h4,p{
+    h4,p {
       width:300px;
       margin-top: 25px;
       color:white;
       font-size: 0.9em;
       }
-    button{
+    button {
       width:300px;
     }
-    &#about-background{
+    &#about-background {
       background: $blueGradient;
       min-height: 300px;
       @media (max-width: 991px){

@@ -7,22 +7,22 @@
           <transition-group :name="'translate-article-'+slider.activeSlideDirection" tag="div" mode="out-in">
               <article class="row" v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
                 <div class="col-12">
-                  <h2 class="article__headline" v-html="article.title"></h2>
-                  <p class="article__paragraph" v-html="article.description"></p>
+                  <h2 class="article_headline" v-html="article.title"></h2>
+                  <p class="article_paragraph" v-html="article.description"></p>
                 </div>
               </article>
           </transition-group>
-            <div id="articles__selector__bars">
-              <span class="articles__selector__bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-              <span class="articles__selector__bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
+            <div id="articles_selector_bars">
+              <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
+              <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
             </div>
         </div>
       </div>
         <div id="right-side" class="col-12 col-lg-5">
-          <WelcomeIntro @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeIntro'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
-          <WelcomeRegister @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeRegister'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
-          <WelcomeLogin @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeLogin'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
-          <WelcomeAbout @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeAbout'" class="right-side__component" :class="{'right-side__component--show': this.activeComponent === 'WelcomeAbout'}" :key="'WelcomeAbout'"></WelcomeAbout>
+          <WelcomeIntro @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeIntro'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
+          <WelcomeRegister @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeRegister'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
+          <WelcomeLogin @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeLogin'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
+          <WelcomeAbout @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeAbout'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeAbout'}" :key="'WelcomeAbout'"></WelcomeAbout>
         </div>
     </main>
   </section>
@@ -128,19 +128,19 @@ section {
         align-content: center;
         transform: translateX(-10)px;
         padding-bottom: 20px;
-        .article__headline {
+        .article_headline {
           margin-top: 50px;
         }
-        .article__paragraph {
+        .article_paragraph {
           margin: 50px 0px;
         }
       }
 
-      #articles__selector__bars {
+      #articles_selector_bars {
         height: 4px;
         width: auto;
         margin-top: auto;
-        .articles__selector__bar {
+        .articles_selector_bar {
           background: #f2f2f2;
           height: 4px;
           float: left;
@@ -165,7 +165,7 @@ section {
       padding-top: 25px;
       overflow-y: hidden;
     }
-    .right-side__component {
+    .right-side_component {
       position: absolute;
       transform: translateX(100%);
       z-index: 0;
@@ -173,7 +173,7 @@ section {
       @media (max-width: 991px) {
         transform: translateY(100%);
       }
-      &.right-side__component--show {
+      &.right-side_component--show {
         transform: translate(0%);
         z-index: 1;
       }

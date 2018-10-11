@@ -36,11 +36,11 @@ export default {
 </script>
 
 <style>
-input{
+input {
   font-size: 0.9em;
   border-bottom:1px solid white;
 }
-input::placeholder{
+input::placeholder {
   color:white;
 }
 
