@@ -17,9 +17,9 @@ Route.view('/signup', 'Index').guard(checkLoggedIn(true, '/'))
 Route.view('/signin', 'Index').guard(checkLoggedIn(true, '/'))
 Route.view('/about', 'Index').guard(checkLoggedIn(true, '/'))
 
-Route.group({ prefix: '/projects' }, () => {
+Route.group({ prefix: '/projects', beforeEnter: checkLoggedIn(false, '/signin') }, () => {
   // Route.view('/create', 'ProjectCreate')
-  Route.view('/:id', 'ProjectDetails').guard(checkLoggedIn(false, '/signin'))
+  Route.view('/:id', 'ProjectDetails')
 })
 
 export default Route.all()
