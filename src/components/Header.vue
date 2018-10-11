@@ -1,11 +1,11 @@
 <template>
   <div class="row header">
     <div class="col-3">
-      <img id="header_logo" @click="changeComponent(WelcomeIntro)" src="../assets/img/logo.jpg" alt="HSD" />
+      <router-link to="/" tag="a"><img id="header_logo" src="../assets/img/logo.jpg" alt="HSD" /></router-link>
     </div>
     <div class="col-3">
       <form class="header_search">
-        <input placeholder="Suche"></input>
+        <input placeholder="Suche">
       </form>
     </div>
     <div class="col-6">

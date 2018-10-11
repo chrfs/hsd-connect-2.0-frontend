@@ -35,15 +35,30 @@
 import Navigation from '../components/Navigation.vue'
 import Header from '../components/Header'
 export default {
-  components: { Navigation, ProjectThumbnail, Header }
+  components: { Navigation, Header }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/variables';
+
 .right-side {
   position: absolute;
   top: 10vh;
   left: 25vw;
   width: 70vw;
+  .project_image {
+    background-color: #f2f2f2;
+    height:40vh;
+    width:100%;
+    position: absolute;
+  }
+  .project_status {
+        position: absolute;
+        top: 25px;
+        background-color: $baseBlue;
+        border-right: 2px solid $fbBlue;
+        right: 0;
+  }
 }
 </style>

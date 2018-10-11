@@ -1,7 +1,7 @@
 <template>
   <section class="side-panel">
     <ul class="side-panel_main-list">
-      <router-link to="/projects" tag="li" exact>Projekte</router-link>
+      <router-link to="/" tag="li" exact>Projekte</router-link>
       <router-link :to="'/user/'+userId" tag="li" exact>Profil</router-link>
       <router-link to="/user/:id/messages" tag="li" exact>Nachrichten</router-link>
       <router-link to="/user/:id/projects" tag="li" exact>Eigene Projekte</router-link>

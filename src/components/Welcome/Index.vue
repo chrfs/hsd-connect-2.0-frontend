@@ -8,13 +8,15 @@
 export default {
   data: () => {
     return {
-      nextComponent: 'WelcomeLogin'
+      signup: {
+        name: 'WelcomeLogin',
+        path: '/signin'
+      }
     }
   },
   methods: {
     changeComponent () {
-      console.log('changed', this.nextComponent)
-      this.$emit('changeComponent', this.nextComponent)
+      this.$emit('changeComponent', this.signup)
     }
   }
 }

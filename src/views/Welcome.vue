@@ -19,10 +19,10 @@
         </div>
       </div>
         <div id="right-side" class="col-12 col-lg-5">
-          <WelcomeIntro @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeIntro'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeIntro'}" :key="'Intro'"></WelcomeIntro>
-          <WelcomeRegister @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeRegister'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeRegister'}" :key="'WelcomeRegister'"></WelcomeRegister>
-          <WelcomeLogin @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeLogin'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeLogin'}" :key="'WelcomeLogin'"></WelcomeLogin>
-          <WelcomeAbout @changeComponent="changeComponent" :isActive="this.activeComponent === 'WelcomeAbout'" class="right-side_component" :class="{'right-side_component--show': this.activeComponent === 'WelcomeAbout'}" :key="'WelcomeAbout'"></WelcomeAbout>
+          <WelcomeIndex @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
+          <WelcomeSignUp @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
+          <WelcomeSignIn @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
+          <WelcomeAbout @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
         </div>
     </main>
   </section>
@@ -30,9 +30,9 @@
 
 <script>
 import WelcomeHeader from '../components/Welcome/Navigation.vue'
-import WelcomeIntro from '../components/Welcome/Intro.vue'
-import WelcomeLogin from '../components/Welcome/Login.vue'
-import WelcomeRegister from '../components/Welcome/Register.vue'
+import WelcomeIndex from '../components/Welcome/Index.vue'
+import WelcomeSignIn from '../components/Welcome/SignIn.vue'
+import WelcomeSignUp from '../components/Welcome/SignUp.vue'
 import WelcomeAbout from '../components/Welcome/About.vue'
 
 export default {
@@ -65,10 +65,25 @@ export default {
         activeBarWidth: 50,
         activeSlideDirection: 'right'
       },
-      activeComponent: 'WelcomeIntro'
+      components: {
+        '/': 'WelcomeIndex',
+        '/signin': 'WelcomeSignIn',
+        '/signup': 'WelcomeSignUp',
+        '/about': 'WelcomeAbout'
+      },
+      activeComponent: {
+        name: 'WelcomeIndex',
+        path: '/'
+      }
     }
   },
   methods: {
+    setActiveComponent () {
+      this.activeComponent = {
+        name: this.components[this.$route.path],
+        path: this.$route.path
+      }
+    },
     startSlider () {
       setInterval(() => {
         if (!document.hidden) {
@@ -87,12 +102,17 @@ export default {
     },
     changeComponent (nextComponent) {
       this.activeComponent = nextComponent
+      this.$router.push(nextComponent.path)
+    },
+    isActiveComponent (componentName) {
+      return this.activeComponent.name === componentName
     }
   },
   mounted () {
+    this.setActiveComponent()
     this.startSlider()
   },
-  components: { WelcomeHeader, WelcomeIntro, WelcomeRegister, WelcomeAbout, WelcomeLogin }
+  components: { WelcomeHeader, WelcomeIndex, WelcomeSignIn, WelcomeSignUp, WelcomeAbout }
 }
 </script>
 

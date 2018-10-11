@@ -1,12 +1,12 @@
 <template>
   <header class="row">
     <div class="col-4">
-      <img id="header_logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/logo.jpg" alt="HSD" />
+      <img id="header_logo" @click="changeComponent(WelcomeIndex)" src="../../assets/img/logo.jpg" alt="HSD" />
     </div>
     <div class="col-8">
       <ul id="header_menu">
-        <li @click="changeComponent(WelcomeLogin)"><a href="#" onClick="event.preventDefault()">Login</a></li>
-        <li @click="changeComponent(WelcomeRegister)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
+        <li @click="changeComponent(WelcomeSignIn)"><a href="#" onClick="event.preventDefault()">Login</a></li>
+        <li @click="changeComponent(WelcomeSignUp)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
         <li @click="changeComponent(WelcomeAbout)"><a href="#" onClick="event.preventDefault()">Über HSDConnect</a></li>
       </ul>
     </div>
@@ -17,10 +17,22 @@
 export default {
   data: () => {
     return {
-      WelcomeIntro: 'WelcomeIntro',
-      WelcomeLogin: 'WelcomeLogin',
-      WelcomeRegister: 'WelcomeRegister',
-      WelcomeAbout: 'WelcomeAbout'
+      WelcomeIndex: {
+        name: 'WelcomeIndex',
+        path: '/'
+      },
+      WelcomeSignIn: {
+        name: 'WelcomeSignIn',
+        path: '/signin'
+      },
+      WelcomeSignUp: {
+        name: 'WelcomeSignUp',
+        path: '/signup'
+      },
+      WelcomeAbout: {
+        name: 'WelcomeAbout',
+        path: '/about'
+      }
     }
   },
   methods: {
