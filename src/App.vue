@@ -29,7 +29,7 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style: none;
-  color: $baseBlue;;
+  color: white;
   font-family: 'Montserrat-Light';
 }
 
@@ -71,6 +71,10 @@ h5 {
 p {
   line-height: 1.4em;
   font-size: 1.1em;
+}
+
+label {
+  font-size: 0.9em;
 }
 
 form {

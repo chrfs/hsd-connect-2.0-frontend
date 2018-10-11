@@ -13,13 +13,13 @@ export default {
     return {
       form: {
         fields: {
-          login: {
+          signin: {
             message: ''
           },
           email: {
             elementType: 'input',
             inputType: 'email',
-            placeholder: 'E-Mail',
+            label: 'E-Mail',
             name: 'email',
             isRequired: true,
             message: ''
@@ -27,7 +27,7 @@ export default {
           password: {
             elementType: 'input',
             inputType: 'password',
-            placeholder: 'Password',
+            label: 'Password',
             name: 'password',
             isRequired: true,
             message: ''
@@ -37,30 +37,38 @@ export default {
     }
   },
   methods: {
-    submitLogin () {
-      this.$http.post(this.$httpRoutes.POST_LOGIN, { user: this.user }).then(({ data }) => {
-        if (!!data && !!data.data && data.status === 'success') {
-          const res = data.data
-          this.$store.dispatch('setAuthToken', res.authToken)
-        } else {
-          throw new Error('Unexpected response.')
-        }
-      }).catch(({ response }) => {
-        if (!!response && !!response.data && response.data.status === 'error') {
-          const data = response.data
+    submitLogin (user) {
+      this.resetFormFieldMessages()
+      this.$http.post(this.$httpRoutes.POST_LOGIN, user).then(({ data: { data } }) => {
+        this.$store.dispatch('setAuthToken', data.authToken)
+        this.resetFormFieldValues()
+      }).catch(({response: {data}}) => {
+        if (data.status >= 500) {
+          this.form.fields.signin.message = 'An unexpected error has occurred.'
+        } else if (data.data) {
+          this.form.fields.signin.message = data.data
+        } else if (data.errors) {
           Object.keys(data.errors).forEach(entry => {
-            this.validation.fields[entry].message = data.errors[entry].message
-            this.validation.fields[entry].isValid = false
+            this.form.fields[entry].message = data.errors[entry]
           })
-        } else {
-          throw new Error('Unexpected response.')
         }
+      })
+    },
+    resetFormFieldMessages () {
+      Object.keys(this.form.fields).forEach(entry => {
+        this.form.fields[entry].message = ''
+      })
+    },
+    resetFormFieldValues () {
+      Object.keys(this.form.fields).forEach(entry => {
+        this.form.fields[entry].value = ''
       })
     }
   },
   components: { Form },
   props: ['isActive']
 }
+
 </script>
 
 <style lang="scss" scoped>

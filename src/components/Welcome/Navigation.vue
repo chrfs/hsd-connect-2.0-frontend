@@ -5,9 +5,9 @@
     </div>
     <div class="col-8">
       <ul id="header_menu">
-        <li @click="changeComponent(WelcomeSignIn)"><a href="#" onClick="event.preventDefault()">Login</a></li>
-        <li @click="changeComponent(WelcomeSignUp)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
-        <li @click="changeComponent(WelcomeAbout)"><a href="#" onClick="event.preventDefault()">Über HSDConnect</a></li>
+        <li @click="changeComponent(WelcomeSignIn)">Login</li>
+        <li @click="changeComponent(WelcomeSignUp)">Registrieren</li>
+        <li @click="changeComponent(WelcomeAbout)">Über HSDConnect</li>
       </ul>
     </div>
   </header>
@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/variables';
+
 header{
   padding: 50px 20px;
   max-height: 180px;
@@ -65,6 +67,10 @@ header{
     max-width: 500px;
     flex-direction: flex-end;
     margin-left: auto;
+    cursor: pointer;
+    li {
+      color: $baseBlue;
+    }
   }
 }
 </style>

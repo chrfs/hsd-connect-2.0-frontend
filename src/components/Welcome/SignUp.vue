@@ -13,13 +13,13 @@ export default {
     return {
       form: {
         fields: {
-          register: {
+          signup: {
             message: ''
           },
           email: {
             elementType: 'input',
             inputType: 'email',
-            placeholder: 'E-Mail',
+            label: 'E-Mail',
             isRequired: true,
             name: 'email',
             message: ''
@@ -27,7 +27,7 @@ export default {
           password: {
             elementType: 'input',
             inputType: 'password',
-            placeholder: 'Password',
+            label: 'Password',
             isRequired: true,
             name: 'password',
             message: ''
@@ -35,7 +35,7 @@ export default {
           confirmPassword: {
             elementType: 'input',
             inputType: 'password',
-            placeholder: 'Password bestätigen',
+            label: 'Password bestätigen',
             isRequired: true,
             name: 'confirmPassword',
             message: ''
@@ -45,26 +45,37 @@ export default {
     }
   },
   methods: {
-    submitRegister () {
-      if (this.user.confirmPassword === this.user.password) {
-        this.$http
-          .post(this.$httpRoutes['POST_REGISTER'], { user: this.user })
-          .then(({ response }) => {})
-          .catch(({ response }) => {
-            if (!!response && !!response.data && response.data.status === 'error') {
-              const data = response.data
-              Object.keys(data.errors).forEach(entry => {
-                this.validation.fields[entry].message = data.errors[entry].message
-                this.validation.fields[entry].isValid = false
-              })
-            } else {
-              throw new Error('Unexpected response.')
-            }
-          })
-      } else {
-        this.validation.fields.confirmPassword.message = 'Passwörter stimmen nicht überein, bitte prüfe Deine Eingaben.'
-        this.validation.fields.confirmPassword.isValid = false
+    submitRegister (user) {
+      if (user.confirmPassword !== user.password) {
+        this.form.fields.confirmPassword.message = 'Your passwords are not machting, please check your credentials.'
+        return
       }
+      this.resetFormFieldMessages()
+      this.$http
+        .post(this.$httpRoutes['POST_REGISTER'], user).then(({ data: { data } }) => {
+          this.form.fields.signup.message = data
+          this.resetFormFieldValues()
+        }).catch(({ response: { data } }) => {
+          if (data.status >= 500) {
+            this.form.fields.signup.message = 'An unexpected error has occurred.'
+          } else if (data.data) {
+            this.form.fields.signup.message = data.data
+          } else if (data.errors) {
+            Object.keys(data.errors).forEach(entry => {
+              this.form.fields[entry].message = data.errors[entry]
+            })
+          }
+        })
+    },
+    resetFormFieldMessages () {
+      Object.keys(this.form.fields).forEach(entry => {
+        this.form.fields[entry].message = ''
+      })
+    },
+    resetFormFieldValues () {
+      Object.keys(this.form.fields).forEach(entry => {
+        this.form.fields[entry].value = ''
+      })
     }
   },
   components: { Form },
@@ -92,7 +103,7 @@ export default {
     }
   }
   h4 {
-    color:white;
+    color: white;
     width: 300px;
     font-size: 0.9em;
   }

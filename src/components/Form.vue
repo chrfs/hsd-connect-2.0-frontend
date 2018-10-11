@@ -1,10 +1,13 @@
 <template>
   <form :id="id+'__form'" @submit="submit" readonly="true">
-    <label v-for="(field, fieldKey, fieldIndex) in form.fields" :key="fieldKey">
-      <span class="validation-error" v-if="field.message">{{field.message}}</span>
-      <input v-if="isInputElement(field.elementType)" :type="field.inputType" :class="{'field-invalid': field.isValid}" :placeholder="field.placeholder" v-model="field.value" :autocomplete="field.name" :tabindex="[isActive ? fieldIndex : -1]" :required="!!field.isRequired">
-    </label>
-    <input class="button" type="submit" value="Login" :tabindex="isActive ? 100 : -1">
+    <fieldset v-for="(field, fieldIndex) in form.fields" :key="field.name">
+      <p class="validation-error" v-show="field.message">{{field.message}}</p>
+      <label v-if="!!field.label">
+        {{field.label}}:
+        <input :type="field.inputType" :class="{'field-invalid': field.isValid}" v-model="field.value" :autocomplete="field.name" :tabindex="[isActive ? fieldIndex : -1]" :required="!!field.isRequired">
+      </label>
+    </fieldset>
+      <input class="button" type="submit" value="Submit" :tabindex="isActive ? 100 : -1">
   </form>
 </template>
 
@@ -20,7 +23,7 @@ export default {
       this.$emit('submit', formData)
     },
     getFormData () {
-      const formData = this.form.fields.reduce((fields, fieldName) => {
+      const formData = Object.keys(this.form.fields).reduce((fields, fieldName) => {
         const fieldValue = this.form.fields[fieldName].value
         if (!fieldValue) {
           return fields
