@@ -9,7 +9,7 @@
         </div>
         <div class="project-thumbnail_box_bottom">
           <p class="project_info">Name des Projektleiters | FB Medien</p>
-          <h5>Der Titel des Projektes ist über zwei Zeilen</h5>
+          <h5 class=project_title>Der Titel des Projektes ist über zwei Zeilen</h5>
           <p class="project_description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
              sed diam nonumy eirmod tempor invidunt ut labore et dolore
              magna aliquyam erat, sedsanctus est Lorem ipsum dolor sit amet.</p>
@@ -52,6 +52,9 @@ export default {}
         border-right: 2px solid $fbBlue;
         right: 0;
         p {
+          font-size: 0.8em;
+          text-transform: uppercase;
+          font-family: 'Montserrat-Light';
           margin-right: 20px;
           margin-left: 10px;
           text-align: right;
