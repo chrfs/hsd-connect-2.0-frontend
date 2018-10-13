@@ -66,14 +66,14 @@ export default {
         activeSlideDirection: 'right'
       },
       components: {
-        '/': 'WelcomeIndex',
-        '/signin': 'WelcomeSignIn',
-        '/signup': 'WelcomeSignUp',
-        '/about': 'WelcomeAbout'
+        '/welcome': 'WelcomeIndex',
+        '/welcome/signin': 'WelcomeSignIn',
+        '/welcome/signup': 'WelcomeSignUp',
+        '/welcome/about': 'WelcomeAbout'
       },
       activeComponent: {
         name: 'WelcomeIndex',
-        path: '/'
+        path: '/welcome'
       }
     }
   },

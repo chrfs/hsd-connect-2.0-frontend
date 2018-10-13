@@ -1,7 +1,7 @@
 <template>
   <div class="row header">
     <div class="col-3">
-      <router-link to="/" tag="a"><img id="header_logo" src="../assets/img/logo.jpg" alt="HSD" /></router-link>
+      <router-link to="/"><img id="header_logo" src="../assets/img/logo.jpg" alt="HSD" /></router-link>
     </div>
     <div class="col-3">
       <form class="header_search">

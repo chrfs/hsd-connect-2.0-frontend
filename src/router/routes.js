@@ -1,10 +1,11 @@
 import store from '../store'
-import Index from '../views/Index.vue'
-import ProjectDetails from '../views/ProjectDetails.vue'
+import Welcome from '../views/Welcome'
+import Projects from '../views/Projects'
+import ProjectDetails from '../views/ProjectDetails'
 
 const checkAuthenticated = (equalsBoolean, redirectTo) => {
   return (to, from, next) => {
-    if (!!store.getters.authToken === equalsBoolean && from.path !== to.path) {
+    if (!!store.getters.authToken === equalsBoolean) {
       next(redirectTo)
       return
     }
@@ -14,13 +15,23 @@ const checkAuthenticated = (equalsBoolean, redirectTo) => {
 
 const routes = [
   {
-    name: 'Index',
-    path: '/',
-    component: Index,
-    alias: ['/signup', '/signin', '/about'],
+    name: 'Welcome',
+    path: '/welcome',
+    component: Welcome,
+    alias: ['/welcome/signup', '/welcome/signin', '/welcome/about'],
     meta: {
       beforeEnter: {
         authenticated: checkAuthenticated(true, '/')
+      }
+    }
+  },
+  {
+    name: 'Index',
+    path: '/',
+    component: Projects,
+    meta: {
+      beforeEnter: {
+        authenticated: checkAuthenticated(false, '/welcome')
       }
     }
   },
@@ -30,7 +41,7 @@ const routes = [
     component: ProjectDetails,
     meta: {
       beforeEnter: {
-        authenticated: checkAuthenticated(false, '/signin')
+        authenticated: checkAuthenticated(false, '/welcome/signin')
       }
     }
   }

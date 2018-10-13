@@ -3,7 +3,7 @@
     <Header></Header>
     <Navigation></Navigation>
     <main class="right-side">
-      <div class="row project_header">
+      <div class="project_header">
         <img class="project_image" src="../assets/img/project_header_image.jpg"/>
         <div class="project_status">
             <p>In Arbeit</p>

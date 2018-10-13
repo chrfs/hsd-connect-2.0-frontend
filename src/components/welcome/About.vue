@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     changeComponent () {
-      this.$router.push('/signin')
+      this.$router.push('/welcome/signin')
     }
   }
 }

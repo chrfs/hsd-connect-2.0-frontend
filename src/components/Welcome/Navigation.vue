@@ -17,10 +17,10 @@
 export default {
   data: () => {
     return {
-      WelcomeIndex: '/',
-      WelcomeSignIn: '/signin',
-      WelcomeSignUp: '/signup',
-      WelcomeAbout: '/about'
+      WelcomeIndex: '/welcome',
+      WelcomeSignIn: '/welcome/signin',
+      WelcomeSignUp: '/welcome/signup',
+      WelcomeAbout: '/welcome/about'
     }
   },
   methods: {

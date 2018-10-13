@@ -47,7 +47,7 @@ export default {
       this.$http.post(this.$httpRoutes.POST_LOGIN, user).then(({ data: { data } }) => {
         // TODO: SET NOTIFICATION
         this.resetFormFieldValues()
-        this.$router.push('/')
+        this.$router.go('/')
         this.$store.dispatch('setAuthToken', data.authToken)
         // this.$store.dispatch('setUser', data.user)
       }).catch(({response: {data}}) => {
