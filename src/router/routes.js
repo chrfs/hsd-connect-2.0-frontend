@@ -4,7 +4,7 @@ import ProjectDetails from '../views/ProjectDetails.vue'
 
 const checkAuthenticated = (equalsBoolean, redirectTo) => {
   return (to, from, next) => {
-    if (!!store.getters.authToken === equalsBoolean) {
+    if (!!store.getters.authToken === equalsBoolean && from.path !== to.path) {
       next(redirectTo)
       return
     }

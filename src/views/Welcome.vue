@@ -2,7 +2,7 @@
   <section class="container-fluid">
     <main class="row">
       <div id="left-side" class="col-12 col-lg-6 offset-lg-1 min-height-100vh">
-        <WelcomeHeader @changeComponent="changeComponent"></WelcomeHeader>
+        <WelcomeHeader></WelcomeHeader>
         <div class="articles">
           <transition-group :name="'translate-article-'+slider.activeSlideDirection" tag="div" mode="out-in">
               <article class="row" v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
@@ -19,10 +19,10 @@
         </div>
       </div>
         <div id="right-side" class="col-12 col-lg-5">
-          <WelcomeIndex @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
-          <WelcomeSignUp @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
-          <WelcomeSignIn @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
-          <WelcomeAbout @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
+          <WelcomeIndex class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
+          <WelcomeSignUp class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
+          <WelcomeSignIn class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
+          <WelcomeAbout class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
       </div>
     </main>
   </section>
@@ -106,10 +106,6 @@ export default {
       this.slider.activeSlideDirection =
         articleIndex > this.slider.activeIndex ? 'right' : 'left'
       this.slider.activeIndex = articleIndex
-    },
-    changeComponent (nextComponent) {
-      this.activeComponent = nextComponent
-      this.$router.push(nextComponent.path)
     },
     isActiveComponent (componentName) {
       return this.activeComponent.name === componentName

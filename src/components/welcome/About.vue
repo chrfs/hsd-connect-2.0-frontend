@@ -16,16 +16,11 @@
 <script>
 export default {
   data: () => {
-    return {
-      signup: {
-        name: 'WelcomeSignIn',
-        path: '/signin'
-      }
-    }
+    return {}
   },
   methods: {
     changeComponent () {
-      this.$emit('changeComponent', this.signup)
+      this.$router.push('/signin')
     }
   }
 }

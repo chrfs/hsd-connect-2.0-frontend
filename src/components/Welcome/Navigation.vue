@@ -17,27 +17,15 @@
 export default {
   data: () => {
     return {
-      WelcomeIndex: {
-        name: 'WelcomeIndex',
-        path: '/'
-      },
-      WelcomeSignIn: {
-        name: 'WelcomeSignIn',
-        path: '/signin'
-      },
-      WelcomeSignUp: {
-        name: 'WelcomeSignUp',
-        path: '/signup'
-      },
-      WelcomeAbout: {
-        name: 'WelcomeAbout',
-        path: '/about'
-      }
+      WelcomeIndex: '/',
+      WelcomeSignIn: '/signin',
+      WelcomeSignUp: '/signup',
+      WelcomeAbout: '/about'
     }
   },
   methods: {
-    changeComponent (nextComponent) {
-      this.$emit('changeComponent', nextComponent)
+    changeComponent (path) {
+      this.$router.push(path)
     }
   }
 }

@@ -59,14 +59,9 @@ export default {
       this.$http
         .post(this.$httpRoutes['POST_REGISTER'], user).then(({ data: { data } }) => {
           // TODO: SET NOTIFICATION
-          this.form.fields.signup.message = data
+          // this.form.fields.signup.message = data
           this.resetFormFieldValues()
-          setTimeout(() => {
-            this.$emit('changeComponent', {
-              path: '/signin',
-              component: 'WelcomeSignIn'
-            })
-          }, 500)
+          this.$router.push('/')
         }).catch(({ response: { data } }) => {
           if (data.status >= 500) {
             // TODO: SET NOTIFICATION

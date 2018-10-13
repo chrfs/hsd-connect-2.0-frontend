@@ -46,9 +46,10 @@ export default {
       this.resetFormFieldMessages()
       this.$http.post(this.$httpRoutes.POST_LOGIN, user).then(({ data: { data } }) => {
         // TODO: SET NOTIFICATION
-        this.$store.dispatch('setAuthToken', data.authToken)
-        this.$store.dispatch('setUser', data.user)
         this.resetFormFieldValues()
+        this.$router.push('/')
+        this.$store.dispatch('setAuthToken', data.authToken)
+        // this.$store.dispatch('setUser', data.user)
       }).catch(({response: {data}}) => {
         if (data.status >= 500) {
           // TODO: SET NOTIFICATION

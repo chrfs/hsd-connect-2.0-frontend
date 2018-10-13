@@ -10,7 +10,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
-  if (!to.meta.beforeEnter) {
+  if (!to.meta && !to.meta.beforeEnter) {
     next()
   }
   if (to.meta.beforeEnter.authenticated) to.meta.beforeEnter.authenticated(to, from, next)
