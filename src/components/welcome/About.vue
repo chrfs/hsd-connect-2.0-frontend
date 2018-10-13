@@ -18,7 +18,7 @@ export default {
   data: () => {
     return {
       signup: {
-        name: 'WelcomeLogin',
+        name: 'WelcomeSignIn',
         path: '/signin'
       }
     }
@@ -43,12 +43,10 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-    h4,p {
-      width:300px;
-      margin-top: 25px;
-      color:white;
-      font-size: 0.9em;
-      }
+    h4, p {
+      width: 300px;
+      color: white;
+    }
     button {
       width:300px;
     }

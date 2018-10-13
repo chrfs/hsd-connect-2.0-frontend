@@ -9,7 +9,7 @@ export default {
   data: () => {
     return {
       signup: {
-        name: 'WelcomeLogin',
+        name: 'WelcomeSignIn',
         path: '/signin'
       }
     }

@@ -1,7 +1,7 @@
 <template>
     <div id="register-background" class="register min-height-100vh">
       <h4>Register</h4>
-      <Form id="register" @submit="submitRegister" :isActive="isActive" :form="form"></Form>
+      <Form identifier="register" @submit="submitRegister" :isActive="isActive" :form="form"></Form>
     </div>
 </template>
 
@@ -39,6 +39,11 @@ export default {
             isRequired: true,
             name: 'confirmPassword',
             message: ''
+          },
+          submit: {
+            elementType: 'input',
+            inputType: 'submit',
+            value: 'Signup'
           }
         }
       }
@@ -53,10 +58,18 @@ export default {
       this.resetFormFieldMessages()
       this.$http
         .post(this.$httpRoutes['POST_REGISTER'], user).then(({ data: { data } }) => {
+          // TODO: SET NOTIFICATION
           this.form.fields.signup.message = data
           this.resetFormFieldValues()
+          setTimeout(() => {
+            this.$emit('changeComponent', {
+              path: '/signin',
+              component: 'WelcomeSignIn'
+            })
+          }, 500)
         }).catch(({ response: { data } }) => {
           if (data.status >= 500) {
+            // TODO: SET NOTIFICATION
             this.form.fields.signup.message = 'An unexpected error has occurred.'
           } else if (data.data) {
             this.form.fields.signup.message = data.data
@@ -95,6 +108,9 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  input, label {
+    color: white;
+  }
   &#register-background {
     background-image: $blueGradient;
     min-height: 300px;
@@ -105,13 +121,6 @@ export default {
   h4 {
     color: white;
     width: 300px;
-    font-size: 0.9em;
-  }
-  #register__form {
-    margin-top: 25px;
-    #field-invalid {
-      border-color: red;
-    }
   }
 }
 </style>

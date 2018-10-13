@@ -4,7 +4,16 @@ import routes from './routes'
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
   routes,
   linkExactActiveClass: 'active-link'
 })
+
+router.beforeEach(function (to, from, next) {
+  if (!to.meta.beforeEnter) {
+    next()
+  }
+  if (to.meta.beforeEnter.authenticated) to.meta.beforeEnter.authenticated(to, from, next)
+})
+
+export default router
