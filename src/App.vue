@@ -29,7 +29,7 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style: none;
-  color: white;
+  color: $baseBlue;
   font-family: 'Montserrat-Light';
 }
 
@@ -143,5 +143,9 @@ button, input.button {
 .red-colored {
   color: $baseRed;
   font-family:'Montserrat-Bold';
+}
+
+.box-shadowed {
+  box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
 }
 </style>
