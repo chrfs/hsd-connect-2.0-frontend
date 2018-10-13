@@ -1,13 +1,12 @@
 <template>
-  <form :id="id+'__form'" @submit="submit" readonly="true">
+  <form :id="identifier+'-form'" @submit="submit" readonly="true">
     <fieldset v-for="(field, fieldIndex) in form.fields" :key="field.name">
-      <p class="validation-error" v-show="field.message">{{field.message}}</p>
-      <label v-if="!!field.label">
+      <label v-if="field.label">
         {{field.label}}:
-        <input :type="field.inputType" :class="{'field-invalid': field.isValid}" v-model="field.value" :autocomplete="field.name" :tabindex="[isActive ? fieldIndex : -1]" :required="!!field.isRequired">
       </label>
+      <input v-if="isInputElement(field.elementType)"  :type="field.inputType" :class="{'field-invalid': field.isValid, 'button': isSubmitType(field.inputType)}" v-model="field.value" :autocomplete="field.name" :tabindex="[isActive ? fieldIndex : -1]" :required="field.isRequired === true">
+      <p class="text-error" v-show="field.message">{{field.message}}</p>
     </fieldset>
-      <input class="button" type="submit" value="Submit" :tabindex="isActive ? 100 : -1">
   </form>
 </template>
 
@@ -16,6 +15,9 @@ export default {
   methods: {
     isInputElement (elementType) {
       return elementType === 'input'
+    },
+    isSubmitType (inputType) {
+      return inputType === 'submit'
     },
     submit (event) {
       event.preventDefault()
@@ -34,17 +36,9 @@ export default {
       return formData
     }
   },
-  props: ['id', 'isActive', 'form']
+  props: ['identifier', 'isActive', 'form']
 }
 </script>
 
 <style>
-input {
-  font-size: 0.9em;
-  border-bottom:1px solid white;
-}
-input::placeholder {
-  color:white;
-}
-
 </style>

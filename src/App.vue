@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view :key="$route.fullPath"/>
+    <router-view/>
   </div>
 </template>
 
@@ -13,6 +13,8 @@ body {
   min-width: 320px;
   font-size: 1rem;
   max-width: 100vw;
+  font-family: 'Montserrat-Light';
+  color: $baseBlue;
   @media (max-width: 1280px) {
     font-size: 0.8rem;
   }
@@ -29,8 +31,6 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style: none;
-  color: $baseBlue;
-  font-family: 'Montserrat-Light';
 }
 
 h1 {
@@ -39,56 +39,61 @@ h1 {
   font-size: 3em;
   letter-spacing: 1px;
   line-height: 1.4em;
+  margin: 25px auto;
 }
 
 h2 {
   font-family: 'Montserrat-Light';
   text-transform: uppercase;
-  font-size: 2.6em;
+  font-size: 2em;
   letter-spacing: 1px;
   line-height: 1.4em;
+  margin: 25px auto;
 }
 
 h3 {
   font-size: 1.2em;
   letter-spacing: 1px;
   line-height: 1.4em;
+  text-transform: uppercase;
+  margin: 25px auto;
 }
 
 h4 {
-  font-size: 1.1em;
+  font-size: 0.9em;
   line-height: 1.4em;
   text-transform: uppercase;
-}
-
-h5 {
-  font-size: 1.0em;
-  line-height: 1.4em;
-  font-family: 'Montserrat-SemiBold';
-  text-transform: uppercase;
+  margin: 25px auto;
 }
 
 p {
-  line-height: 1.4em;
-  font-size: 1.1em;
+  font-size: 0.9em;
+  line-height: 1.3em;
 }
 
 label {
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 
 form {
   display: flex;
   flex-direction: column;
   width: 300px;
-}
-
-input {
-  height: 25px;
-  border-bottom: 2px solid #000;
-  background: none;
-  margin: 20px auto;
-  width: 300px;
+  .field-invalid {
+    border-color: red;
+  }
+  fieldset {
+    margin: 0px auto 20px;
+  }
+  input {
+    height: 25px;
+    border-bottom: 2px solid #000;
+    background: none;
+    width: 300px;
+    font-size: 0.9em;
+    margin: 10px auto;
+    border-bottom: 1px solid white;
+  }
 }
 
 button, input.button {
@@ -105,9 +110,11 @@ button, input.button {
   border: none;
 }
 
-.validation-error {
+.text-error {
   color: #E14D2E;
   font-size: 0.85em;
+  line-height: 1.2em;
+  font-weight: bold;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */

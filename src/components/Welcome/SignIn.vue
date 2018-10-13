@@ -1,7 +1,7 @@
 <template>
     <div id="login-background" class="login min-height-100vh">
       <h4>Login</h4>
-      <Form id="login" @submit="submitLogin" :isActive="isActive" :form="form"></Form>
+      <Form identifier="login" @submit="submitLogin" :isActive="isActive" :form="form"></Form>
     </div>
 </template>
 
@@ -31,6 +31,11 @@ export default {
             name: 'password',
             isRequired: true,
             message: ''
+          },
+          submit: {
+            elementType: 'input',
+            inputType: 'submit',
+            value: 'Signin'
           }
         }
       }
@@ -40,10 +45,13 @@ export default {
     submitLogin (user) {
       this.resetFormFieldMessages()
       this.$http.post(this.$httpRoutes.POST_LOGIN, user).then(({ data: { data } }) => {
+        // TODO: SET NOTIFICATION
         this.$store.dispatch('setAuthToken', data.authToken)
+        this.$store.dispatch('setUser', data.user)
         this.resetFormFieldValues()
       }).catch(({response: {data}}) => {
         if (data.status >= 500) {
+          // TODO: SET NOTIFICATION
           this.form.fields.signin.message = 'An unexpected error has occurred.'
         } else if (data.data) {
           this.form.fields.signin.message = data.data
@@ -71,35 +79,31 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../assets/scss/variables';
 
 .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #f2f2f2;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    &#login-background{
-      background: $blueGradient;
-      min-height: 300px;
-      @media (max-width: 991px){
-        transform: translateX(0px);
-      }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  input, label {
+    color: white;
+  }
+  &#login-background {
+    background-image: $blueGradient;
+    min-height: 300px;
+    @media (max-width: 991px) {
+      transform: translateX(0px);
     }
-    h4 {
-      color:white;
-      width: 300px;
-      font-size: 0.9em;
-    }
-    #login__form {
-      margin-top: 25px;
-      #field-invalid {
-        border-color: red;
-      }
-    }
+  }
+  h4 {
+    color: white;
+    width: 300px;
+  }
 }
 </style>

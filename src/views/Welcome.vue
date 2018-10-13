@@ -23,7 +23,7 @@
           <WelcomeSignUp @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
           <WelcomeSignIn @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
           <WelcomeAbout @changeComponent="changeComponent" class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
-        </div>
+      </div>
     </main>
   </section>
 </template>
@@ -74,6 +74,13 @@ export default {
       activeComponent: {
         name: 'WelcomeIndex',
         path: '/'
+      }
+    }
+  },
+  watch: {
+    $route () {
+      if (this.$route.path !== this.activeComponent.path) {
+        this.setActiveComponent()
       }
     }
   },
