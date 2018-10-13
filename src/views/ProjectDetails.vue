@@ -3,10 +3,14 @@
     <Header></Header>
     <Navigation></Navigation>
     <main class="right-side">
-      <div class="row">
-        <img class="project_image"/>
+      <div class="row project_header">
+        <img class="project_image" src="../assets/img/project_header_image.jpg"/>
         <div class="project_status">
             <p>In Arbeit</p>
+        </div>
+        <div class="project_header_text">
+          <h5 class="project_info">10.10.2018</h5>
+          <h1 class="project_title">Der Titel des Projektes ist in einer Zeilen</h1>
         </div>
       </div>
       <div class="row">
@@ -47,18 +51,46 @@ export default {
   top: 10vh;
   left: 25vw;
   width: 70vw;
-  .project_image {
-    background-color: #f2f2f2;
+  .project_header {
     height:40vh;
     width:100%;
-    position: absolute;
-  }
-  .project_status {
+    background-image: linear-gradient(to top, #131936bf 0%, transparent 100%);
+    .project_image {
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: -1;
+    }
+    .project_status {
         position: absolute;
         top: 25px;
         background-color: $baseBlue;
         border-right: 2px solid $fbBlue;
         right: 0;
+        p {
+          font-size: 0.8em;
+          text-transform: uppercase;
+          font-family: 'Montserrat-Light';
+          margin-right: 20px;
+          margin-left: 10px;
+          text-align: right;
+          color: white;
+          padding: 5px;
+        }
+    }
+    .project_header_text {
+      position: absolute;
+      bottom: 0px;
+      padding-left:25px;
+      padding-bottom: 40px;
+      .project_title {
+      font-size: 1.5em;
+      color: white;
+      }
+      .project_info{
+        color: white;
+      }
+    }
   }
 }
 </style>
