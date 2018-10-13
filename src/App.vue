@@ -151,4 +151,8 @@ button, input.button {
   color: $baseRed;
   font-family:'Montserrat-Bold';
 }
+
+.box-shadowed {
+  box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
+}
 </style>
