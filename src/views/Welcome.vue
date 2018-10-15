@@ -1,35 +1,31 @@
 <template>
-  <section class="container-fluid">
-    <main class="row">
-      <div id="left-side" class="col-12 col-lg-6 offset-lg-1 min-height-100vh">
-        <WelcomeHeader></WelcomeHeader>
-        <div class="articles">
-          <transition-group :name="'translate-article-'+slider.activeSlideDirection" tag="div" mode="out-in">
-              <article class="row" v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
-                <div class="col-12">
-                  <h2 class="article_headline" v-html="article.title"></h2>
-                  <p class="article_paragraph" v-html="article.description"></p>
-                </div>
-              </article>
-          </transition-group>
-            <div id="articles_selector_bars">
-              <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-              <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
-            </div>
-        </div>
+  <main>
+    <div id="left-side" class="min-height-100vh">
+      <WelcomeHeader></WelcomeHeader>
+      <div class="articles">
+        <transition-group :name="'translate-article-'+slider.activeSlideDirection" tag="div" mode="out-in">
+            <article v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
+              <h2 class="article_headline" v-html="article.title"></h2>
+              <p class="article_paragraph" v-html="article.description"></p>
+            </article>
+        </transition-group>
+          <div id="articles_selector_bars">
+            <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
+            <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
+          </div>
       </div>
-        <div id="right-side" class="col-12 col-lg-5">
-          <WelcomeIndex class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
-          <WelcomeSignUp class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
-          <WelcomeSignIn class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
-          <WelcomeAbout class="right-side_component" :class="{'right-side_component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
-      </div>
-    </main>
-  </section>
+    </div>
+    <aside id="right-side">
+      <WelcomeIndex class="component" :class="{'component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
+      <WelcomeSignUp class="component" :class="{'component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
+      <WelcomeSignIn class="component" :class="{'component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
+      <WelcomeAbout class="component" :class="{'component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
+    </aside>
+  </main>
 </template>
 
 <script>
-import WelcomeHeader from '../components/Welcome/Navigation.vue'
+import WelcomeHeader from '../components/Welcome/Header.vue'
 import WelcomeIndex from '../components/Welcome/Index.vue'
 import WelcomeSignIn from '../components/Welcome/SignIn.vue'
 import WelcomeSignUp from '../components/Welcome/SignUp.vue'
@@ -41,7 +37,7 @@ export default {
       slider: {
         articles: [
           {
-            title: 'Projekte zusammen<br><span class="red-colored">meistern</span>',
+            title: 'Projekte zusammen <span class="red-colored">meistern</span>',
             description: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'
           },
           {
@@ -92,15 +88,15 @@ export default {
       }
     },
     startSlider () {
-      setInterval(() => {
-        if (!document.hidden) {
-          const nextSlide =
-            this.slider.activeIndex + 1 >= this.slider.articles.length
-              ? 0
-              : this.slider.activeIndex + 1
-          this.changeSlide(nextSlide)
-        }
-      }, 4000)
+      // setInterval(() => {
+      //   if (!document.hidden) {
+      //     const nextSlide =
+      //       this.slider.activeIndex + 1 >= this.slider.articles.length
+      //         ? 0
+      //         : this.slider.activeIndex + 1
+      //     this.changeSlide(nextSlide)
+      //   }
+      // }, 4000)
     },
     changeSlide (articleIndex) {
       this.slider.activeSlideDirection =
@@ -120,34 +116,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section {
+main {
+  display: grid;
+  grid-template-areas:  "left right";
+  grid-template-columns: minmax(400px, 60%) minmax(400px, 40%);
   height: 100%;
   min-height: 100vh;
   #left-side {
-    padding: 20px;
-    height: 100vh;
+    display: grid;
+    grid-template-areas:  "header"  "articles";
+    grid-template-rows: 80px minmax(350px, 1fr);
+    height: inherit;
+    position: relative;
+    grid-area: left;
+    padding: 20px 25px;
     min-height: 600px;
-    display: flex;
     flex-direction: column;
-    @media (max-width: 991px) {
-      height: calc(100vh - 300px);
-      align-items: center;
-      justify-content: center;
-    }
     .articles {
-      top: 0px;
+      align-self: center;
+      height: 200px;
+      grid-area: articles;
       position: relative;
-      height: 350px;
-      display: flex;
-      margin-top: auto;
-      top: -20%;
-      @media (max-width: 991px) {
-        top: 0px;
-        margin-top: 25px;
-      }
       article {
-        top: 0px;
         position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 0px;
+        height: 100%;
         align-content: center;
         transform: translateX(-10)px;
         padding-bottom: 20px;
@@ -155,14 +150,14 @@ section {
           margin-top: 50px;
         }
         .article_paragraph {
-          margin: 50px 0px;
+          margin-top: auto;
         }
       }
 
       #articles_selector_bars {
         height: 4px;
-        width: auto;
-        margin-top: auto;
+        position: absolute;
+        bottom: 10px;
         .articles_selector_bar {
           background: #f2f2f2;
           height: 4px;
@@ -182,21 +177,13 @@ section {
   #right-side {
     padding: 0px;
     position: relative;
-    @media (max-width: 991px) {
-      min-height: 400px;
-      height: 50vh;
-      padding-top: 25px;
-      overflow-y: hidden;
-    }
-    .right-side_component {
+    grid-area: right;
+    .component {
       position: absolute;
       transform: translateX(100%);
       z-index: 0;
       transition: transform .5s cubic-bezier(.55,.62,.36,.34);
-      @media (max-width: 991px) {
-        transform: translateY(100%);
-      }
-      &.right-side_component--show {
+      &.component--show {
         transform: translate(0%);
         z-index: 1;
       }

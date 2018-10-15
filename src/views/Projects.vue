@@ -1,18 +1,14 @@
 <template>
   <section class="container-fluid">
     <Header></Header>
-    <Navigation></Navigation>
-    <main class="right-side">
-      <h1>Projects</h1>
-      <div class="row">
-        <ProjectThumbnail></ProjectThumbnail>
-        <ProjectThumbnail></ProjectThumbnail>
-        <ProjectThumbnail></ProjectThumbnail>
-        <ProjectThumbnail></ProjectThumbnail>
-        <ProjectThumbnail></ProjectThumbnail>
-      </div>
-    </main>
-  </section>
+      <Navigation></Navigation>
+      <main class="col-lg-10 offset-lg-2">
+        <h1>Projects</h1>
+        <div class="row">
+          <ProjectThumbnail></ProjectThumbnail>
+        </div>
+      </main>
+    </section>
 </template>
 
 <script>
@@ -25,10 +21,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.right-side {
-  position: absolute;
-  top: 10vh;
-  left: 25vw;
-  width: 70vw;
+main {
+  position: relative;
+  top: 80px;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
-    <div id="register-background" class="register min-height-100vh">
-      <h4>Register</h4>
-      <Form identifier="register" @submit="submitRegister" :isActive="isActive" :form="form"></Form>
-    </div>
+    <section class="register-background">
+      <div class="register">
+        <h4>Register</h4>
+        <Form identifier="register" @submit="submitRegister" :isActive="isActive" :form="form"></Form>
+      </div>
+    </section>
 </template>
 
 <script>
@@ -62,11 +64,14 @@ export default {
           // this.form.fields.signup.message = data
           this.resetFormFieldValues()
           this.$router.push('/')
-        }).catch(({ response: { data } }) => {
-          if (data.status >= 500) {
-            // TODO: SET NOTIFICATION
+        }).catch((res) => {
+          const response = res.response
+          if (!response || !response.data || response.data.status >= 500) {
             this.form.fields.signup.message = 'An unexpected error has occurred.'
-          } else if (data.data) {
+            return
+          }
+          const data = response.data
+          if (data.data) {
             this.form.fields.signup.message = data.data
           } else if (data.errors) {
             Object.keys(data.errors).forEach(entry => {
@@ -94,28 +99,24 @@ export default {
 <style lang="scss">
 @import '../../assets/scss/variables';
 
-.register {
-  display: flex;
+.register-background {
+  background-image: $blueGradient;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background-color: #f2f2f2;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  input, label {
-    color: white;
+  display: flex;
+  @media (max-width: 991px) {
+    transform: translateX(0px);
   }
-  &#register-background {
-    background-image: $blueGradient;
-    min-height: 300px;
-    @media (max-width: 991px) {
-      transform: translateX(0px);
-    }
-  }
-  h4 {
+}
+.register {
+  width: 320px;
+  h4, input, label, fieldset {
     color: white;
-    width: 300px;
   }
 }
 </style>

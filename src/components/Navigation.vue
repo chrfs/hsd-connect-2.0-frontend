@@ -1,5 +1,5 @@
 <template>
-  <section class="side-panel">
+  <section class="side-panel col-md-2 d-none d-lg-block">
     <ul class="side-panel_main-list">
       <router-link to="/" tag="li" exact>Projekte</router-link>
       <router-link :to="'/user/'+userId" tag="li" exact>Profil</router-link>
@@ -37,12 +37,10 @@ export default {
 .side-panel {
   position: fixed;
   left: 0px;
-  top: 10vh;
+  top: $headerHeight;
   overflow: hidden;
-  height: 90vh;
+  height: calc(100vh - #{$headerHeight});
   min-height: 500px;
-  width: 20vw;
-  min-width: 250px;
   background-image: $blueGradient;
   font-size: 0.9em;
   display: flex;

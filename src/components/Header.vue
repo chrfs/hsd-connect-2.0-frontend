@@ -1,63 +1,63 @@
 <template>
-  <div class="row header">
-    <div class="col-3">
-      <router-link to="/"><img id="header_logo" src="../assets/img/logo.jpg" alt="HSD" /></router-link>
+  <header class="row">
+    <div class="col-6 col-sm-6  col-lg-2 flex-justify header-logo ">
+      <img class="img-responsive" src="../assets/img/logo.jpg" alt="Hochschule Düsseldorf CI" >
     </div>
-    <div class="col-3">
-      <form class="header_search">
-        <input placeholder="Suche">
-      </form>
+    <div class="col-6 col-sm-6 col-lg-10 flex-justify">
+      <div class="header-submenus flex-justify">
+        <div class="header-profile">
+          <img class="img-responsive" src="../assets/img/profile_image.jpg" alt="Profile-Igage">
+        </div>
+        <div class="header-profile">
+          <img class="img-responsive" src="../assets/img/profile_image.jpg" alt="Profile-Igage">
+        </div>
+      </div>
     </div>
-    <div class="col-6">
-      <img id="header_profile-image" src="../assets/img/profile_image.jpg" alt="Profilfoto"/>
-    </div>
-  </div>
+  </header>
 </template>
 
 <script>
-export default {}
+import ProfilCard from './ProfilCard'
+export default {
+  components: { ProfilCard }
+}
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
-.header {
-  padding-bottom: 20px;
-  text-transform: uppercase;
-  height: 10vh;
-  width: 100vw;
+
+header {
+  min-height: $headerHeight;
   position: fixed;
-  z-index: 1;
-  background-color: white;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-  #header_logo {
-    position: absolute;
-    bottom:0;
-    left: 50px;
-    width: 8em;
-    max-width: 150px;
-    cursor: pointer
-  }
-  input {
-    position: absolute;
-    bottom: 0;
-    border-bottom: 1px solid $baseGrey;
-    margin: 0;
-    width: 200px;
-    &::placeholder{
-      color: $baseGrey;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  .header-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    min-height: $headerHeight;
+   img { 
+      max-width: 125px;
     }
   }
-  #header_profile-image {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin-right: 60px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    &:hover {
-      cursor: pointer;
+  .header-submenus {
+    display: flex;
+    align-items: flex-end;
+    margin-left: auto;
+    max-width: 300px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    .header-profile {
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
     }
   }
 }
+
 </style>

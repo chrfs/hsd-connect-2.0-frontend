@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-@import './assets/scss/bootstrap-grid';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import './assets/scss/variables';
 @import './assets/scss/fonts';
 
@@ -39,7 +39,7 @@ h1 {
   font-size: 3em;
   letter-spacing: 1px;
   line-height: 1.4em;
-  margin: 25px auto;
+  margin: 25px 0px;
 }
 
 h2 {
@@ -48,7 +48,7 @@ h2 {
   font-size: 2em;
   letter-spacing: 1px;
   line-height: 1.4em;
-  margin: 25px auto;
+  margin: 25px 0px;
 }
 
 h3 {
@@ -56,14 +56,14 @@ h3 {
   letter-spacing: 1px;
   line-height: 1.4em;
   text-transform: uppercase;
-  margin: 25px auto;
+  margin: 25px 0px;
 }
 
 h4 {
   font-size: 0.9em;
   line-height: 1.4em;
   text-transform: uppercase;
-  margin: 25px auto;
+  margin: 10px 0px;
 }
 
 p {
@@ -73,48 +73,27 @@ p {
 
 label {
   font-size: 0.8em;
+  display: block;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 300px;
   .field-invalid {
     border-color: red;
   }
   fieldset {
-    margin: 0px auto 20px;
+    margin: 10px 0px;
   }
   input {
     height: 25px;
     border-bottom: 2px solid #000;
     background: none;
-    width: 300px;
+    width: 320px;
     font-size: 0.9em;
-    margin: 10px auto;
+    margin: 0px auto 10px auto;
     border-bottom: 1px solid white;
   }
-}
-
-button, input.button {
-  background-color: $baseRed;
-  padding: 15px 25px;
-  color: white;
-  text-transform: uppercase;
-  font-size: 0.9em;
-  letter-spacing: 0.20em;
-  font-weight: bolder;
-  cursor: pointer;
-  margin-top: 25px;
-  height: auto;
-  border: none;
-}
-
-.text-error {
-  color: #E14D2E;
-  font-size: 0.85em;
-  line-height: 1.2em;
-  font-weight: bold;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -137,6 +116,54 @@ button, input.button {
 
 ::placeholder { /* Most modern browsers support this now. */
   color:    #000;
+}
+
+button, input.button {
+  background-color: $baseRed;
+  padding: 15px 25px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.20em;
+  font-weight: bolder;
+  cursor: pointer;
+  margin-top: 25px;
+  height: auto;
+  border: none;
+}
+
+.flex-justify {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-error {
+  color: #E14D2E;
+  font-size: 0.85em;
+  line-height: 1.2em;
+  font-weight: bold;
+}
+
+.fa-icon {
+  margin: 0px 10px;
+}
+
+.submenu-list {
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  li {
+    padding: 5px 0px;
+    border-bottom: 1px solid $baseGrey;
+  }
+}
+
+.submenu-list li:last-child {
+  border: none;
 }
 
 .min-height-100vh {

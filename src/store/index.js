@@ -21,12 +21,18 @@ export default new Vuex.Store({
   mutations: {
     [mutationTypes.SET_AUTH_TOKEN] (state, authToken) {
       state.authToken = authToken
+    },
+    [mutationTypes.SET_USER] (state, user) {
+      state.user = user
     }
   },
   actions: {
     setAuthToken ({ commit }, authToken) {
       commit(mutationTypes.SET_AUTH_TOKEN, authToken)
       this.dispatch('updateHTTPClientAuthToken')
+    },
+    setUser ({commit}, user) {
+      commit(mutationTypes.SET_USER, user)
     },
     updateHTTPClientAuthToken () {
       Vue.prototype.$http.defaults.headers.common.Authorization = this.getters.authToken

@@ -1,8 +1,10 @@
 <template>
-    <div id="login-background" class="login min-height-100vh">
+  <section class="login-background">
+    <div class="login">
       <h4>Login</h4>
       <Form identifier="login" @submit="submitLogin" :isActive="isActive" :form="form"></Form>
     </div>
+  </section>
 </template>
 
 <script>
@@ -49,12 +51,15 @@ export default {
         this.resetFormFieldValues()
         this.$router.go('/')
         this.$store.dispatch('setAuthToken', data.authToken)
-        // this.$store.dispatch('setUser', data.user)
-      }).catch(({response: {data}}) => {
-        if (data.status >= 500) {
-          // TODO: SET NOTIFICATION
+        this.$store.dispatch('setUser', data.user)
+      }).catch((res) => {
+        const response = res.response
+        if (!response || !response.data || response.data.status >= 500) {
           this.form.fields.signin.message = 'An unexpected error has occurred.'
-        } else if (data.data) {
+          return
+        }
+        const data = response.data
+        if (data.data) {
           this.form.fields.signin.message = data.data
         } else if (data.errors) {
           Object.keys(data.errors).forEach(entry => {
@@ -83,28 +88,24 @@ export default {
 <style lang="scss">
 @import '../../assets/scss/variables';
 
-.login {
-  display: flex;
+.login-background {
+  background-image: $blueGradient;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background-color: #f2f2f2;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  input, label {
-    color: white;
+  display: flex;
+  @media (max-width: 991px) {
+    transform: translateX(0px);
   }
-  &#login-background {
-    background-image: $blueGradient;
-    min-height: 300px;
-    @media (max-width: 991px) {
-      transform: translateX(0px);
-    }
-  }
-  h4 {
+}
+.login {
+  width: 320px;
+  h4, input, label, fieldset {
     color: white;
-    width: 300px;
   }
 }
 </style>

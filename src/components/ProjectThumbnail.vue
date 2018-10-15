@@ -1,5 +1,5 @@
 <template>
-    <div class="project-thumbnail col-md-12 col-lg-6 col-xl-4">
+    <div class="project-thumbnail col-md-6 col-lg-6 col-xl-4">
       <div class="project-thumbnail_box">
         <div class="project-thumbnail_box_top">
           <img class="project_image">

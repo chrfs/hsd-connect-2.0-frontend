@@ -25,8 +25,7 @@ export default {
     height: 100%;
     width: 100%;
     position: relative;
-    &#lets-connect__symbol-background{
-     // background-image: url('../../assets/img/welcome/symbol_connect.svg');
+    &#lets-connect__symbol-background {
       background-size: cover;
       position: relative;
       min-height: 300px;
@@ -39,11 +38,6 @@ export default {
     position: absolute;
     bottom: 20%;
     transform: translateX(-50%);
-    @media (max-width: 991px){
-        bottom: 100%;
-        left: 50%;
-        transform: translate(-50%, 50%);
-    }
   }
 }
 </style>
