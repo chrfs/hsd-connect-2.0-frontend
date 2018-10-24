@@ -38,7 +38,6 @@ export default {
   position: fixed;
   left: 0px;
   top: $headerHeight;
-  overflow: hidden;
   height: calc(100vh - #{$headerHeight});
   min-height: 500px;
   background-image: $blueGradient;

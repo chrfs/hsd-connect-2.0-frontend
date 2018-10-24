@@ -10,16 +10,17 @@
 @import './assets/scss/fonts';
 
 body {
-  min-width: 320px;
+  min-width: 375px;
   font-size: 1rem;
   max-width: 100vw;
   font-family: 'Montserrat-Light';
   color: $baseBlue;
+  min-height: 375px;
   @media (max-width: 1280px) {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   @media (max-width: 750px) {
-    font-size: 0.65rem;
+    font-size: 1rem;
   }
 }
 
@@ -166,14 +167,6 @@ button, input.button {
   border: none;
 }
 
-.min-height-100vh {
-  min-height: 100vh;
-}
-
-.height-100P {
-  height: 100%;
-}
-
 .red-colored {
   color: $baseRed;
   font-family:'Montserrat-Bold';
@@ -181,5 +174,30 @@ button, input.button {
 
 .box-shadowed {
   box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
+}
+
+.burger-icon-clickable {
+  height: 15px;
+  width: 25px;
+  cursor: pointer;
+  .burger-icon-bars {
+    width: inherit;
+    height: 3px;
+    background: #4e4b4b;
+    transform: translateY(200%);
+    &::after, &::before {
+      width: inherit;
+      height: 3px;
+      background: #4e4b4b;
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 200%;
+    }
+    &::after {
+      bottom: auto;
+      top: 200%;
+    }
+  }
 }
 </style>

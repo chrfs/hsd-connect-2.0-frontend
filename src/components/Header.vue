@@ -1,15 +1,15 @@
 <template>
   <header class="row">
     <div class="col-6 col-sm-6  col-lg-2 flex-justify header-logo ">
-      <img class="img-responsive" src="../assets/img/logo.jpg" alt="Hochschule Düsseldorf CI" >
+      <img src="../assets/img/logo.jpg" alt="Hochschule Düsseldorf CI" >
     </div>
     <div class="col-6 col-sm-6 col-lg-10 flex-justify">
       <div class="header-submenus flex-justify">
         <div class="header-profile">
-          <img class="img-responsive" src="../assets/img/profile_image.jpg" alt="Profile-Igage">
+          <img src="../assets/img/profile_image.jpg" alt="Profile-Igage">
         </div>
         <div class="header-profile">
-          <img class="img-responsive" src="../assets/img/profile_image.jpg" alt="Profile-Igage">
+          <img src="../assets/img/profile_image.jpg" alt="Profile-Igage">
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@ header {
     height: inherit;
     min-height: $headerHeight;
    img { 
-      max-width: 125px;
+      width: 125px;
     }
   }
   .header-submenus {

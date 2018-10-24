@@ -1,18 +1,20 @@
 <template>
   <main>
-    <div id="left-side" class="min-height-100vh">
+    <div id="left-side">
       <WelcomeHeader></WelcomeHeader>
-      <div class="articles">
-        <transition-group :name="'translate-article-'+slider.activeSlideDirection" tag="div" mode="out-in">
-            <article v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
-              <h2 class="article_headline" v-html="article.title"></h2>
-              <p class="article_paragraph" v-html="article.description"></p>
-            </article>
-        </transition-group>
-          <div id="articles_selector_bars">
-            <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-            <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
-          </div>
+      <div class="article-slider">
+        <div class="article">
+          <transition-group :name="'translate-article-'+slider.activeSlideDirection" mode="out-in">
+              <article v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
+                <h2 class="article_headline" v-html="article.title"></h2>
+                <p class="article_paragraph" v-html="article.description"></p>
+              </article>
+          </transition-group>
+            <div id="articles_selector_bars">
+              <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
+              <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
+            </div>
+        </div>
       </div>
     </div>
     <aside id="right-side">
@@ -38,26 +40,36 @@ export default {
         articles: [
           {
             title: 'Projekte zusammen <span class="red-colored">meistern</span>',
-            description: 'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'
+            description:  'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'+
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
           },
           {
             title: 'Gemeinsam an Aufgaben <span class="red-colored">wachsen</span>',
-            description: 'Herausfordernde Projektaufgaben gemeinsam im Team lösen!'
+            description: 'Herausfordernde Projektaufgaben gemeinsam im Team lösen!'+
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
           },
           {
             title: 'Erfahrungen <span class="red-colored">austauschen</span>',
-            description: 'Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! '
+            description: 'Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! '+
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
           },
           {
             title: 'Studierende besser <span class="red-colored">kennenlernen</span>',
-            description: 'Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!'
+            description: 'Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!'+
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
           },
           {
             title: 'Ziele <span class="red-colored">erreichen</span>',
-            description: 'Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!'
+            description: 'Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!'+
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
           }
         ],
-        activeIndex: 0,
+        activeIndex: 2,
         activeBarWidth: 50,
         activeSlideDirection: 'right'
       },
@@ -88,15 +100,15 @@ export default {
       }
     },
     startSlider () {
-      // setInterval(() => {
-      //   if (!document.hidden) {
-      //     const nextSlide =
-      //       this.slider.activeIndex + 1 >= this.slider.articles.length
-      //         ? 0
-      //         : this.slider.activeIndex + 1
-      //     this.changeSlide(nextSlide)
-      //   }
-      // }, 4000)
+      setInterval(() => {
+        if (!document.hidden) {
+          const nextSlide =
+            this.slider.activeIndex + 1 >= this.slider.articles.length
+              ? 0
+              : this.slider.activeIndex + 1
+          this.changeSlide(nextSlide)
+        }
+      }, 4000)
     },
     changeSlide (articleIndex) {
       this.slider.activeSlideDirection =
@@ -122,38 +134,43 @@ main {
   grid-template-columns: minmax(400px, 60%) minmax(400px, 40%);
   height: 100%;
   min-height: 100vh;
+  @media(max-width: 992px) {
+    grid-template-areas: "left" "right";
+    grid-template-rows: 1fr minmax(600px, 1fr);
+    grid-template-columns: 1fr;
+  }  
   #left-side {
     display: grid;
+    grid-area: left;
     grid-template-areas:  "header"  "articles";
     grid-template-rows: 80px minmax(350px, 1fr);
-    height: inherit;
     position: relative;
-    grid-area: left;
     padding: 20px 25px;
-    min-height: 600px;
     flex-direction: column;
-    .articles {
-      align-self: center;
-      height: 200px;
+    .article-slider {
       grid-area: articles;
+      align-self: center;
+      max-width: 800px;
+      height: 100%;
+      height: auto;
       position: relative;
       article {
-        position: absolute;
         display: flex;
         flex-direction: column;
-        top: 0px;
-        height: 100%;
         align-content: center;
-        transform: translateX(-10)px;
         padding-bottom: 20px;
-        .article_headline {
-          margin-top: 50px;
+        max-width: 100%;
+        height: 220px;
+        @media(max-width: 992px) {
+          height: 250px;
         }
-        .article_paragraph {
-          margin-top: auto;
+        @media(max-width: 500px) {
+          height: 300px;
+        }
+        .article_headline {
+          font-size: 1.3em;
         }
       }
-
       #articles_selector_bars {
         height: 4px;
         position: absolute;
@@ -178,14 +195,24 @@ main {
     padding: 0px;
     position: relative;
     grid-area: right;
+    @media(max-width: 992px) {
+      overflow: hidden;
+      padding-top: 25px;
+    } 
     .component {
       position: absolute;
       transform: translateX(100%);
       z-index: 0;
       transition: transform .5s cubic-bezier(.55,.62,.36,.34);
+      @media(max-width: 992px) {
+        transform: translateY(100%);
+      } 
       &.component--show {
         transform: translate(0%);
         z-index: 1;
+        @media(max-width: 992px) {
+        transform: translate(0%);
+      }
       }
     }
   }
@@ -196,6 +223,8 @@ main {
   }
   .translate-article-right-leave-active {
     transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    position: absolute;
+    top: 0px;
   }
   .translate-article-right-enter, .translate-article-right-leave-to
     /* .translate-article-right-leave-active below version 2.1.8 */ {
@@ -209,6 +238,8 @@ main {
   }
   .translate-article-left-leave-active {
     transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    position: absolute;
+    top: 0px;
   }
   .translate-article-left-enter, .translate-article-left-leave-to
     /* .translate-article-left-leave-active below version 2.1.8 */ {

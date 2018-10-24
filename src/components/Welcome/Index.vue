@@ -1,6 +1,6 @@
 <template>
-    <div id="lets-connect__symbol-background" class="lets-connect min-height-100vh">
-        <button id="lets-connect__button" @click="changeComponent">Let's connect</button>
+    <div id="lets-connect-symbol-background" class="lets-connect">
+        <button id="lets-connect-button" @click="changeComponent">Let's connect</button>
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     height: 100%;
     width: 100%;
     position: relative;
-    &#lets-connect__symbol-background {
+    &#lets-connect-symbol-background {
       background-size: cover;
       position: relative;
       min-height: 300px;
@@ -34,10 +34,16 @@ export default {
       }
     }
 
-  #lets-connect__button{
+  #lets-connect-button{
     position: absolute;
     bottom: 20%;
     transform: translateX(-50%);
+    @media(max-width: 992px) {
+      transform: translate(-50%, 75%);
+      z-index: 2;
+      bottom: 100%;
+      left: 50%;
+    }
   }
 }
 </style>
