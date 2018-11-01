@@ -1,23 +1,18 @@
 <template>
-    <div class="project-thumbnail col-md-6 col-lg-6 col-xl-4">
+    <div class="project-thumbnail ">
       <div class="project-thumbnail_box">
         <div class="project-thumbnail_box_top">
           <img class="project_image">
           <div class="project_status">
-            <p>In Arbeit</p>
+            <p>{{project.status}}</p>
           </div>
         </div>
         <div class="project-thumbnail_box_bottom">
           <p class="project_info">Name des Projektleiters | FB Medien</p>
-          <h5 class=project_title>Der Titel des Projektes ist über zwei Zeilen</h5>
-          <p class="project_description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-             sed diam nonumy eirmod tempor invidunt ut labore et dolore
-             magna aliquyam erat, sedsanctus est Lorem ipsum dolor sit amet.</p>
+          <h5 class=project_title>{{project.title}}</h5>
+          <p class="project_description">{{project.description}}</p>
           <div class="row project_metadata">
-            <p class="col-6">vor 30 Minuten</p>
-            <p class="col-2">20</p>
-            <p class="col-2">20</p>
-            <p class="col-2">20</p>
+            <p>{{project.created_at}}</p>
           </div>
         </div>
       </div>
@@ -25,7 +20,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: [ 'project' ]
+}
 </script>
 
 <style lang="scss" scoped>

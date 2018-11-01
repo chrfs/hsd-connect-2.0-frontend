@@ -13,7 +13,7 @@ router.beforeEach(function (to, from, next) {
   if (!to.meta && !to.meta.beforeEnter) {
     next()
   }
-  if (to.meta.beforeEnter.authenticated) to.meta.beforeEnter.authenticated(to, from, next)
+  if (to.meta.beforeEnter && to.meta.beforeEnter.authenticated) to.meta.beforeEnter.authenticated(to, from, next)
 })
 
 export default router

@@ -63,7 +63,7 @@ export default {
           // TODO: SET NOTIFICATION
           // this.form.fields.signup.message = data
           this.resetFormFieldValues()
-          this.$router.push('/')
+          this.$router.push('/welcome/signin')
         }).catch((res) => {
           const response = res.response
           if (!response || !response.data || response.data.status >= 500) {
