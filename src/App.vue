@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-@import './assets/scss/bootstrap-grid.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import './assets/scss/variables';
+@import './assets/scss/fonts';
 
 body {
-  min-width: 320px;
+  min-width: 375px;
   font-size: 1rem;
   max-width: 100vw;
-  overflow: hidden;
+  font-family: 'Montserrat-Light';
+  color: $baseBlue;
+  min-height: 375px;
   @media (max-width: 1280px) {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   @media (max-width: 750px) {
-    font-size: 0.65rem;
+    font-size: 1rem;
   }
 }
 
@@ -28,63 +32,69 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style: none;
-  color: #000;
-  font-family: Arial;
 }
 
 h1 {
+  font-family: 'Montserrat-Bold';
+  text-transform: uppercase;
   font-size: 3em;
   letter-spacing: 1px;
   line-height: 1.4em;
+  margin: 25px 0px;
 }
 
 h2 {
-  font-size: 2.6em;
+  font-family: 'Montserrat-Light';
+  text-transform: uppercase;
+  font-size: 2em;
   letter-spacing: 1px;
   line-height: 1.4em;
+  margin: 25px 0px;
 }
 
 h3 {
   font-size: 1.2em;
   letter-spacing: 1px;
   line-height: 1.4em;
+  text-transform: uppercase;
+  margin: 25px 0px;
+}
+
+h4 {
+  font-size: 0.9em;
+  line-height: 1.4em;
+  text-transform: uppercase;
+  margin: 10px 0px;
 }
 
 p {
-  line-height: 1.4em;
-  font-size: 1.1em;
+  font-size: 0.9em;
+  line-height: 1.3em;
+}
+
+label {
+  font-size: 0.8em;
+  display: block;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 300px;
-}
-
-input {
-  height: 25px;
-  border-bottom: 2px solid #000;
-  background: none;
-  margin: 20px auto;
-  width: 300px;
-}
-
-button, input.button {
-  background-color: #e40529;
-  padding: 15px 25px;
-  color: white;
-  font-size: 0.9em;
-  letter-spacing: 0.20em;
-  font-weight: bolder;
-  cursor: pointer;
-  margin-top: 25px;
-  height: auto;
-  border: none;
-}
-
-.validation-error {
-  color: #E14D2E;
-  font-size: 0.85em;
+  .field-invalid {
+    border-color: red;
+  }
+  fieldset {
+    margin: 10px 0px;
+  }
+  input {
+    height: 25px;
+    border-bottom: 2px solid #000;
+    background: none;
+    width: 320px;
+    font-size: 0.9em;
+    margin: 0px auto 10px auto;
+    border-bottom: 1px solid white;
+  }
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -109,15 +119,85 @@ button, input.button {
   color:    #000;
 }
 
-.min-height-100vh{
-  min-height: 100vh;
+button, input.button {
+  background-color: $baseRed;
+  padding: 15px 25px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.20em;
+  font-weight: bolder;
+  cursor: pointer;
+  margin-top: 25px;
+  height: auto;
+  border: none;
 }
 
-.height-100P {
-  height: 100%;
+.flex-justify {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-error {
+  color: #E14D2E;
+  font-size: 0.85em;
+  line-height: 1.2em;
+  font-weight: bold;
+}
+
+.fa-icon {
+  margin: 0px 10px;
+}
+
+.submenu-list {
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  li {
+    padding: 5px 0px;
+    border-bottom: 1px solid $baseGrey;
+  }
+}
+
+.submenu-list li:last-child {
+  border: none;
 }
 
 .red-colored {
-  color: #e40529;
+  color: $baseRed;
+  font-family:'Montserrat-Bold';
+}
+
+.box-shadowed {
+  box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
+}
+
+.burger-icon-clickable {
+  height: 15px;
+  width: 25px;
+  cursor: pointer;
+  .burger-icon-bars {
+    width: inherit;
+    height: 3px;
+    background: #4e4b4b;
+    transform: translateY(200%);
+    &::after, &::before {
+      width: inherit;
+      height: 3px;
+      background: #4e4b4b;
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 200%;
+    }
+    &::after {
+      bottom: auto;
+      top: 200%;
+    }
+  }
 }
 </style>

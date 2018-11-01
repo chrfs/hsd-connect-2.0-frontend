@@ -1,15 +1,13 @@
 <template>
-  <header class="row">
-    <div class="col-4">
-      <img id="header__logo" @click="changeComponent(WelcomeIntro)" src="../../assets/img/hsd_ci.png" alt="HSD" />
+  <header>
+    <div id="header-logo">
+      <img @click="changeComponent(WelcomeIndex)" src="../../assets/img/logo.jpg" alt="HSD" />
     </div>
-    <div class="col-8">
-      <ul id="header__menu">
-        <li @click="changeComponent(WelcomeLogin)"><a href="#" onClick="event.preventDefault()">Login</a></li>
-        <li @click="changeComponent(WelcomeRegister)"><a href="#" onClick="event.preventDefault()">Registrieren</a></li>
-        <li><router-link to="about-us" exact>Über HSDConnect</router-link></li>
-      </ul>
-    </div>
+    <ul id="header-menu" :class="{'isActive': responseMenuIsActive}">
+      <li @click="changeComponent(WelcomeSignIn)">Login</li>
+      <li @click="changeComponent(WelcomeSignUp)">Registrieren</li>
+      <li @click="changeComponent(WelcomeAbout)">Über HSDConnect</li>
+    </ul>
   </header>
 </template>
 
@@ -17,40 +15,80 @@
 export default {
   data: () => {
     return {
-      WelcomeIntro: 'WelcomeIntro',
-      WelcomeLogin: 'WelcomeLogin',
-      WelcomeRegister: 'WelcomeRegister'
+      WelcomeIndex: '/welcome',
+      WelcomeSignIn: '/welcome/signin',
+      WelcomeSignUp: '/welcome/signup',
+      WelcomeAbout: '/welcome/about',
+      responseMenuIsActive: false
     }
   },
   methods: {
-    changeComponent (nextComponent) {
-      this.$emit('changeComponent', nextComponent)
+    changeComponent (path) {
+      this.$router.push(path)
     }
   }
 }
 </script>
 
-<style lang="scss">
-header{
-  padding: 50px 20px;
-  max-height: 180px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  #header__logo {
-    width: 8em;
-    max-width: 150px;
-    cursor: pointer
+<style lang="scss" scoped>
+@import '../../assets/scss/variables';
+
+header {
+  grid-area: header;
+  text-transform: uppercase;
+  display: grid;
+  grid-template-areas:  "logo . menu";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-self: center;
+  @media(max-width: 992px) {
+    grid-template-areas: "logo menu";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: white;
+    z-index: 2;
+    width: 100vw;
+    padding: 0px 20px;
+    border-bottom: 2px solid $baseBlue;
+    box-shadow: 0px -4px 10px 3px $baseBlue;
   }
-  #header__menu {
-    display: flex;
-    justify-content: space-around;
+  #header-logo {
+    grid-area: logo;
+    align-self: center;
+    img {
+      width: 9em;
+      max-width: 200px;
+      cursor: pointer;
+    }
+  }
+
+  #header-menu {
+    grid-area: menu;
     font-size: 1em;
+    display: flex;
     height: 100%;
+    justify-content: flex-end;
     align-items: center;
-    max-width: 500px;
-    flex-direction: flex-end;
-    margin-left: auto;
+    cursor: pointer;
+    li {
+      color: $baseBlue;
+      padding: 0px 20px;
+    }
+    @media(max-width: 992px) {
+      li {
+        padding: 0px;
+        font-size: 15px;
+      }
+      grid-column: auto-fill;
+      justify-content: space-around;
+      display: flex;
+      flex-direction: column;
+      grid-area: menu;
+      align-items: flex-start;
+    } 
   }
 }
 </style>
