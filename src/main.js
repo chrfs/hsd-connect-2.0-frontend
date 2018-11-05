@@ -7,10 +7,10 @@ import http from './http'
 import * as httpRoutes from './http/routes'
 import env from './config/env'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserCircle, faCog, faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import { faUserCircle, faCog, faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUserCircle, faCog, faPowerOff)
+library.add(faUserCircle, faCog, faPowerOff, faTimes)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = env.TYPE === 'production'
