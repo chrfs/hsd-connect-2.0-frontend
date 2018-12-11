@@ -5,7 +5,6 @@
 </template>
 
 <style lang="scss">
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import './assets/scss/variables';
 @import './assets/scss/fonts';
 
@@ -80,21 +79,21 @@ label {
 form {
   display: flex;
   flex-direction: column;
-  .field-invalid {
-    border-color: red;
-  }
-  fieldset {
-    margin: 10px 0px;
-  }
-  input {
-    height: 25px;
-    border-bottom: 2px solid #000;
-    background: none;
-    width: 320px;
-    font-size: 0.9em;
-    margin: 0px auto 10px auto;
-    border-bottom: 1px solid white;
-  }
+}
+.field-invalid {
+  border-color: red;
+}
+fieldset {
+  margin: 10px 0px;
+}
+
+input {
+  height: 25px;
+  border-bottom: 2px solid #000;
+  background: none;
+  font-size: 0.9em;
+  margin: 0px auto 10px auto;
+  border-bottom: 1px solid white;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -133,13 +132,6 @@ button, input.button {
   border: none;
 }
 
-.flex-justify {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .text-error {
   color: #E14D2E;
   font-size: 0.85em;
@@ -149,22 +141,6 @@ button, input.button {
 
 .fa-icon {
   margin: 0px 10px;
-}
-
-.submenu-list {
-  width: 300px;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  li {
-    padding: 5px 0px;
-    border-bottom: 1px solid $baseGrey;
-  }
-}
-
-.submenu-list li:last-child {
-  border: none;
 }
 
 .red-colored {
@@ -198,6 +174,22 @@ button, input.button {
       bottom: auto;
       top: 200%;
     }
+  }
+}
+.container-split {
+  display: grid;
+  grid-template-areas: "navigation main-view";
+  grid-template-columns: 30vw 70vw;
+  grid-template-rows: 100vh;
+  .left-view {
+    grid-area: navigation;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 30vh;
+  }
+  .right-view {
+    grid-area: main-view;
   }
 }
 </style>

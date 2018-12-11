@@ -104,6 +104,7 @@ export default {
   width: 320px;
   h4, input, label, fieldset {
     color: white;
+    width: 320px;
   }
 }
 </style>

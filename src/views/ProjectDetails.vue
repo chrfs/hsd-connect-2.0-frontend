@@ -1,6 +1,5 @@
 <template>
   <section class="container-fluid">
-    <Header></Header>
     <Navigation></Navigation>
     <main class="right-side">
       <div class="project_header">
@@ -48,9 +47,8 @@
 
 <script>
 import Navigation from '../components/Navigation.vue'
-import Header from '../components/Header'
 export default {
-  components: { Navigation, Header }
+  components: { Navigation }
 }
 </script>
 

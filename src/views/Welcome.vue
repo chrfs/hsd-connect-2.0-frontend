@@ -40,33 +40,33 @@ export default {
         articles: [
           {
             title: 'Projekte zusammen <span class="red-colored">meistern</span>',
-            description:  'Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!'+
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            description: `Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
           },
           {
             title: 'Gemeinsam an Aufgaben <span class="red-colored">wachsen</span>',
-            description: 'Herausfordernde Projektaufgaben gemeinsam im Team lösen!'+
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            description: `Herausfordernde Projektaufgaben gemeinsam im Team lösen!
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
           },
           {
             title: 'Erfahrungen <span class="red-colored">austauschen</span>',
-            description: 'Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! '+
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            description: `Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! +
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.+
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
           },
           {
             title: 'Studierende besser <span class="red-colored">kennenlernen</span>',
-            description: 'Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!'+
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            description: `Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!+
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.+
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
           },
           {
             title: 'Ziele <span class="red-colored">erreichen</span>',
-            description: 'Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!'+
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!+
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.+
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
           }
         ],
         activeIndex: 2,
@@ -138,10 +138,11 @@ main {
     grid-template-areas: "left" "right";
     grid-template-rows: 1fr minmax(600px, 1fr);
     grid-template-columns: 1fr;
-  }  
+  }
   #left-side {
     display: grid;
     grid-area: left;
+    /* autoprefixer: off */
     grid-template-areas:  "header"  "articles";
     grid-template-rows: 80px minmax(350px, 1fr);
     position: relative;
@@ -198,7 +199,7 @@ main {
     @media(max-width: 992px) {
       overflow: hidden;
       padding-top: 25px;
-    } 
+    }
     .component {
       position: absolute;
       transform: translateX(100%);
@@ -206,7 +207,7 @@ main {
       transition: transform .5s cubic-bezier(.55,.62,.36,.34);
       @media(max-width: 992px) {
         transform: translateY(100%);
-      } 
+      }
       &.component--show {
         transform: translate(0%);
         z-index: 1;
@@ -226,8 +227,7 @@ main {
     position: absolute;
     top: 0px;
   }
-  .translate-article-right-enter, .translate-article-right-leave-to
-    /* .translate-article-right-leave-active below version 2.1.8 */ {
+  .translate-article-right-enter, .translate-article-right-leave-to {
     transform: translateX(-10px);
     opacity: 0;
   }
@@ -241,8 +241,7 @@ main {
     position: absolute;
     top: 0px;
   }
-  .translate-article-left-enter, .translate-article-left-leave-to
-    /* .translate-article-left-leave-active below version 2.1.8 */ {
+  .translate-article-left-enter, .translate-article-left-leave-to {
     transform: translateX(10px);
     opacity: 0;
   }

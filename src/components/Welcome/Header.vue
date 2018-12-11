@@ -2,7 +2,7 @@
   <header>
     <div class="responsive-container">
       <div id="header-logo">
-        <img @click="changeComponent(WelcomeIndex)" src="../../assets/img/logo.jpg" alt="HSD" />
+        <img @click="changeComponent(WelcomeIndex, true)" src="../../assets/img/logo.jpg" alt="HSD" />
       </div>
       <div id="header-burger-icon" @click="toogleReponsiveMenu">
         <div class="burger-icon-clickable">
@@ -10,12 +10,14 @@
         </div>
       </div>
     </div>
-    <ul id="header-menu" :class="{'menu-active': responseMenuIsActive}">
-      <li @click="changeComponent(WelcomeSignIn)">Login</li>
-      <li @click="changeComponent(WelcomeSignUp)">Registrieren</li>
-      <li @click="changeComponent(WelcomeAbout)">Über HSDConnect</li>
-      <li @click="toogleReponsiveMenu" class="close-menu"><font-awesome-icon icon="times" /></li>
-    </ul>
+    <transition name="translate-header">
+      <ul id="header-menu" v-show="showMenu">
+        <li @click="changeComponent(WelcomeSignIn)">Login</li>
+        <li @click="changeComponent(WelcomeSignUp)">Registrieren</li>
+        <li @click="changeComponent(WelcomeAbout)">Über HSDConnect</li>
+        <li @click="toogleReponsiveMenu" class="close-menu"><font-awesome-icon icon="times" /></li>
+      </ul>
+    </transition>
   </header>
 </template>
 
@@ -27,16 +29,33 @@ export default {
       WelcomeSignIn: '/welcome/signin',
       WelcomeSignUp: '/welcome/signup',
       WelcomeAbout: '/welcome/about',
-      responseMenuIsActive: false
+      responseMenuIsActive: true,
+      windowWidth: window.innerWidth
     }
   },
   methods: {
-    changeComponent (path) {
+    changeComponent (path, skipToogleMenu) {
+      if (!skipToogleMenu) {
+        this.toogleReponsiveMenu()
+      }
       this.$router.push(path)
     },
     toogleReponsiveMenu () {
       this.responseMenuIsActive = !this.responseMenuIsActive
     }
+  },
+  computed: {
+    isResponsive () {
+      return this.windowWidth < 992
+    },
+    showMenu () {
+      return this.isResponsive ? this.responseMenuIsActive : true
+    }
+  },
+  mounted () {
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth
+    })
   }
 }
 </script>
@@ -48,12 +67,12 @@ header {
   grid-area: header;
   text-transform: uppercase;
   display: grid;
+  /* autoprefixer: off */
   grid-template-areas:  "logo . menu";
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto auto;
   align-self: center;
   @media(max-width: 992px) {
-    grid-template-areas: none;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -95,7 +114,7 @@ header {
   }
   #header-menu {
     font-size: 1em;
-    display: flex; 
+    display: flex;
     height: auto;
     justify-content: flex-end;
     align-items: center;
@@ -129,22 +148,29 @@ header {
       justify-content: space-around;
       display: flex;
       flex-direction: column;
-      transition: opacity .3s cubic-bezier(.41,.57,.43,.52), transform .3s cubic-bezier(.41,.57,.43,.52), visibility .3s ease-in-out;
-      opacity: 0;
       position: absolute;
       top: 60px;
       left: 0px;
       right: 0px;
       background: white;
-      transform: translateY(-50%);
-      visibility: hidden;
       border-bottom: 1px solid $baseBlue;
-      &.menu-active {
-        opacity: 1;
-        transform: translateY(0px);
-        visibility: visible;
-      }
-    } 
+    }
   }
 }
+
+  .translate-header-enter-active {
+    transition: opacity .3s cubic-bezier(.41,.57,.43,.52), transform .3s cubic-bezier(.41,.57,.43,.52), visibility .3s ease-in-out;;
+    transform: translateX(0px);
+  }
+  .translate-header-leave-active {
+    transition: opacity .3s cubic-bezier(.41,.57,.43,.52), transform .3s cubic-bezier(.41,.57,.43,.52), visibility .3s ease-in-out;;
+    opacity: 1;
+    transform: translateY(0px);
+    visibility: visible;
+  }
+  .translate-header-enter, .translate-header-leave-to {
+    opacity: 0;
+    transform: translateY(-50%);
+    visibility: hidden;
+  }
 </style>
