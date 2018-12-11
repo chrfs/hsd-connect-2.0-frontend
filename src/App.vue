@@ -5,7 +5,10 @@
 </template>
 
 <style lang="scss">
+<<<<<<< HEAD
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+=======
+>>>>>>> develop
 @import './assets/scss/variables';
 @import './assets/scss/fonts';
 
@@ -65,6 +68,7 @@ h4 {
   line-height: 1.4em;
   text-transform: uppercase;
   margin: 10px 0px;
+<<<<<<< HEAD
 }
 
 p {
@@ -95,6 +99,38 @@ form {
     margin: 0px auto 10px auto;
     border-bottom: 1px solid white;
   }
+=======
+}
+
+p {
+  font-size: 0.9em;
+  line-height: 1.3em;
+}
+
+label {
+  font-size: 0.8em;
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+.field-invalid {
+  border-color: red;
+}
+fieldset {
+  margin: 10px 0px;
+}
+
+input {
+  height: 25px;
+  border-bottom: 2px solid #000;
+  background: none;
+  font-size: 0.9em;
+  margin: 0px auto 10px auto;
+  border-bottom: 1px solid white;
+>>>>>>> develop
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -133,6 +169,7 @@ button, input.button {
   border: none;
 }
 
+<<<<<<< HEAD
 .flex-justify {
   display: flex;
   flex-direction: column;
@@ -140,11 +177,14 @@ button, input.button {
   justify-content: center;
 }
 
+=======
+>>>>>>> develop
 .text-error {
   color: #E14D2E;
   font-size: 0.85em;
   line-height: 1.2em;
   font-weight: bold;
+<<<<<<< HEAD
 }
 
 .fa-icon {
@@ -165,6 +205,12 @@ button, input.button {
 
 .submenu-list li:last-child {
   border: none;
+=======
+}
+
+.fa-icon {
+  margin: 0px 10px;
+>>>>>>> develop
 }
 
 .red-colored {
@@ -199,5 +245,24 @@ button, input.button {
       top: 200%;
     }
   }
+<<<<<<< HEAD
+=======
+}
+.container-split {
+  display: grid;
+  grid-template-areas: "navigation main-view";
+  grid-template-columns: 30vw 70vw;
+  grid-template-rows: 100vh;
+  .left-view {
+    grid-area: navigation;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 30vh;
+  }
+  .right-view {
+    grid-area: main-view;
+  }
+>>>>>>> develop
 }
 </style>
