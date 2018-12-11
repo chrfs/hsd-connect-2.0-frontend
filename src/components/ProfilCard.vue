@@ -12,8 +12,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-<<<<<<< HEAD
-=======
 @import '../assets/scss/variables';
   .submenu-list {
     width: 300px;
@@ -30,5 +28,4 @@ export default {
   .submenu-list li:last-child {
     border: none;
   }
->>>>>>> develop
 </style>

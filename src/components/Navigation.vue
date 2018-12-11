@@ -1,15 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <section class="side-panel col-md-2 d-none d-lg-block">
-    <ul class="side-panel_main-list">
-      <router-link to="/" tag="li" exact>Projekte</router-link>
-      <router-link :to="'/user/'+userId" tag="li" exact>Profil</router-link>
-      <router-link to="/user/:id/messages" tag="li" exact>Nachrichten</router-link>
-      <router-link to="/user/:id/projects" tag="li" exact>Eigene Projekte</router-link>
-      <router-link to="/user/:id/bookmarks" tag="li" exact>Merkliste</router-link>
-    </ul>
-    <button>Projekt anlegen</button>
-=======
   <section class="side-panel left-view">
     <div class="side-panel_logo">
       <img class="side-panel_logo_img" src="../assets/img/logo.png" alt="HSD Logo">
@@ -23,7 +12,6 @@
     </ul>
     <button class="side-panel_new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</button>
 
->>>>>>> develop
     <ul class="side-panel_sub-list">
       <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
       <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
@@ -51,24 +39,13 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
 .side-panel {
-<<<<<<< HEAD
-  position: fixed;
-  left: 0px;
-  top: $headerHeight;
-  height: calc(100vh - #{$headerHeight});
-=======
   height: 100vh;
   overflow-y: auto;
->>>>>>> develop
   min-height: 500px;
   background-image: $blueGradient;
   font-size: 0.9em;
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  .side-panel_main-list, .side-panel_sub-list {
-    margin: 25px auto;
-=======
   .fa-icon {
     margin-left: 0px;
   }
@@ -84,7 +61,6 @@ export default {
   }
   .side-panel_main-list, .side-panel_sub-list {
     margin: 0 auto 25px;
->>>>>>> develop
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -104,11 +80,6 @@ export default {
     .active-link {
       border-left: 2px solid $baseRed;
       background-color: #3e4159;
-<<<<<<< HEAD
-      box-shadow: 0px -2px 5px rgba(19, 25, 29, 0.4),
-                  0px 2px 5px rgba(19, 25, 54, 0.4);
-=======
->>>>>>> develop
     }
   }
   .side-panel_sub-list{
@@ -121,14 +92,6 @@ export default {
       bottom: 0px;
     }
   }
-<<<<<<< HEAD
-  button {
-    width: 100%;
-    margin-bottom: 25vh;
-    margin-top: 0;
-    box-shadow: 0px -2px 32px rgba(19, 25, 54, 0.6),
-                0px 2px 32px rgba(19, 25, 54, 0.6);
-=======
   button.side-panel_new-project {
     width: 100%;
     margin-bottom: 25vh;
@@ -137,7 +100,6 @@ export default {
     padding-left: 50px;
     box-shadow: 0px -2px 20px rgba(125, 135, 185, 0.6),
                 0px 2px 20px rgba(19, 25, 54, 0.6);
->>>>>>> develop
   }
   .side-panel_footer {
     font-size: 0.6em;
