@@ -3,7 +3,7 @@
     <Navigation></Navigation>
     <main class="right-view">
       <h2>Projekt anlegen</h2>
-      <FormGenerator class="form" identifier="project-create" @submit="postNewProject" :fields="fields"></FormGenerator>
+      <FormGenerator class="form" identifier="project-create" @submit="postNewProject" :fields="fields" :isActive="isActive"></FormGenerator>
     </main>
   </section>
 </template>
@@ -16,7 +16,6 @@ export default {
   data: () => {
     return {
       fields: {
-        notification: {},
         title: {
           elementType: 'input',
           inputType: 'text',
