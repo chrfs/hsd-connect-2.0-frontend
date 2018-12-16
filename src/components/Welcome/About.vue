@@ -1,5 +1,5 @@
 <template>
-    <div id="about-background" class="about">
+    <div class="welcome-right-background">
       <h4>Was ist HSD Connect?</h4>
       <p>Wer kennt es nicht, es steht mal wieder die nächste Projektarbeit an. Kaum ist eine Aufgabe gestellt und das Team gefunden,
          fangen meist die Köpfe an zu rauchen und ratlose Blicke schweifen durch die Runde. Wie schön es doch wäre, hätte man plötzlich den
@@ -28,28 +28,19 @@ export default {
 
 <style lang="scss">
 @import '../../assets/scss/variables';
-.about {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #f2f2f2;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    h4, p {
-      width: 300px;
-      color: white;
-    }
-    button {
-      width: 300px;
-    }
-    &#about-background {
+    .welcome-right-background {
       background: $blueGradient;
+      flex-direction: column;
       min-height: 300px;
       @media (max-width: 991px){
         transform: translateX(0px);
       }
+      h4, p {
+        width: 300px;
+        color: white;
+      }
+      button {
+        width: 300px;
+      }
     }
-}
 </style>
