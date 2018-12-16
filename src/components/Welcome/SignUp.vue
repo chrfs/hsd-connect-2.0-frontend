@@ -39,9 +39,7 @@ export default {
     }
   },
   methods: {
-    submitRegister (e) {
-      e.preventDefault()
-      const user = this.getFieldValues()
+    submitRegister (user) {
       if (user.confirmPassword !== user.password) {
         this.fields.confirmPassword.message = 'Your passwords are not machting, please check your credentials.'
         return
