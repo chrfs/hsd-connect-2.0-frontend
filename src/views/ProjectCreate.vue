@@ -3,7 +3,7 @@
     <Navigation></Navigation>
     <main class="right-view">
       <h2>Projekt anlegen</h2>
-      <FormGenerator class="form" identifier="project-create" @submit="postNewProject" :fields="fields" :isActive="isActive"></FormGenerator>
+      <FormGenerator class="form" identifier="project-create" @submit="postNewProject" :fields="fields"></FormGenerator>
     </main>
   </section>
 </template>
@@ -82,8 +82,7 @@ export default {
       })
     }
   },
-  components: { Navigation, FormGenerator },
-  props: ['isActive']
+  components: { Navigation, FormGenerator }
 }
 
 </script>

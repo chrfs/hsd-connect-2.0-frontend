@@ -4,6 +4,23 @@
   </div>
 </template>
 
+<script>
+export default {
+  watch: {
+    authToken (authToken) {
+      if (!authToken) {
+        this.$router.push('/welcome/signin')
+      }
+    }
+  },
+  computed: {
+    authToken () {
+      return this.$store.getters['user/getAuthToken']
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 @import './assets/scss/variables';
 @import './assets/scss/fonts';
