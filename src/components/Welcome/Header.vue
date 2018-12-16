@@ -39,6 +39,9 @@ export default {
         this.toogleReponsiveMenu()
       }
       this.$router.push(path)
+      if(this.isResponsive) {
+        window.scrollTo(0,document.body.scrollHeight);
+      }
     },
     toogleReponsiveMenu () {
       this.responseMenuIsActive = !this.responseMenuIsActive
@@ -88,7 +91,7 @@ header {
       background: white;
       padding: 0px 20px;
       box-shadow: 0px -4px 10px 3px $baseBlue;
-      border-bottom: 2px solid $baseBlue;
+      // border-bottom: 2px solid $baseBlue;
     }
   }
   #header-logo {

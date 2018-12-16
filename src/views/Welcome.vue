@@ -202,7 +202,8 @@ main {
     min-width: 400px;
     @media(max-width: 992px) {
       overflow: hidden;
-      padding-top: 25px;
+      height: 100vh;
+      // padding-top: 25px;
     }
     .component {
       position: absolute;
