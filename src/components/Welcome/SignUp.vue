@@ -2,27 +2,7 @@
     <section class="welcome-right-background">
       <div class="welcome-right-form">
         <h4>Register</h4>
-       <form id="register-form" @submit="submitRegister">
-        <fieldset>
-          <p class="text-error" v-text="fields.notification.message"></p>
-        </fieldset>
-        <fieldset>
-          <label>E-Mail:</label>
-          <input type="email" :class="{'field-invalid': !!fields.email.message}" v-model="fields.email.value" autocomplete="on" required="true">
-          <p class="text-error" v-show="fields.email.message" v-text="fields.email.message"></p>
-        </fieldset>
-        <fieldset>
-          <label>Password:</label>
-          <input type="password" :class="{'field-invalid': !!fields.password.message}" v-model="fields.password.value" autocomplete="on" required="true">
-           <p class="text-error" v-show="fields.password.message" v-text="fields.password.message"></p>
-        </fieldset>
-        <fieldset>
-          <label>Password repeat:</label>
-          <input type="password" :class="{'field-invalid': !!fields.confirmPassword.message}" v-model="fields.confirmPassword.value" autocomplete="off" required="true">
-           <p class="text-error" v-show="fields.confirmPassword.message" v-text="fields.confirmPassword.message"></p>
-        </fieldset>
-        <input type="submit" class="button" value="Signup">
-      </form>
+       <Form identifier="register" @submit="submitRegister" :isActive="isActive" :fields="fields"></Form>
       </div>
     </section>
 </template>
@@ -32,20 +12,28 @@ export default {
   data: () => {
     return {
       fields: {
-        notification: {
-          message: ''
-        },
         email: {
-          message: '',
-          value: ''
+          elementType: 'input',
+          inputType: 'email',
+          label: 'E-Mail',
+          isRequired: true
         },
         password: {
-          message: '',
-          value: ''
+          elementType: 'input',
+          inputType: 'password',
+          label: 'Password',
+          isRequired: true
         },
         confirmPassword: {
-          message: '',
-          value: ''
+          elementType: 'input',
+          inputType: 'password',
+          label: 'Password bestätigen',
+          isRequired: true
+        },
+        submit: {
+          elementType: 'input',
+          inputType: 'submit',
+          value: 'Signup'
         }
       }
     }

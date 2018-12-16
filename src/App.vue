@@ -80,9 +80,11 @@ form {
   display: flex;
   flex-direction: column;
 }
+
 .field-invalid {
   border-color: red;
 }
+
 fieldset {
   margin: 10px 0px;
 }
@@ -190,7 +192,6 @@ button, input.button {
 }
 
 .form {
-  margin: 0 auto;
   width: 100%;
   max-width: 1400px;
   align-content: flex-start;
@@ -222,6 +223,7 @@ button, input.button {
     display: flex;
     flex-direction: column;
     padding: 25px 50px;
+    align-items: center;
   }
 }
 </style>
