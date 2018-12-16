@@ -2,12 +2,14 @@
     <section class="welcome-right-background">
       <div class="welcome-right-form">
         <h4>Register</h4>
-       <Form identifier="register" @submit="submitRegister" :isActive="isActive" :fields="fields"></Form>
+       <FormGenerator identifier="register" @submit="submitRegister" :isActive="isActive" :fields="fields"></FormGenerator>
       </div>
     </section>
 </template>
 
 <script>
+import FormGenerator from '../FormGenerator'
+
 export default {
   data: () => {
     return {
@@ -83,7 +85,9 @@ export default {
         return acc
       }, {})
     }
-  }
+  },
+  components: { FormGenerator },
+  props: ['isActive']
 }
 </script>
 
