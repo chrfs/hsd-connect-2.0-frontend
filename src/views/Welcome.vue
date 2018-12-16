@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div id="left-side">
+    <div id="welcome-left">
       <WelcomeHeader></WelcomeHeader>
       <div class="article-slider">
         <div class="article">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <aside id="right-side">
+    <aside id="welcome-right">
       <WelcomeIndex class="component" :class="{'component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
       <WelcomeSignUp class="component" :class="{'component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
       <WelcomeSignIn class="component" :class="{'component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
@@ -127,7 +127,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '../assets/scss/variables';
 main {
   display: grid;
   grid-template-areas:  "left right";
@@ -139,7 +140,7 @@ main {
     grid-template-rows: 1fr minmax(600px, 1fr);
     grid-template-columns: 1fr;
   }
-  #left-side {
+  #welcome-left {
     display: grid;
     grid-area: left;
     /* autoprefixer: off */
@@ -192,7 +193,7 @@ main {
     }
   }
 
-  #right-side {
+  #welcome-right {
     padding: 0px;
     position: relative;
     grid-area: right;
@@ -214,6 +215,27 @@ main {
         @media(max-width: 992px) {
         transform: translate(0%);
       }
+      }
+    }
+
+    .welcome-right-background {
+      background-image: $blueGradient;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      @media (max-width: 991px) {
+        transform: translateX(0px);
+      }
+    }
+    .welcome-right-form {
+      width: 320px;
+      h4, input, label, fieldset {
+        color: white;
+        width: 320px;
+        border-color: white
       }
     }
   }

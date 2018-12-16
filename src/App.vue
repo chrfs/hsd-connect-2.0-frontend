@@ -10,9 +10,8 @@
 
 body {
   min-width: 375px;
-  font-size: 1rem;
+  font-size: 1.0em;
   max-width: 100vw;
-  font-family: 'Montserrat-Light';
   color: $baseBlue;
   min-height: 375px;
   @media (max-width: 1280px) {
@@ -31,6 +30,7 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style: none;
+  font-family: 'Montserrat-Light';
 }
 
 h1 {
@@ -73,7 +73,7 @@ p {
 
 label {
   font-size: 0.8em;
-  display: block;
+  display: block
 }
 
 form {
@@ -87,13 +87,25 @@ fieldset {
   margin: 10px 0px;
 }
 
-input {
+input, textarea, select {
   height: 25px;
   border-bottom: 2px solid #000;
   background: none;
   font-size: 0.9em;
   margin: 0px auto 10px auto;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid $baseBlue;
+}
+
+input[type=checkbox] {
+  width: auto;
+  margin: 10px 0px;
+  height: auto;
+}
+
+textarea {
+  max-width: inherit;
+  height: 200px;
+  max-height: 300px;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -176,20 +188,40 @@ button, input.button {
     }
   }
 }
+
+.form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  align-content: flex-start;
+  font-family: 'Montserrat-Medium';
+  font-size: 1.0em;
+  * {
+    width: 100%
+  }
+  input.button{
+    font-size: 0.8em;
+  }
+
+}
+
 .container-split {
   display: grid;
   grid-template-areas: "navigation main-view";
-  grid-template-columns: 30vw 70vw;
+  grid-template-columns: 380px calc(100vw - 380px);
   grid-template-rows: 100vh;
   .left-view {
     grid-area: navigation;
     position: fixed;
     left: 0px;
     top: 0px;
-    width: 30vh;
+    width: 380px;
   }
   .right-view {
     grid-area: main-view;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px;
   }
 }
 </style>

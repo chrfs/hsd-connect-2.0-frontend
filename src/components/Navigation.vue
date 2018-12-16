@@ -10,7 +10,7 @@
       <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="file-alt"></font-awesome-icon>Eigene Projekte</router-link>
       <router-link :to="'/user/' + userId + '/bookmarks'" tag="li" exact><font-awesome-icon class="fa-icon" icon="bookmark"></font-awesome-icon>Merkliste</router-link>
     </ul>
-    <button class="side-panel_new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</button>
+    <router-link tag="button" to="/projects/create" class="side-panel_new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link>
 
     <ul class="side-panel_sub-list">
       <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
@@ -30,7 +30,7 @@
 export default {
   computed: {
     userId () {
-      return this.$store.getters.user.id
+      return this.$store.getters['user/getUser']._id
     }
   }
 }
@@ -40,9 +40,12 @@ export default {
 @import '../assets/scss/variables';
 .side-panel {
   height: 100vh;
-  overflow-y: auto;
-  min-height: 500px;
+  min-height: 700px;
+  min-width: 320px;
   background-image: $blueGradient;
+  font-family: 'Montserrat-Thin';
+  overflow-y: auto;
+  position: relative;
   font-size: 0.9em;
   display: flex;
   flex-direction: column;
@@ -60,7 +63,7 @@ export default {
     }
   }
   .side-panel_main-list, .side-panel_sub-list {
-    margin: 0 auto 25px;
+    margin: 25px auto 25px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -94,7 +97,7 @@ export default {
   }
   button.side-panel_new-project {
     width: 100%;
-    margin-bottom: 25vh;
+    margin-bottom: 200px;
     margin-top: 0;
     text-align: left;
     padding-left: 50px;

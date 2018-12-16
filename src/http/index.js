@@ -7,7 +7,7 @@ export default (() =>
     baseURL: `${env.API.URL}:${env.API.PORT}${env.API.PATH}`,
     headers: {
       common: {
-        Authorization: store.getters.authToken
+        Authorization: store.getters['user/getAuthToken']
       }
     }
   }))()

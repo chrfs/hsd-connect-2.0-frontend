@@ -11,7 +11,9 @@ import * as faIcons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Object.keys(faIcons).forEach(faIcon => {
-  if (faIcon.startsWith('fa') && faIcons[faIcon].iconName) library.add(faIcons[faIcon])
+  if (faIcon.startsWith('fa') && faIcons[faIcon].iconName) {
+    library.add(faIcons[faIcon])
+  }
 })
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

@@ -2,10 +2,11 @@ import store from '../store'
 import Welcome from '../views/Welcome'
 import Projects from '../views/Projects'
 import ProjectDetails from '../views/ProjectDetails'
+import ProjectCreate from '../views/ProjectCreate'
 
-const checkAuthenticated = (equalsBoolean, redirectTo) => {
+const ensureAuthenticated = (equalsBoolean, redirectTo) => {
   return (to, from, next) => {
-    if (!!store.getters.authToken === equalsBoolean) {
+    if (!!store.getters['user/getAuthToken'] === equalsBoolean) {
       next(redirectTo)
       return
     }
@@ -21,7 +22,7 @@ const routes = [
     alias: ['/welcome/signup', '/welcome/signin', '/welcome/about'],
     meta: {
       beforeEnter: {
-        authenticated: checkAuthenticated(true, '/')
+        ensureAuthenticated: ensureAuthenticated(true, '/')
       }
     }
   },
@@ -31,7 +32,17 @@ const routes = [
     component: Projects,
     meta: {
       beforeEnter: {
-        authenticated: checkAuthenticated(false, '/welcome')
+        ensureAuthenticated: ensureAuthenticated(false, '/welcome')
+      }
+    }
+  },
+  {
+    name: 'ProjectCreate',
+    path: '/projects/create',
+    component: ProjectCreate,
+    meta: {
+      beforeEnter: {
+        ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')
       }
     }
   },
@@ -41,7 +52,7 @@ const routes = [
     component: ProjectDetails,
     meta: {
       beforeEnter: {
-        authenticated: checkAuthenticated(false, '/welcome/signin')
+        ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')
       }
     }
   }

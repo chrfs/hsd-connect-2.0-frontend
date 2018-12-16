@@ -1,19 +1,20 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueKoaRouter from 'vue-router'
 import routes from './routes'
 
-Vue.use(VueRouter)
+Vue.use(VueKoaRouter)
 
-const router = new VueRouter({
+const router = new VueKoaRouter({
   routes,
   linkExactActiveClass: 'active-link'
 })
 
 router.beforeEach(function (to, from, next) {
-  if (!to.meta && !to.meta.beforeEnter) {
-    next()
+  if (to.meta.beforeEnter && to.meta.beforeEnter.ensureAuthenticated) {
+    to.meta.beforeEnter.ensureAuthenticated(to, from, next)
+    return
   }
-  if (to.meta.beforeEnter && to.meta.beforeEnter.authenticated) to.meta.beforeEnter.authenticated(to, from, next)
+  next()
 })
 
 export default router
