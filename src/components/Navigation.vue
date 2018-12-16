@@ -8,11 +8,13 @@
       <router-link :to="'/user/'+userId" tag="li" exact><font-awesome-icon class="fa-icon" icon="user"></font-awesome-icon>Profil</router-link>
       <router-link :to="'/user/' + userId + '/messages'" tag="li" exact><font-awesome-icon class="fa-icon" icon="envelope"></font-awesome-icon>Nachrichten</router-link>
       <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="file-alt"></font-awesome-icon>Eigene Projekte</router-link>
+      <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="users"></font-awesome-icon>Eigene Gruppen</router-link>
       <router-link :to="'/user/' + userId + '/bookmarks'" tag="li" exact><font-awesome-icon class="fa-icon" icon="bookmark"></font-awesome-icon>Merkliste</router-link>
     </ul>
     <router-link tag="button" to="/projects/create" class="side-panel_new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link>
 
     <ul class="side-panel_sub-list">
+      <li @click="resetAuthToken">Logout</li>
       <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
       <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
     </ul>
@@ -32,6 +34,11 @@ export default {
     userId () {
       return this.$store.getters['user/getUser']._id
     }
+  },
+  methods: {
+    resetAuthToken () {
+      this.$store.dispatch('user/setAuthToken', null)
+    }
   }
 }
 </script>
@@ -41,7 +48,8 @@ export default {
 .side-panel {
   height: 100vh;
   min-height: 700px;
-  min-width: 320px;
+  max-width: 300px;
+  min-width: 200px;
   background-image: $blueGradient;
   font-family: 'Montserrat-Thin';
   overflow-y: auto;
@@ -91,13 +99,14 @@ export default {
     margin-top: auto;
     padding-top: 20px;
     padding-bottom: 20px;
+    font-size: 0.7em;
     li {
       bottom: 0px;
     }
   }
   button.side-panel_new-project {
     width: 100%;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
     margin-top: 0;
     text-align: left;
     padding-left: 50px;

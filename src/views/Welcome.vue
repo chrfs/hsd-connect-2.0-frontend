@@ -135,6 +135,7 @@ main {
   grid-template-columns: minmax(400px, 60%) minmax(400px, 40%);
   height: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
   @media(max-width: 992px) {
     grid-template-areas: "left" "right";
     grid-template-rows: 1fr minmax(600px, 1fr);
@@ -197,6 +198,8 @@ main {
     padding: 0px;
     position: relative;
     grid-area: right;
+    width: 40vw;
+    min-width: 400px;
     @media(max-width: 992px) {
       overflow: hidden;
       padding-top: 25px;

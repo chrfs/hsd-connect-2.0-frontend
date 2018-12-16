@@ -24,7 +24,7 @@ const userModule = {
   actions: {
     setAuthToken ({ commit }, authToken) {
       commit(mutationTypes.SET_AUTH_TOKEN, authToken)
-      this.dispatch('updateHTTPClientAuthToken')
+      this.dispatch('user/updateHTTPClientAuthToken')
     },
     setUser ({ commit }, user) {
       commit(mutationTypes.SET_USER, user)

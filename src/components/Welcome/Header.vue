@@ -149,6 +149,7 @@ header {
       display: flex;
       flex-direction: column;
       position: absolute;
+      height: 100vh;
       top: 60px;
       left: 0px;
       right: 0px;
