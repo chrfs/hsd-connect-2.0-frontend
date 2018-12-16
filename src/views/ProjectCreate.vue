@@ -82,7 +82,8 @@ export default {
       })
     }
   },
-  components: { Navigation, FormGenerator }
+  components: { Navigation, FormGenerator },
+  props: ['isActive']
 }
 
 </script>
