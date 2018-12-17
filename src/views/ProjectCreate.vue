@@ -3,7 +3,7 @@
     <Navigation></Navigation>
     <main class="right-view">
       <h2>Projekt anlegen</h2>
-      <FormGenerator class="form" identifier="project-create" @submit="postNewProject" :fields="fields"></FormGenerator>
+      <FormGenerator class="form" @updateForm="updateForm" identifier="project-create" @submit="postNewProject" :fields="fields"></FormGenerator>
     </main>
   </section>
 </template>
@@ -30,45 +30,66 @@ export default {
         images: {
           elementType: 'input',
           inputType: 'file',
-          label: 'Bilder hochladen',
-          isRequired: false
+          label: 'Bilder hochladen (max. 4 Bilder)',
+          isRequired: false,
+          fileInput: {
+            maxQuantity: 4,
+            acceptedTypes: [
+              'image/jpeg',
+              'image/gif',
+              'image/webp',
+              'image/png'
+            ],
+            maxSize: 3e+6 // 3mb
+          }
         },
         searchingParticipants: {
           elementType: 'input',
           inputType: 'checkbox',
-          label: 'Suche Mitglieder'
+          label: 'Suche Mitglieder',
+          style: {
+            display: 'inline'
+          }
         },
         submit: {
           elementType: 'input',
           inputType: 'submit',
-          value: 'Projekt erstellen'
+          value: 'Absenden',
+          noFormData: true
         }
       }
     }
   },
   methods: {
-    postNewProject (user) {
+    postNewProject (project) {
       this.resetFormFieldMessages()
-      this.$http.post(this.$httpRoutes.POST_LOGIN, user).then(({ data: { data } }) => {
+      this.$http.post(this.$httpRoutes.POST_PROJECT, project).then(({ data: { data } }) => {
         // TODO: SET NOTIFICATION
-        this.resetFormFieldValues()
-        this.$router.go('/')
-        this.$store.dispatch('user/setAuthToken', data.authToken)
-        this.$store.dispatch('user/setUser', data.user)
+        this.updateForm()
       }).catch((res) => {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {
-          this.fields.newProject.message = 'An unexpected error has occurred.'
+          this.fields.notification.message = 'An unexpected error has occurred.'
+          this.$store.dispatch('user/setAuthToken', null)
           return
         }
         const data = response.data
         if (data.data) {
-          this.fields.newProject.message = data.data
+          // TODO: SET NOTIFICATION
+          this.$router.push('/')
         } else if (data.errors) {
           Object.keys(data.errors).forEach(entry => {
             this.fields[entry].message = data.errors[entry]
           })
+          this.updateForm()
         }
+      })
+    },
+    updateForm () {
+      const fields = JSON.parse(JSON.stringify(this.fields))
+      this.fields = {}
+      this.$nextTick(function () {
+        this.fields = JSON.parse(JSON.stringify(fields))
       })
     },
     resetFormFieldMessages () {

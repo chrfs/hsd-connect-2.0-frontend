@@ -20,6 +20,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = env.Type === 'production'
 Vue.prototype.$http = http
 Vue.prototype.$httpRoutes = httpRoutes
+Vue.prototype.$APIHost = env.API_HOST
 
 new Vue({
   router,

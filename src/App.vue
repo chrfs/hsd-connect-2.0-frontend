@@ -89,7 +89,10 @@ p {
 }
 
 label {
-  font-size: 0.8em;
+  font-size: .9em;
+  font-family: 'Montserrat-Medium';
+  text-transform: uppercase;
+  margin: 10px 0px;
   display: block
 }
 
@@ -100,6 +103,10 @@ form {
 
 .field-invalid {
   border-color: red;
+}
+
+.display-inline {
+  display: inline;
 }
 
 fieldset {
@@ -168,6 +175,7 @@ button, input.button {
   font-size: 0.85em;
   line-height: 1.2em;
   font-weight: bold;
+  padding-top: 10px
 }
 
 .fa-icon {

@@ -2,12 +2,11 @@ import * as mutationTypes from './mutationTypes'
 
 const userModule = {
   state: {
-    projects: [],
-    newProject: {}
+    projects: []
   },
   getters: {
     getProjects (state) {
-      return state.user
+      return state.projects
     }
   },
   mutations: {

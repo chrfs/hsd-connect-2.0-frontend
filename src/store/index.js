@@ -14,7 +14,8 @@ export default new Vuex.Store({
   strict: true,
   plugins: [
     vuexPersistentStorage({
-      key: 'hsdconnect'
+      key: 'hsdconnect',
+      paths: ['user']
     })
   ]
 })

@@ -4,7 +4,7 @@ import store from '../store'
 
 export default (() =>
   axios.create({
-    baseURL: `${env.API.URL}:${env.API.PORT}${env.API.PATH}`,
+    baseURL: env.API_HOST,
     headers: {
       common: {
         Authorization: store.getters['user/getAuthToken']

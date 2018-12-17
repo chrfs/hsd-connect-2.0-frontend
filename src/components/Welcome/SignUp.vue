@@ -35,7 +35,8 @@ export default {
         submit: {
           elementType: 'input',
           inputType: 'submit',
-          value: 'Signup'
+          value: 'Signup',
+          noFormData: true
         }
       }
     }

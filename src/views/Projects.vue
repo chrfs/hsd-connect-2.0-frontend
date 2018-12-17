@@ -15,31 +15,23 @@ import ProjectThumbnail from '../components/ProjectThumbnail'
 export default {
   data: () => {
     return {
-      pageId: 0,
-      projects: [
-        {
-          title: 'Build a new platform',
-          description: 'This is a new project and proof of concept',
-          searching_participants: true,
-          status: 'getting started',
-          participants: [],
-          liked_by: [],
-          created_at: Date.now(),
-          updated_at: Date.now()
-        }
-      ]
+      pageId: 0
+    }
+  },
+  computed: {
+    projects () {
+      return this.$store.getters['projects/getProjects']
     }
   },
   methods: {
     fetchProjects () {
       this.$http.get(this.$httpRoutes.GET_PROJECTS, { pageId: this.pageId }).then(({data: { data }}) => {
-        this.projects = this.projects.concat(data || [])
-        this.pageId = this.pageId++
+        this.$store.dispatch('projects/setProjects', data)
       })
     }
   },
   mounted () {
-    // this.fetchProjects()
+    this.fetchProjects()
   },
   components: { Navigation, ProjectThumbnail }
 }

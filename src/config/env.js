@@ -4,11 +4,7 @@ export default (env => {
     case 'development': {
       return {
         TYPE: 'development',
-        API: {
-          URL: 'http://localhost',
-          PATH: '/api/v1',
-          PORT: 3000
-        }
+        API_HOST: 'http://localhost:3000/api/v1'
       }
     }
     case 'production': {
