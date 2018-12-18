@@ -30,7 +30,7 @@ export default {
         images: {
           elementType: 'input',
           inputType: 'file',
-          label: 'Bilder hochladen (max. 4 Bilder)',
+          label: 'Bilder hochladen (max. 4 Bilder / 3 mb)',
           isRequired: false,
           fileInput: {
             maxQuantity: 4,

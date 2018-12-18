@@ -9,7 +9,7 @@
         <input :name="field.label+fieldIndex" v-show="false" :accept="field.fileInput.acceptedTypes" :id="fieldName+'-'+fieldIndex+'-fileupload'" :type="field.inputType" @change="startFileUpload($event, fieldName)" :class="{'field-invalid': !!field.message}" :multiple="field.fileQuantity > 1" :required="field.isRequired === true">
         <div class="fileupload-hint">
           <font-awesome-icon class="fileupload-background-icon fa-icon" icon="cloud-upload-alt"></font-awesome-icon>
-          <p>Klicke oder ziehe Deine Dateien per Drag&amp;Drop hier rein.<br>(Akzeptierte Dateiformate {{field.fileInput.acceptedTypes.join(', ')}})</p>
+          <p>Klicke oder ziehe Deine Dateien per Drag&amp;Drop hier rein.<br>(Akzeptierte Dateiformate {{field.fileInput.acceptedTypes.join(', ')}}</p>
         </div>
         <div class="fileupload-background">
         </div>
@@ -196,7 +196,7 @@ textarea {
   }
   .fileupload-background {
     transition: background .3s ease-in-out;
-    background: $baseGreyBackground;
+    background: $baseLightGrey;
     position: absolute;
     top: 0px;
     bottom: 0px;

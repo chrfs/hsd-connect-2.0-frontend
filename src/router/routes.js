@@ -3,6 +3,7 @@ import Welcome from '../views/Welcome'
 import Projects from '../views/Projects'
 import ProjectDetails from '../views/ProjectDetails'
 import ProjectCreate from '../views/ProjectCreate'
+import NotFound from '../views/NotFound'
 
 const ensureAuthenticated = (equalsBoolean, redirectTo) => {
   return (to, from, next) => {
@@ -55,6 +56,11 @@ const routes = [
         ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')
       }
     }
+  },
+  {
+    name: 'NotFound',
+    path: '/*',
+    component: NotFound
   }
 ]
 

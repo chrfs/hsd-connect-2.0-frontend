@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import moment from 'moment'
+import 'moment/locale/de'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -20,6 +22,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = env.Type === 'production'
 Vue.prototype.$http = http
 Vue.prototype.$httpRoutes = httpRoutes
+moment.locale('de')
+Vue.prototype.$moment = moment
 Vue.prototype.$APIHost = env.API_HOST
 
 new Vue({

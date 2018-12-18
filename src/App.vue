@@ -182,6 +182,10 @@ button, input.button {
   margin: 0px 10px;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .red-colored {
   color: $baseRed;
   font-family:'Montserrat-Bold';
@@ -246,6 +250,7 @@ button, input.button {
   .right-view {
     grid-area: main-view;
     display: flex;
+    position: relative;
     flex-direction: column;
     padding: 25px 50px;
     align-items: center;
