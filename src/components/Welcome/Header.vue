@@ -39,8 +39,8 @@ export default {
         this.toogleReponsiveMenu()
       }
       this.$router.push(path)
-      if(this.isResponsive) {
-        window.scrollTo(0,document.body.scrollHeight);
+      if (this.isResponsive) {
+        window.scrollTo(0, document.body.scrollHeight)
       }
     },
     toogleReponsiveMenu () {
@@ -118,7 +118,7 @@ header {
   #header-menu {
     font-size: 1em;
     display: flex;
-    height: auto;
+    height: 100vh;
     justify-content: flex-end;
     align-items: center;
     margin: auto 0;
@@ -139,16 +139,17 @@ header {
     @media(max-width: 992px) {
       li {
         padding: 12px 0;
-        border-bottom: 2px solid $baseGrey;
+        // border-bottom: 2px solid $baseGrey;
         width: 100%;
         text-align: center;
         font-size: 15px;
+        font-family: 'Montserrat-SemiBold';
         &.close-menu {
           display: inline-flex;
         }
       }
       grid-column: auto-fill;
-      justify-content: space-around;
+      justify-content:space-evenly;
       display: flex;
       flex-direction: column;
       position: absolute;

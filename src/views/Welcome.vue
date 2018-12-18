@@ -10,10 +10,11 @@
                 <p class="article_paragraph" v-html="article.description"></p>
               </article>
           </transition-group>
-            <div id="articles_selector_bars">
-              <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-              <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
-            </div>
+          <div id="articles_selector_bars">
+            <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
+            <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
+          </div>
+          <button id="lets-connect-button2" @click="changeComponent" >Let's connect</button>
         </div>
       </div>
     </div>
@@ -99,6 +100,10 @@ export default {
         path: this.$route.path
       }
     },
+    changeComponent () {
+      this.$router.push('/welcome/signin')
+      window.scrollTo(0, document.body.scrollHeight)
+    },
     startSlider () {
       setInterval(() => {
         if (!document.hidden) {
@@ -176,7 +181,7 @@ main {
       }
       #articles_selector_bars {
         height: 4px;
-        position: absolute;
+        // position: absolute;
         bottom: 10px;
         .articles_selector_bar {
           background: #f2f2f2;
@@ -191,6 +196,13 @@ main {
           transition: transform 1.2s cubic-bezier(0.12, 0.41, 0.27, 0.16);
         }
       }
+      #lets-connect-button2{
+        margin-top: 50px;
+        display: none;
+        @media(max-width: 992px) {
+          display: block;
+        }
+      }
     }
   }
 
@@ -203,7 +215,9 @@ main {
     @media(max-width: 992px) {
       overflow: hidden;
       height: 100vh;
-      // padding-top: 25px;
+      width: 100%;
+      max-width: 100%;
+      padding-top: 25px;
     }
     .component {
       position: absolute;

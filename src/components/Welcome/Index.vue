@@ -43,6 +43,7 @@ export default {
       z-index: 2;
       bottom: 100%;
       left: 50%;
+      display:none;
     }
   }
 }
