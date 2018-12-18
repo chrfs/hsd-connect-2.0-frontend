@@ -102,7 +102,10 @@ export default {
     },
     changeComponent () {
       this.$router.push('/welcome/signin')
-      window.scrollTo(0, document.body.scrollHeight)
+      window.scroll({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      })
     },
     startSlider () {
       setInterval(() => {
