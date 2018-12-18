@@ -40,7 +40,10 @@ export default {
       }
       this.$router.push(path)
       if (this.isResponsive) {
-        window.scrollTo(0, document.body.scrollHeight)
+        window.scrollTo(0, {
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        })
       }
     },
     toogleReponsiveMenu () {

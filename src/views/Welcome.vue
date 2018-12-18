@@ -253,7 +253,11 @@ main {
       h4, input, label, fieldset {
         color: white;
         width: 320px;
-        border-color: white
+        border-color: white;
+        font-family: "Montserrat-Thin";
+      }
+      input {
+        margin: 3px 0px 0px;
       }
     }
   }

@@ -29,7 +29,8 @@ export default {
         submit: {
           elementType: 'input',
           inputType: 'submit',
-          value: 'Signin'
+          value: 'Signin',
+          noFormData: true
         }
       }
     }

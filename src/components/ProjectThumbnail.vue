@@ -1,16 +1,16 @@
 <template>
-    <div class="project-thumbnail ">
+    <div class="project-thumbnail" @click="redirectToProject(project._id)">
       <div class="project-thumbnail_box">
         <div class="project-thumbnail_box_top">
-          <img class="project_image">
+          <img class="project_image" :src="imageURL(project.images[0].token)">
           <div class="project_status">
-            <p>{{project.status}}</p>
+            <p><font-awesome-icon class="fa-icon" icon="clock"></font-awesome-icon>{{$moment(project.createdAt).format('L')}}</p>
           </div>
         </div>
         <div class="project-thumbnail_box_bottom">
-          <p class="project_info">Name des Projektleiters | FB Medien</p>
+          <p class="project_info">{{project.user.fullname}} | FB Medien</p>
           <h5 class=project_title>{{project.title}}</h5>
-          <p class="project_description">{{project.description}}</p>
+          <p class="project_description">{{project.description | shortenString}}</p>
           <div class="row project_metadata">
             <p>{{project.created_at}}</p>
           </div>
@@ -21,6 +21,21 @@
 
 <script>
 export default {
+  computed: {
+  },
+  methods: {
+    imageURL (token) {
+      return this.$APIHost + '/images/' + token
+    },
+    redirectToProject (projectId) {
+      this.$router.push('/projects/' + projectId)
+    }
+  },
+  filters: {
+    shortenString (text) {
+      return text.substr(0, 140)
+    }
+  },
   props: [ 'project' ]
 }
 </script>
@@ -39,6 +54,7 @@ export default {
       position: relative;
       height: 50%;
       background-color: #f4f4f4;
+      overflow: hidden;
       img {
         position: absolute;
       }
@@ -66,7 +82,10 @@ export default {
       .project_info {
         font-size: 0.8em;
         color: $baseRed;
-    }
+      }
+      .project_image {
+        overflow: hidden;
+      }
       .project_description {
         font-size: 0.9em;
         margin-top: 10px;

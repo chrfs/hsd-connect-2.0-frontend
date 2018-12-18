@@ -2,8 +2,16 @@
   <section class="container-split">
     <Navigation></Navigation>
     <main class="right-view">
-      <div class="project" v-for="project in projects" :key="project._id">
-        <ProjectThumbnail :project="project"></ProjectThumbnail>
+      <h2>Projects</h2>
+      <div class="projects">
+        <div class="project" v-for="project in projects" :key="project._id">
+          <ProjectThumbnail :project="project"></ProjectThumbnail>
+        </div>
+        <Error v-if="!projects.length">
+          <template slot="message">
+            <p>We would not find any project.</p>
+          </template>
+        </Error>
       </div>
     </main>
   </section>
@@ -12,44 +20,39 @@
 <script>
 import Navigation from '../components/Navigation.vue'
 import ProjectThumbnail from '../components/ProjectThumbnail'
+import Error from '../components/Error'
 export default {
   data: () => {
     return {
-      pageId: 0,
-      projects: [
-        {
-          title: 'Build a new platform',
-          description: 'This is a new project and proof of concept',
-          searching_participants: true,
-          status: 'getting started',
-          participants: [],
-          liked_by: [],
-          created_at: Date.now(),
-          updated_at: Date.now()
-        }
-      ]
+      pageId: 0
+    }
+  },
+  computed: {
+    projects () {
+      return this.$store.getters['projects/getProjects']
     }
   },
   methods: {
     fetchProjects () {
       this.$http.get(this.$httpRoutes.GET_PROJECTS, { pageId: this.pageId }).then(({data: { data }}) => {
-        this.projects = this.projects.concat(data || [])
-        this.pageId = this.pageId++
+        this.$store.dispatch('projects/setProjects', data)
       })
     }
   },
   mounted () {
-    // this.fetchProjects()
+    this.fetchProjects()
   },
-  components: { Navigation, ProjectThumbnail }
+  components: { Navigation, ProjectThumbnail, Error }
 }
 </script>
 
 <style lang="scss" scoped>
 main {
-  .project{
+  .projects{
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 400px));
+    cursor: pointer;
   }
 }
 </style>

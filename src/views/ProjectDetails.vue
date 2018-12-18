@@ -1,7 +1,7 @@
 <template>
-  <section class="container-fluid">
+  <section class="container-split">
     <Navigation></Navigation>
-    <main class="right-side">
+    <main class="right-view">
       <div class="project_header">
         <img class="project_image" src="../assets/img/project_header_image.jpg"/>
         <div class="project_status">
@@ -117,7 +117,7 @@ export default {
         width:100%;
       }
       button{
-        background-color:$baseGreyBackground;
+        background-color:$baseLightGrey;
         width: 100%;
       }
       #profile_image {

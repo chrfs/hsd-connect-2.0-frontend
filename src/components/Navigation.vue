@@ -1,11 +1,11 @@
 <template>
   <section class="side-panel left-view">
     <div class="side-panel_logo">
-      <img class="side-panel_logo_img" src="../assets/img/logo.png" alt="HSD Logo">
+      <img class="side-panel_logo_img" @click="$router.push('/')" src="../assets/img/logo.png" alt="HSD Logo">
     </div>
     <ul class="side-panel_main-list">
       <router-link to="/" tag="li" exact><font-awesome-icon class="fa-icon" icon="th"></font-awesome-icon>Projekte</router-link>
-      <router-link :to="'/user/'+userId" tag="li" exact><font-awesome-icon class="fa-icon" icon="user"></font-awesome-icon>Profil</router-link>
+      <router-link :to="'/user/' + userId" tag="li" exact><font-awesome-icon class="fa-icon" icon="user"></font-awesome-icon>Profil</router-link>
       <router-link :to="'/user/' + userId + '/messages'" tag="li" exact><font-awesome-icon class="fa-icon" icon="envelope"></font-awesome-icon>Nachrichten</router-link>
       <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="file-alt"></font-awesome-icon>Eigene Projekte</router-link>
       <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="users"></font-awesome-icon>Eigene Gruppen</router-link>
@@ -48,7 +48,6 @@ export default {
 .side-panel {
   height: 100vh;
   min-height: 700px;
-  max-width: 300px;
   min-width: 200px;
   background-image: $blueGradient;
   font-family: 'Montserrat-Thin';
@@ -59,6 +58,7 @@ export default {
   flex-direction: column;
   .fa-icon {
     margin-left: 0px;
+    width: 20px;
   }
   .side-panel_logo {
     padding: 25px 0px 25px 48px;
@@ -68,6 +68,7 @@ export default {
     align-items: center;
     .side-panel_logo_img {
       width: 200px;
+      cursor: pointer;
     }
   }
   .side-panel_main-list, .side-panel_sub-list {
