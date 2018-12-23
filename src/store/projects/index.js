@@ -7,6 +7,9 @@ const userModule = {
   getters: {
     getProjects (state) {
       return state.projects
+    },
+    getProjectFields (state) {
+      return state.projectFields
     }
   },
   mutations: {

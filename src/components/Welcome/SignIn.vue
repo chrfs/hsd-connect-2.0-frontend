@@ -2,7 +2,7 @@
   <section class="welcome-right-background">
     <div class="welcome-right-form">
       <h4>Login</h4>
-      <FormGenerator identifier="login" @submit="submitLogin" :isActive="isActive" :fields="fields"></FormGenerator>
+      <FormGenerator identifier="login" @updateFields="updateFields" @submit="submitLogin" :isActive="isActive" :fields="fields"></FormGenerator>
     </div>
   </section>
 </template>
@@ -36,9 +36,16 @@ export default {
     }
   },
   methods: {
+    updateFields (fields) {
+      const currentFields = JSON.parse(JSON.stringify(fields || this.fields))
+      this.fields = {}
+      this.$nextTick(function () {
+        this.fields = JSON.parse(JSON.stringify(currentFields))
+      })
+    },
     submitLogin (user) {
       this.resetFormFieldMessages()
-      this.$http.post(this.$httpRoutes.POST_LOGIN, user).then(({ data: { data } }) => {
+      this.$http.post('/users/auth', user).then(({ data: { data } }) => {
         // TODO: SET NOTIFICATION
         this.resetFormFieldValues()
         this.$router.go('/')
@@ -48,6 +55,7 @@ export default {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {
           this.fields.notification.message = 'An unexpected error has occurred.'
+          this.$store.dispatch('user/setAuthToken', null)
           return
         }
         const data = response.data

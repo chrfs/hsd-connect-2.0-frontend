@@ -221,7 +221,6 @@ main {
       }
       }
     }
-
     .welcome-right-background {
       background-image: $blueGradient;
       position: absolute;

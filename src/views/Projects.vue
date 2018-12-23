@@ -3,15 +3,15 @@
     <Navigation></Navigation>
     <main class="right-view">
       <h2>Projects</h2>
+       <Error v-if="!projects.length">
+          <template slot="message">
+            <p>We would not find any project.</p>
+          </template>
+      </Error>
       <div class="projects">
         <div class="project" v-for="project in projects" :key="project._id">
           <ProjectThumbnail :project="project"></ProjectThumbnail>
         </div>
-        <Error v-if="!projects.length">
-          <template slot="message">
-            <p>We would not find any project.</p>
-          </template>
-        </Error>
       </div>
     </main>
   </section>
@@ -34,8 +34,21 @@ export default {
   },
   methods: {
     fetchProjects () {
-      this.$http.get(this.$httpRoutes.GET_PROJECTS, { pageId: this.pageId }).then(({data: { data }}) => {
+      this.$http.get('/projects', { pageId: this.pageId }).then(({data: { data }}) => {
         this.$store.dispatch('projects/setProjects', data)
+      }).catch((res) => {
+        const response = res.response
+        if (!response || !response.data || response.data.status >= 500) {
+          // this.fields.notification.message = 'An unexpected error has occurred.'
+          this.$store.dispatch('user/setAuthToken', null)
+          return
+        }
+        const data = response.data
+        if (data.errors) {
+          Object.keys(data.errors).forEach(entry => {
+            this.fields[entry].message = data.errors[entry]
+          })
+        }
       })
     }
   },

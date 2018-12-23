@@ -1,10 +1,10 @@
-<template>
-  <form :id="identifier+'-form'" @submit="submit">
+ <template>
+  <form :id="identifier+'-form'" @submit="submit" autocomplete="off">
     <fieldset v-for="(field, fieldName, fieldIndex) in fields" :key="fieldName+'-'+fieldIndex">
       <label v-if="field.label" :style="field.style">
         {{field.label}}:
       </label>
-      <input v-if="isInputElement(field) && !isFileInputType(field)" :name="field.label+fieldIndex" :type="field.inputType" :style="field.style" :class="{'field-invalid': !!field.message, 'button': isSubmitInputType(field)}" v-model="field.value" autocomplete="on" :required="field.isRequired === true">
+      <input v-if="isInputElement(field) && !isFileInputType(field)" :name="field.label+fieldIndex" :type="field.inputType" :style="field.style" :class="{'field-invalid': !!field.message, 'button': isSubmitInputType(field)}" v-model="field.value" autocomplete="off" :required="field.isRequired === true">
       <label v-if="isInputElement(field) && isFileInputType(field)" class="fileupload-container"  :class="{'is-dragging': dragging}" @drop="startFileUpload($event, fieldName)" @dragover.prevent @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" :for="fieldName+'-'+fieldIndex+'-fileupload'">
         <input :name="field.label+fieldIndex" v-show="false" :accept="field.fileInput.acceptedTypes" :id="fieldName+'-'+fieldIndex+'-fileupload'" :type="field.inputType" @change="startFileUpload($event, fieldName)" :class="{'field-invalid': !!field.message}" :multiple="field.fileQuantity > 1" :required="field.isRequired === true">
         <div class="fileupload-hint">
@@ -13,11 +13,11 @@
         </div>
         <div class="fileupload-background">
         </div>
-        <draggable class="fileupload" :list="field.value" @change="$forceUpdate()">
-          <div class="file" v-for="file in field.value" @click="deleteFileById($event, fieldName, file.id)" :key="file.id">
+        <draggable class="fileupload" :list="field.value" @change="$emit('updateFields')">
+          <div class="file" v-for="file in field.value" @click="deleteFile($event, fieldName, file.name)" :key="file.name">
           <font-awesome-icon class="file-delete fa-icon" icon="times-circle"></font-awesome-icon>
-            <img class="file-img" :src="file.data" :alt="file.name" draggable>
-            <p class="file-info">{{getShortFileName(file.name)}} <br>({{file.formatedSize}})</p>
+            <img class="file-img" :src="file.data || getFileURL(file.token)" :alt="file.name" draggable>
+            <p class="file-info">{{file.name}} <br>({{getFileSize(file.size)}})</p>
           </div>
         </draggable>
       </label>
@@ -36,6 +36,11 @@ export default {
       newFile: '',
       dragging: false,
       loadingFiles: true
+    }
+  },
+  watch: {
+    fieldValues: function () {
+      this.setFieldValues()
     }
   },
   methods: {
@@ -90,14 +95,25 @@ export default {
       const formData = this.getFormData()
       this.$emit('submit', formData)
     },
-    getShortFileName (filename = '', len = 10) {
-      const ext = filename.substring(filename.lastIndexOf('.') + 1, filename.length).toLowerCase()
-      let newFilename = filename.replace('.' + ext, '')
-      if (newFilename.length <= len) {
-        return filename
-      }
-      newFilename = newFilename.substr(0, len) + (filename.length > len ? '[...]' : '')
-      return newFilename + '.' + ext
+    getFileURL (imageToken) {
+      if (!imageToken) return 'https://via.placeholder.com/370x200'
+      return `${this.$APIHost}/projects/${this.fieldValues._id}/images/${imageToken}`
+    },
+    setFieldValues () {
+      Object.keys(this.fields).forEach(fieldName => {
+        if (this.fieldValues[fieldName]) {
+          const field = this.fields[fieldName]
+          field.value = this.fieldValues[fieldName]
+        }
+      })
+      this.$emit('updateFields')
+    },
+    getFileName (fileName = '', len = 6) {
+      const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase()
+      let newFileName = fileName.replace('.' + ext, '').replace(/[^a-z0-9]|\s+|\r?\n|\r/gmi, '')
+      newFileName = newFileName.length >= len ? newFileName : Math.random().toString(36).substring(len)
+      newFileName = newFileName.substr(0, len) + new Date().getTime() + '.' + ext
+      return newFileName.toLowerCase()
     },
     getFileSize (bytes, decimals) {
       if (bytes === 0) return '0 Bytes'
@@ -123,7 +139,7 @@ export default {
       const field = this.fields[fieldName]
       const file = files.shift()
       if (!file) {
-        this.$emit('updateForm')
+        this.$emit('updateFields')
         return
       }
       const reader = new FileReader()
@@ -134,11 +150,9 @@ export default {
         const sizeCheck = this.checkFilesizes(fieldName, file)
         if (quantityCheck && typeCheck && sizeCheck) {
           const newFile = {
-            id: (new Date().getTime()) + file.name.toLowerCase().replace(' ', '').replace(/[^a-zA-Z]/g, ''),
-            name: file.name,
-            type: file.type ? file.type : 'Unknown/Extension missing',
+            name: this.getFileName(file.name),
+            mime: file.type ? file.type : 'Unknown/Extension missing',
             data: e.target.result,
-            formatedSize: this.getFileSize(file.size),
             size: file.size
           }
           field.value.push(newFile)
@@ -152,10 +166,10 @@ export default {
       }
       reader.readAsDataURL(file)
     },
-    deleteFileById (event, fieldName, fileId) {
+    deleteFile (event, fieldName, fileName) {
       event.preventDefault()
-      this.fields[fieldName].value = this.fields[fieldName].value.filter(file => file.id !== fileId)
-      this.$emit('updateForm')
+      this.fields[fieldName].value = this.fields[fieldName].value.filter(file => file.name !== fileName)
+      this.$emit('updateFields')
     },
     getFormData () {
       const formData = Object.keys(this.fields).reduce((acc, fieldName) => {
@@ -170,7 +184,7 @@ export default {
       return formData
     }
   },
-  props: ['identifier', 'isInactive', 'fields'],
+  props: ['identifier', 'fields', 'fieldValues'],
   components: { draggable },
   beforeMount () {
     this.prepareFields()
@@ -258,7 +272,8 @@ textarea {
         right: 0px;
         color: black;
         cursor: pointer;
-        border: 1px solid $baseBlue;
+        border: 1px solid white;
+        background: white;
         border-radius: 50%;
       }
       .file-info {

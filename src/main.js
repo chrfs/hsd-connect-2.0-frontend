@@ -6,7 +6,6 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import http from './http'
-import * as httpRoutes from './http/routes'
 import env from './config/env'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import * as faIcons from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +20,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = env.Type === 'production'
 Vue.prototype.$http = http
-Vue.prototype.$httpRoutes = httpRoutes
 moment.locale('de')
 Vue.prototype.$moment = moment
 Vue.prototype.$APIHost = env.API_HOST

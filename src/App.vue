@@ -48,6 +48,7 @@ body {
   box-sizing: border-box;
   list-style: none;
   font-family: 'Montserrat-Light';
+  overflow-wrap: break-word;
 }
 
 h1 {
@@ -171,7 +172,7 @@ button, input.button {
 }
 
 .text-error {
-  color: #E14D2E;
+  color: #E14D2E !important;
   font-size: 0.85em;
   line-height: 1.2em;
   font-weight: bold;

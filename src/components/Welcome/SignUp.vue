@@ -2,7 +2,7 @@
     <section class="welcome-right-background">
       <div class="welcome-right-form">
         <h4>Register</h4>
-       <FormGenerator identifier="register" @submit="submitRegister" :isActive="isActive" :fields="fields"></FormGenerator>
+       <FormGenerator identifier="register" @updateFields="updateFields" @submit="submitRegister" :isActive="isActive" :fields="fields"></FormGenerator>
       </div>
     </section>
 </template>
@@ -42,6 +42,13 @@ export default {
     }
   },
   methods: {
+    updateFields (fields) {
+      const currentFields = JSON.parse(JSON.stringify(fields || this.fields))
+      this.fields = {}
+      this.$nextTick(function () {
+        this.fields = JSON.parse(JSON.stringify(currentFields))
+      })
+    },
     submitRegister (user) {
       if (user.confirmPassword !== user.password) {
         this.fields.confirmPassword.message = 'Your passwords are not machting, please check your credentials.'
@@ -49,7 +56,7 @@ export default {
       }
       this.resetFormFieldMessages()
       this.$http
-        .post(this.$httpRoutes['POST_REGISTER'], user).then(({ data: { data } }) => {
+        .post('/users', user).then(({ data: { data } }) => {
           // TODO: SET NOTIFICATION
           // this.fields.notification.message = data
           this.resetFormFieldValues()
@@ -67,6 +74,7 @@ export default {
             Object.keys(data.errors).forEach(entry => {
               this.fields[entry].message = data.errors[entry]
             })
+            this.updateFields()
           }
         })
     },

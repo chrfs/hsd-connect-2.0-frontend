@@ -2,7 +2,7 @@
     <div class="project-thumbnail" @click="redirectToProject(project._id)">
       <div class="project-thumbnail_box">
         <div class="project-thumbnail_box_top">
-          <img class="project_image" :src="imageURL(project.images[0].token)">
+          <img v-if="project.images.length" class="project_image" :src="imageURL(project.images[0].token)">
           <div class="project_status">
             <p><font-awesome-icon class="fa-icon" icon="clock"></font-awesome-icon>{{$moment(project.createdAt).format('L')}}</p>
           </div>
@@ -24,8 +24,9 @@ export default {
   computed: {
   },
   methods: {
-    imageURL (token) {
-      return this.$APIHost + '/images/' + token
+    imageURL (imageToken) {
+      if (!imageToken) return 'https://via.placeholder.com/370x200'
+      return `${this.$APIHost}/projects/${this.project._id}/images/${imageToken}`
     },
     redirectToProject (projectId) {
       this.$router.push('/projects/' + projectId)
@@ -57,6 +58,10 @@ export default {
       overflow: hidden;
       img {
         position: absolute;
+        min-width: 100%;
+        min-height: 100%;
+        transform: translateX(-50%);
+        left: 50%;
       }
       .project_status {
         position: absolute;
@@ -82,9 +87,6 @@ export default {
       .project_info {
         font-size: 0.8em;
         color: $baseRed;
-      }
-      .project_image {
-        overflow: hidden;
       }
       .project_description {
         font-size: 0.9em;

@@ -2,6 +2,7 @@ import store from '../store'
 import Welcome from '../views/Welcome'
 import Projects from '../views/Projects'
 import ProjectDetails from '../views/ProjectDetails'
+import ProjectEdit from '../views/ProjectEdit'
 import ProjectCreate from '../views/ProjectCreate'
 import NotFound from '../views/NotFound'
 
@@ -41,6 +42,16 @@ const routes = [
     name: 'ProjectCreate',
     path: '/projects/create',
     component: ProjectCreate,
+    meta: {
+      beforeEnter: {
+        ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')
+      }
+    }
+  },
+  {
+    name: 'ProjectEdit',
+    path: '/projects/:id/edit',
+    component: ProjectEdit,
     meta: {
       beforeEnter: {
         ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')

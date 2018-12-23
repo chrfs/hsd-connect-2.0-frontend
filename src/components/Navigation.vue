@@ -1,7 +1,7 @@
 <template>
   <section class="side-panel left-view">
     <div class="side-panel_logo">
-      <img class="side-panel_logo_img" @click="$router.push('/')" src="../assets/img/logo.png" alt="HSD Logo">
+     <a href="/"><img class="side-panel_logo_img"  src="../assets/img/logo.png" alt="HSD Logo"></a>
     </div>
     <ul class="side-panel_main-list">
       <router-link to="/" tag="li" exact><font-awesome-icon class="fa-icon" icon="th"></font-awesome-icon>Projekte</router-link>
