@@ -102,14 +102,6 @@ form {
   flex-direction: column;
 }
 
-.field-invalid {
-  border-color: red;
-}
-
-.display-inline {
-  display: inline;
-}
-
 fieldset {
   margin: 10px 0px;
 }
@@ -133,6 +125,7 @@ textarea {
   max-width: inherit;
   height: 200px;
   max-height: 300px;
+  resize: vertical;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -171,7 +164,7 @@ button, input.button {
   border: none;
 }
 
-.text-error {
+.text--error {
   color: #E14D2E !important;
   font-size: 0.85em;
   line-height: 1.2em;
@@ -187,13 +180,21 @@ button, input.button {
   text-align: center;
 }
 
+.margin-bottom {
+   margin-bottom: 25px;
+}
+
 .red-colored {
   color: $baseRed;
   font-family:'Montserrat-Bold';
 }
 
 .box-shadowed {
-  box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
+  box-shadow: 0px 0px 100px rgba(214, 211, 212, 0.8);
+}
+
+.border-round {
+  border-radius: 50%;
 }
 
 .burger-icon-clickable {
@@ -239,14 +240,14 @@ button, input.button {
 .container-split {
   display: grid;
   grid-template-areas: "navigation main-view";
-  grid-template-columns: 380px calc(100vw - 380px);
+  grid-template-columns: 350px calc(100vw - 380px);
   grid-template-rows: 100vh;
   .left-view {
     grid-area: navigation;
     position: fixed;
     left: 0px;
     top: 0px;
-    width: 380px;
+    width: 350px;
   }
   .right-view {
     grid-area: main-view;

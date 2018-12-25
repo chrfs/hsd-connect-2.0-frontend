@@ -1,23 +1,23 @@
 <template>
   <main>
-    <div id="welcome-left">
+    <div id="welcome__left">
       <WelcomeHeader></WelcomeHeader>
-      <div class="article-slider">
+      <div class="article__slider">
         <div class="article">
           <transition-group :name="'translate-article-'+slider.activeSlideDirection" mode="out-in">
               <article v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
-                <h2 class="article_headline" v-html="article.title"></h2>
+                <h2 class="article__headline" v-html="article.title"></h2>
                 <p class="article_paragraph" v-html="article.description"></p>
               </article>
           </transition-group>
-            <div id="articles_selector_bars">
-              <span class="articles_selector_bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-              <span class="articles_selector_bar article-active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
+            <div id="articles__selector-bars">
+              <span class="articles__selector-bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
+              <span class="articles__selector-bar article--active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
             </div>
         </div>
       </div>
     </div>
-    <aside id="welcome-right">
+    <aside id="welcome__right">
       <WelcomeIndex class="component" :class="{'component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
       <WelcomeSignUp class="component" :class="{'component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
       <WelcomeSignIn class="component" :class="{'component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
@@ -141,7 +141,7 @@ main {
     grid-template-rows: 1fr minmax(600px, 1fr);
     grid-template-columns: 1fr;
   }
-  #welcome-left {
+  #welcome__left {
     display: grid;
     grid-area: left;
     /* autoprefixer: off */
@@ -150,7 +150,7 @@ main {
     position: relative;
     padding: 20px 25px;
     flex-direction: column;
-    .article-slider {
+    .article__slider {
       grid-area: articles;
       align-self: center;
       max-width: 800px;
@@ -170,20 +170,20 @@ main {
         @media(max-width: 500px) {
           height: 300px;
         }
-        .article_headline {
+        .article__headline {
           font-size: 1.3em;
         }
       }
-      #articles_selector_bars {
+      #articles__selector-bars {
         height: 4px;
         position: absolute;
         bottom: 10px;
-        .articles_selector_bar {
+        .articles__selector-bar {
           background: #f2f2f2;
           height: 4px;
           float: left;
         }
-        .article-active {
+        .article--active {
           background: #e40529;
           position: absolute;
           left: 0px;
@@ -194,7 +194,7 @@ main {
     }
   }
 
-  #welcome-right {
+  #welcome__right {
     padding: 0px;
     position: relative;
     grid-area: right;
@@ -203,7 +203,6 @@ main {
     @media(max-width: 992px) {
       overflow: hidden;
       height: 100vh;
-      // padding-top: 25px;
     }
     .component {
       position: absolute;
@@ -221,19 +220,29 @@ main {
       }
       }
     }
-    .welcome-right-background {
+    .welcome__right__background {
       background-image: $blueGradient;
       position: absolute;
       width: 100%;
       height: 100%;
       justify-content: center;
+      background: $blueGradient;
+      flex-direction: column;
       align-items: center;
       display: flex;
       @media (max-width: 991px) {
         transform: translateX(0px);
       }
     }
-    .welcome-right-form {
+    h4, p {
+      width: 90%;
+      color: white;
+    }
+    button {
+      width: 90%;
+      display: block;
+    }
+    .welcome__right__content {
       width: 320px;
       h4, input, label, fieldset {
         color: white;

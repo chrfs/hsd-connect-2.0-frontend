@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="responsive-container">
+    <div class="container-responsive">
       <div id="header-logo">
         <img @click="changeComponent(WelcomeIndex, true)" src="../../assets/img/logo.jpg" alt="HSD" />
       </div>
@@ -84,7 +84,7 @@ header {
     left: 0px;
     z-index: 2;
     width: 100vw;
-    .responsive-container {
+    .container-responsive {
       grid-template-areas: "logo . burgericon";
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 60px;

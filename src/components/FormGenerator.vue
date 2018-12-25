@@ -4,25 +4,27 @@
       <label v-if="field.label" :style="field.style">
         {{field.label}}:
       </label>
-      <input v-if="isInputElement(field) && !isFileInputType(field)" :name="field.label+fieldIndex" :type="field.inputType" :style="field.style" :class="{'field-invalid': !!field.message, 'button': isSubmitInputType(field)}" v-model="field.value" autocomplete="off" :required="field.isRequired === true">
-      <label v-if="isInputElement(field) && isFileInputType(field)" class="fileupload-container"  :class="{'is-dragging': dragging}" @drop="startFileUpload($event, fieldName)" @dragover.prevent @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" :for="fieldName+'-'+fieldIndex+'-fileupload'">
-        <input :name="field.label+fieldIndex" v-show="false" :accept="field.fileInput.acceptedTypes" :id="fieldName+'-'+fieldIndex+'-fileupload'" :type="field.inputType" @change="startFileUpload($event, fieldName)" :class="{'field-invalid': !!field.message}" :multiple="field.fileQuantity > 1" :required="field.isRequired === true">
-        <div class="fileupload-hint">
-          <font-awesome-icon class="fileupload-background-icon fa-icon" icon="cloud-upload-alt"></font-awesome-icon>
+      <input v-if="isInputElement(field) && !isFileInputType(field)" :name="field.label+fieldIndex" :type="field.inputType" :style="field.style" :class="{'button': isSubmitInputType(field)}" v-model="field.value" autocomplete="off" :required="field.isRequired === true">
+      <label v-if="isInputElement(field) && isFileInputType(field)" class="fileupload__container"  :class="{'is-dragging': dragging}" @drop="startFileUpload($event, fieldName)" @dragover.prevent @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" :for="fieldName+'-'+fieldIndex+'-fileupload'">
+        <input :name="field.label+fieldIndex" v-show="false" :accept="field.fileInput.acceptedTypes" :id="fieldName+'-'+fieldIndex+'-fileupload'" :type="field.inputType" @change="startFileUpload($event, fieldName)" :multiple="field.fileQuantity > 1" :required="field.isRequired === true">
+        <div class="fileupload__hint">
+          <font-awesome-icon class="fileupload__background-icon fa-icon" icon="cloud-upload-alt"></font-awesome-icon>
           <p>Klicke oder ziehe Deine Dateien per Drag&amp;Drop hier rein.<br>(Akzeptierte Dateiformate {{field.fileInput.acceptedTypes.join(', ')}}</p>
         </div>
-        <div class="fileupload-background">
+        <div class="fileupload__background">
         </div>
-        <draggable class="fileupload" :list="field.value" @change="$emit('updateFields')">
+        <draggable class="fileupload" :list="field.value" @change="$emit('updateForm')">
           <div class="file" v-for="file in field.value" @click="deleteFile($event, fieldName, file.name)" :key="file.name">
-          <font-awesome-icon class="file-delete fa-icon" icon="times-circle"></font-awesome-icon>
-            <img class="file-img" :src="file.data || getFileURL(file.token)" :alt="file.name" draggable>
-            <p class="file-info">{{file.name}} <br>({{getFileSize(file.size)}})</p>
+          <font-awesome-icon class="file__delete border-round fa-icon" icon="times-circle"></font-awesome-icon>
+            <div class="file__img">
+              <img :src="file.data || getImageURL(file.token)" :alt="file.name" draggable>
+            </div>
+            <p class="file__info">{{file.name}} <br>({{getFileSize(file.size)}})</p>
           </div>
         </draggable>
       </label>
-      <textarea v-if="isTextareaElement(field)" :class="{'field-invalid': field.isValid}" v-model="field.value" :required="field.isRequired"></textarea>
-      <p class="text-error" v-text="field.message"></p>
+      <textarea v-if="isTextareaElement(field)" v-model="field.value" :required="field.isRequired"></textarea>
+      <p class="text--error" v-text="field.message"></p>
     </fieldset>
   </form>
 </template>
@@ -95,7 +97,7 @@ export default {
       const formData = this.getFormData()
       this.$emit('submit', formData)
     },
-    getFileURL (imageToken) {
+    getImageURL (imageToken) {
       if (!imageToken) return 'https://via.placeholder.com/370x200'
       return `${this.$APIHost}/projects/${this.fieldValues._id}/images/${imageToken}`
     },
@@ -106,9 +108,9 @@ export default {
           field.value = this.fieldValues[fieldName]
         }
       })
-      this.$emit('updateFields')
+      this.$emit('updateForm')
     },
-    getFileName (fileName = '', len = 6) {
+    getFileName (fileName = '', len = 5) {
       const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase()
       let newFileName = fileName.replace('.' + ext, '').replace(/[^a-z0-9]|\s+|\r?\n|\r/gmi, '')
       newFileName = newFileName.length >= len ? newFileName : Math.random().toString(36).substring(len)
@@ -139,7 +141,7 @@ export default {
       const field = this.fields[fieldName]
       const file = files.shift()
       if (!file) {
-        this.$emit('updateFields')
+        this.$emit('updateForm')
         return
       }
       const reader = new FileReader()
@@ -169,7 +171,7 @@ export default {
     deleteFile (event, fieldName, fileName) {
       event.preventDefault()
       this.fields[fieldName].value = this.fields[fieldName].value.filter(file => file.name !== fileName)
-      this.$emit('updateFields')
+      this.$emit('updateForm')
     },
     getFormData () {
       const formData = Object.keys(this.fields).reduce((acc, fieldName) => {
@@ -195,20 +197,16 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
 
-textarea {
-  resize: vertical;
-}
-
-.fileupload-container {
+.fileupload__container {
   position: relative;
   margin: 0px;
   &.is-dragging {
-    .fileupload-background {
+    .fileupload__background {
       background: $baseLighBlue;
       border-width: 2px;
     }
   }
-  .fileupload-background {
+  .fileupload__background {
     transition: background .3s ease-in-out;
     background: $baseLightGrey;
     position: absolute;
@@ -222,7 +220,7 @@ textarea {
     height: inherit;
     cursor: pointer;
   }
-  .fileupload-hint {
+  .fileupload__hint {
     text-transform: none;
     width: 50%;
     position: absolute;
@@ -232,7 +230,7 @@ textarea {
     opacity: 0.5;
     transform: translate(-50%, -50%);
     text-align: center;
-    .fileupload-background-icon {
+    .fileupload__background-icon {
       height: 75px;
       width: 75px;
       margin: auto;
@@ -262,11 +260,16 @@ textarea {
       &:active {
         cursor: grabbing;
       }
-      .file-img {
+      .file__img {
         width: inherit;
         height: inherit;
+        overflow: hidden;
+        img {
+          width: inherit;
+          min-height: inherit;
+        }
       }
-      .file-delete {
+      .file__delete {
         position: absolute;
         top: 5px;
         right: 0px;
@@ -274,9 +277,8 @@ textarea {
         cursor: pointer;
         border: 1px solid white;
         background: white;
-        border-radius: 50%;
       }
-      .file-info {
+      .file__info {
         font-family: "Montserrat-Medium"
       }
     }

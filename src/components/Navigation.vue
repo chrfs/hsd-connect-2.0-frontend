@@ -1,9 +1,9 @@
 <template>
   <section class="side-panel left-view">
-    <div class="side-panel_logo">
-     <a href="/"><img class="side-panel_logo_img"  src="../assets/img/logo.png" alt="HSD Logo"></a>
+    <div class="side-panel__logo">
+     <router-link to="/" tag="a"><img class="side-panel__logo__img"  src="../assets/img/logo.png" alt="HSD Logo"></router-link>
     </div>
-    <ul class="side-panel_main-list">
+    <ul class="side-panel__main-list">
       <router-link to="/" tag="li" exact><font-awesome-icon class="fa-icon" icon="th"></font-awesome-icon>Projekte</router-link>
       <router-link :to="'/user/' + userId" tag="li" exact><font-awesome-icon class="fa-icon" icon="user"></font-awesome-icon>Profil</router-link>
       <router-link :to="'/user/' + userId + '/messages'" tag="li" exact><font-awesome-icon class="fa-icon" icon="envelope"></font-awesome-icon>Nachrichten</router-link>
@@ -11,14 +11,14 @@
       <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="users"></font-awesome-icon>Eigene Gruppen</router-link>
       <router-link :to="'/user/' + userId + '/bookmarks'" tag="li" exact><font-awesome-icon class="fa-icon" icon="bookmark"></font-awesome-icon>Merkliste</router-link>
     </ul>
-    <router-link tag="button" to="/projects/create" class="side-panel_new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link>
+    <router-link tag="button" to="/projects/create" class="side-panel__new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link>
 
-    <ul class="side-panel_sub-list">
+    <ul class="side-panel__sub-list">
       <li @click="resetAuthToken">Logout</li>
       <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
       <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
     </ul>
-    <div class="side-panel_footer">
+    <div class="side-panel__footer">
       <p>Hochschule Düsseldorf &#9400; 2018<br>
         <router-link to="/imprint" exact>Impressum</router-link> |
         <router-link to="/privacy" exact>Datenschutz</router-link> |
@@ -48,7 +48,7 @@ export default {
 .side-panel {
   height: 100vh;
   min-height: 700px;
-  min-width: 200px;
+  width: 100%;
   background-image: $blueGradient;
   font-family: 'Montserrat-Thin';
   overflow-y: auto;
@@ -60,18 +60,18 @@ export default {
     margin-left: 0px;
     width: 20px;
   }
-  .side-panel_logo {
+  .side-panel__logo {
     padding: 25px 0px 25px 48px;
     max-height: 300px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    .side-panel_logo_img {
+    .side-panel__logo__img {
       width: 200px;
       cursor: pointer;
     }
   }
-  .side-panel_main-list, .side-panel_sub-list {
+  .side-panel__main-list, .side-panel__sub-list {
     margin: 25px auto 25px;
     display: flex;
     flex-direction: column;
@@ -94,7 +94,7 @@ export default {
       background-color: #3e4159;
     }
   }
-  .side-panel_sub-list{
+  .side-panel__sub-list{
     border-top: 1px solid #313e5a;
     border-bottom: 1px solid #313e5a;
     margin-top: auto;
@@ -105,7 +105,7 @@ export default {
       bottom: 0px;
     }
   }
-  button.side-panel_new-project {
+  button.side-panel__new-project {
     width: 100%;
     margin-bottom: 100px;
     margin-top: 0;
@@ -114,7 +114,7 @@ export default {
     box-shadow: 0px -2px 20px rgba(125, 135, 185, 0.6),
                 0px 2px 20px rgba(19, 25, 54, 0.6);
   }
-  .side-panel_footer {
+  .side-panel__footer {
     font-size: 0.6em;
     text-align: left;
     padding-bottom: 10px;

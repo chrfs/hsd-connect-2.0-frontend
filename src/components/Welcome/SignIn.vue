@@ -1,8 +1,8 @@
 <template>
-  <section class="welcome-right-background">
-    <div class="welcome-right-form">
+  <section class="welcome__right__background">
+    <div class="welcome__right__content">
       <h4>Login</h4>
-      <FormGenerator identifier="login" @updateFields="updateFields" @submit="submitLogin" :isActive="isActive" :fields="fields"></FormGenerator>
+      <FormGenerator identifier="login" @updateForm="updateForm" @submit="submitLogin" :isActive="isActive" :fields="fields"></FormGenerator>
     </div>
   </section>
 </template>
@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    updateFields (fields) {
+    updateForm (fields) {
       const currentFields = JSON.parse(JSON.stringify(fields || this.fields))
       this.fields = {}
       this.$nextTick(function () {

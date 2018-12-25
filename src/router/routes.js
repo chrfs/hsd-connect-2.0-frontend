@@ -2,8 +2,7 @@ import store from '../store'
 import Welcome from '../views/Welcome'
 import Projects from '../views/Projects'
 import ProjectDetails from '../views/ProjectDetails'
-import ProjectEdit from '../views/ProjectEdit'
-import ProjectCreate from '../views/ProjectCreate'
+import ProjectCreateEdit from '../views/ProjectCreateEdit'
 import NotFound from '../views/NotFound'
 
 const ensureAuthenticated = (equalsBoolean, redirectTo) => {
@@ -39,10 +38,11 @@ const routes = [
     }
   },
   {
-    name: 'ProjectCreate',
+    name: 'ProjectCreateEdit',
     path: '/projects/create',
-    component: ProjectCreate,
+    component: ProjectCreateEdit,
     meta: {
+      formStatus: 'create',
       beforeEnter: {
         ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')
       }
@@ -51,8 +51,9 @@ const routes = [
   {
     name: 'ProjectEdit',
     path: '/projects/:id/edit',
-    component: ProjectEdit,
+    component: ProjectCreateEdit,
     meta: {
+      formStatus: 'edit',
       beforeEnter: {
         ensureAuthenticated: ensureAuthenticated(false, '/welcome/signin')
       }

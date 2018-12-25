@@ -1,17 +1,17 @@
 <template>
-    <div class="project-thumbnail" @click="redirectToProject(project._id)">
-      <div class="project-thumbnail_box">
-        <div class="project-thumbnail_box_top">
-          <img v-if="project.images.length" class="project_image" :src="imageURL(project.images[0].token)">
-          <div class="project_status">
+    <div class="project" @click="redirectToProject(project._id)">
+      <div class="project__box">
+        <div class="project__box__top">
+          <img v-if="project.images.length" class="project__image" :src="imageURL(project.images[0].token)">
+          <div class="project__status">
             <p><font-awesome-icon class="fa-icon" icon="clock"></font-awesome-icon>{{$moment(project.createdAt).format('L')}}</p>
           </div>
         </div>
-        <div class="project-thumbnail_box_bottom">
-          <p class="project_info">{{project.user.fullname}} | FB Medien</p>
-          <h5 class=project_title>{{project.title}}</h5>
-          <p class="project_description">{{project.description | shortenString}}</p>
-          <div class="row project_metadata">
+        <div class="project__box__bottom">
+          <p class="project__info">{{project.user.fullname}} | FB Medien</p>
+          <h5 class=project__title>{{project.title}}</h5>
+          <p class="project__description">{{project.description | shortenString}}</p>
+          <div class="row project__metadata">
             <p>{{project.created_at}}</p>
           </div>
         </div>
@@ -21,14 +21,13 @@
 
 <script>
 export default {
-  computed: {
-  },
   methods: {
     imageURL (imageToken) {
       if (!imageToken) return 'https://via.placeholder.com/370x200'
       return `${this.$APIHost}/projects/${this.project._id}/images/${imageToken}`
     },
     redirectToProject (projectId) {
+      this.$store.dispatch('projects/setProject', this.project)
       this.$router.push('/projects/' + projectId)
     }
   },
@@ -43,15 +42,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
-.project-thumbnail {
+.project {
   padding: 15px;
   height: 430px;
-  .project-thumbnail_box {
+  .project__box {
     background-color: white;
     box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
     height: 100%;
     width: 100%;
-    .project-thumbnail_box_top {
+    .project__box__top {
       position: relative;
       height: 50%;
       background-color: #f4f4f4;
@@ -63,7 +62,7 @@ export default {
         transform: translateX(-50%);
         left: 50%;
       }
-      .project_status {
+      .project__status {
         position: absolute;
         top: 25px;
         background-color: $baseBlue;
@@ -81,19 +80,19 @@ export default {
         }
       }
     }
-    .project-thumbnail_box_bottom {
+    .project__box__bottom {
       height: 50%;
       padding: 15px;
-      .project_info {
+      .project__info {
         font-size: 0.8em;
         color: $baseRed;
       }
-      .project_description {
+      .project__description {
         font-size: 0.9em;
         margin-top: 10px;
         margin-bottom: 10px;
       }
-      .project_metadata {
+      .project__metadata {
         font-size: 0.8em;
         p {
           color: $baseGrey;

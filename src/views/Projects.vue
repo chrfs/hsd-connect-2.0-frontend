@@ -5,7 +5,7 @@
       <h2>Projects</h2>
        <Error v-if="!projects.length">
           <template slot="message">
-            <p>We would not find any project.</p>
+            <p>We could not find any project.</p>
           </template>
       </Error>
       <div class="projects">
@@ -44,11 +44,10 @@ export default {
           return
         }
         const data = response.data
-        if (data.errors) {
-          Object.keys(data.errors).forEach(entry => {
-            this.fields[entry].message = data.errors[entry]
-          })
-        }
+        if (!data.errors) return
+        Object.keys(data.errors).forEach(entry => {
+          this.fields[entry].message = data.errors[entry]
+        })
       })
     }
   },

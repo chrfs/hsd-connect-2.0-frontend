@@ -2,8 +2,8 @@
   <section class="container-split">
     <Navigation></Navigation>
     <main class="right-view">
-      <h2>Projekt anlegen</h2>
-      <FormGenerator class="form" @updateFields="updateFields" identifier="project-create" @submit="postNewProject" :fields="fields"></FormGenerator>
+      <h2>Projekt {{formStatus === 'create' ? 'anlegen' : 'bearbeiten'}}</h2>
+      <FormGenerator class="form" @updateForm="updateForm" :identifier="'project-' + formStatus" @submit="submit" :fieldValues="project" :fields="fields"></FormGenerator>
     </main>
   </section>
 </template>
@@ -15,6 +15,7 @@ import FormGenerator from '../components/FormGenerator'
 export default {
   data: () => {
     return {
+      project: {},
       fields: {
         title: {
           elementType: 'input',
@@ -60,8 +61,13 @@ export default {
       }
     }
   },
+  computed: {
+    formStatus () {
+      return this.$route.meta.formStatus
+    }
+  },
   methods: {
-    updateFields (fields) {
+    updateForm (fields) {
       const currentFields = JSON.parse(JSON.stringify(fields || this.fields))
       this.fields = {}
       this.$nextTick(function () {
@@ -72,7 +78,7 @@ export default {
       this.resetFormFieldMessages()
       this.$http.post('/projects', project).then(({ data: { data } }) => {
         // TODO: SET NOTIFICATION
-        this.updateFields()
+        this.$router.push('/projects/' + data._id)
       }).catch((res) => {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {
@@ -88,7 +94,48 @@ export default {
           Object.keys(data.errors).forEach(entry => {
             this.fields[entry].message = data.errors[entry]
           })
-          this.updateFields()
+          this.updateForm()
+        }
+      })
+    },
+    updateProject (project) {
+      this.resetFormFieldMessages()
+      this.$http.put('/projects/' + this.$route.params.id, project).then(({ data: { data } }) => {
+        // TODO: SET NOTIFICATION
+        this.updateForm()
+        this.$router.push('/projects/' + this.$route.params.id)
+      }).catch((res) => {
+        const response = res.response
+        if (!response || !response.data || response.data.status >= 500) {
+          // this.fields.notification.message = 'An unexpected error has occurred.'
+          // this.$store.dispatch('user/setAuthToken', null)
+          return
+        }
+        const data = response.data
+        if (data.data) {
+          // TODO: SET NOTIFICATION
+        } else if (data.errors) {
+          Object.keys(data.errors).forEach(entry => {
+            this.fields[entry].message = data.errors[entry]
+          })
+          this.updateForm()
+        }
+      })
+    },
+    fetchProject () {
+      this.$http.get('/projects/' + this.$route.params.id, { pageId: this.pageId }).then(({data: { data }}) => {
+        this.project = data
+      }).catch((res) => {
+        const response = res.response
+        if (!response || !response.data || response.data.status >= 500) {
+          // this.$store.dispatch('user/setAuthToken', null)
+          return
+        }
+        const data = response.data
+        if (data.errors) {
+          Object.keys(data.errors).forEach(entry => {
+            this.fields[entry].message = data.errors[entry]
+          })
         }
       })
     },
@@ -101,7 +148,14 @@ export default {
       Object.keys(this.fields).forEach(entry => {
         this.fields[entry].value = ''
       })
+    },
+    submit (project) {
+      if (this.formStatus === 'create') this.postNewProject(project)
+      else this.updateProject(project)
     }
+  },
+  mounted () {
+    if (this.formStatus === 'edit') this.fetchProject()
   },
   components: { Navigation, FormGenerator }
 }
