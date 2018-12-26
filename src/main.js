@@ -8,14 +8,20 @@ import './registerServiceWorker'
 import http from './http'
 import env from './config/env'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import * as faIcons from '@fortawesome/free-solid-svg-icons'
+import * as faIconsSolid from '@fortawesome/free-solid-svg-icons'
+import * as faIconsRegular from '@fortawesome/fontawesome-free-regular'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-Object.keys(faIcons).forEach(faIcon => {
-  if (faIcon.startsWith('fa') && faIcons[faIcon].iconName) {
-    library.add(faIcons[faIcon])
-  }
-})
+const loadFontAwesomeIcons = (fontAwesomeIcons) => {
+  Object.keys(fontAwesomeIcons).forEach(faIconName => {
+    if (faIconName.startsWith('fa') && fontAwesomeIcons[faIconName].iconName) {
+      library.add(fontAwesomeIcons[faIconName])
+    }
+  })
+}
+loadFontAwesomeIcons(faIconsSolid)
+loadFontAwesomeIcons(faIconsRegular)
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = env.Type === 'production'

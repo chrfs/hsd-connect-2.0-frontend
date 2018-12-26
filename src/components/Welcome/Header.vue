@@ -125,7 +125,6 @@ header {
     justify-content: flex-end;
     align-items: center;
     margin: auto 0;
-    user-select: none;
     cursor: pointer;
     li {
       color: $baseBlue;

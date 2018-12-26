@@ -17,6 +17,11 @@ export default {
     authToken () {
       return this.$store.getters['user/getAuthToken']
     }
+  },
+  mounted () {
+    this.$http.get('/users/' + this.$store.getters['user/getUser']._id).then(({ data: { data } }) => {
+      // this.$store.dispatch('user/setUser', data.user)
+    })
   }
 }
 </script>
@@ -49,6 +54,7 @@ body {
   list-style: none;
   font-family: 'Montserrat-Light';
   overflow-wrap: break-word;
+  user-select: none;
 }
 
 h1 {
@@ -128,25 +134,7 @@ textarea {
   resize: vertical;
 }
 
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    #000;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    #000;
-  opacity:  1;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color:    #000;
-  opacity:  1;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color:    #000;
-}
-::-ms-input-placeholder { /* Microsoft Edge */
-  color:    #000;
-}
-
-::placeholder { /* Most modern browsers support this now. */
+::placeholder {
   color:    #000;
 }
 

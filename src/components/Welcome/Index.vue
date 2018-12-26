@@ -37,6 +37,7 @@ export default {
   #lets-connect__button{
     position: absolute;
     bottom: 20%;
+    width: 300px;
     transform: translateX(-50%);
     @media(max-width: 992px) {
       transform: translate(-50%, 75%);

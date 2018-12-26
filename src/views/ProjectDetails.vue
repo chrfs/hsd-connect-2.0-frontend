@@ -20,6 +20,11 @@
         <div class="project__description box-shadowed">
           <h3>Description:</h3>
           <p>{{project.description}}</p>
+          <div class="project__meta">
+            <span class="project__meta__likes"><font-awesome-icon class="fa-icon" :icon="['far', 'heart']"></font-awesome-icon>{{project.likedBy ? project.likedBy.length : 0}}</span>
+            <span class="project__meta__comments"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{project.feedback && project.feedback.comment ? project.likes.length : 0}}</span>
+            <span class="project__meta__bookmark"><font-awesome-icon class="fa-icon" @click="bookmarkProject" :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"></font-awesome-icon></span>
+          </div>
         </div>
         <div class="project__infos">
           <div class="project__info margin-bottom box-shadowed">
@@ -31,17 +36,17 @@
               </div>
             </div>
             <div class="project__info__content" v-if="project.members.length">
-              <div class="project__member" v-for="member in project.members" :bind="member._id">
+              <div class="project__member" v-for="member in project.members" :key="member._id">
                 <img class="border-round" :src="getUserImageURL(member.image)" alt="Project Owner Image">
                 <p>{{project.user.firstname}} {{project.user.lastname}}</p>
               </div>
             </div>
-            <button class="project__member__join">JOIN THE TEAM</button>
+            <button v-if="project.searchingParticipants" class="project__member__join">JOIN THE TEAM</button>
           </div>
           <div class="project__info box-shadowed">
             <h4 class="project__info__header">Media</h4>
             <div class="project__info__content" v-if="project.images.length">
-              <div class="project__image" v-for="image in project.images" :bind="image._id">
+              <div class="project__image" v-for="image in project.images" :key="image._id">
                 <img :src="getProjectImageURL(image.token)" alt="Project Image">
               </div>
             </div>
@@ -75,6 +80,9 @@ export default {
       if (project._id !== this.projectId) return null
       return project
     },
+    isBookmarkedProject () {
+      return this.$store.getters['user/getUser'].bookmarkedProjects.includes(this.project._id)
+    },
     getProjectHeaderImageURL () {
       const projectImages = this.project ? this.project.images : []
       const imageToken = projectImages.length ? projectImages[0].token : null
@@ -99,6 +107,9 @@ export default {
       }).catch((res) => {
         this.notFound = true
       })
+    },
+    bookmarkProject () {
+      this.$store.dispatch('user/bookmarkProject', this.project._id)
     }
   },
   mounted () {
@@ -117,7 +128,7 @@ export default {
     grid-template-rows: 300px auto;
     grid-gap: 20px;
     max-width: 1200px;
-    margin: auto;
+    margin: 0 auto;
   .project__header {
     position: relative;
     grid-area: header;
@@ -166,6 +177,13 @@ export default {
     p {
       font-size: 0.9em;
       white-space: pre-wrap;
+    }
+    .project__meta {
+      display: flex;
+      justify-content: flex-end;
+      .project__meta__bookmark {
+        cursor: pointer;
+      }
     }
   }
   .project__infos {

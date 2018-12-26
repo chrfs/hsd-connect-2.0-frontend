@@ -1,6 +1,7 @@
 <template>
-    <div class="project" @click="redirectToProject(project._id)">
-      <div class="project__box">
+    <div class="project">
+    <span class="project__bookmark"><font-awesome-icon class="fa-icon" @click="bookmarkProject" :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"></font-awesome-icon></span>
+      <div class="project__box" @click="redirectToProject(project._id)">
         <div class="project__box__top">
           <img v-if="project.images.length" class="project__image" :src="imageURL(project.images[0].token)">
           <div class="project__status">
@@ -8,7 +9,7 @@
           </div>
         </div>
         <div class="project__box__bottom">
-          <p class="project__info">{{project.user.fullname}} | FB Medien</p>
+          <p class="project__info">{{project.user.firstname}} {{project.user.lastname}} | FB Medien</p>
           <h5 class=project__title>{{project.title}}</h5>
           <p class="project__description">{{project.description | shortenString}}</p>
           <div class="row project__metadata">
@@ -21,6 +22,11 @@
 
 <script>
 export default {
+  computed: {
+    isBookmarkedProject () {
+      return this.$store.getters['user/getUser'].bookmarkedProjects.includes(this.project._id)
+    }
+  },
   methods: {
     imageURL (imageToken) {
       if (!imageToken) return 'https://via.placeholder.com/370x200'
@@ -29,6 +35,9 @@ export default {
     redirectToProject (projectId) {
       this.$store.dispatch('projects/setProject', this.project)
       this.$router.push('/projects/' + projectId)
+    },
+    bookmarkProject () {
+      this.$store.dispatch('user/bookmarkProject', this.project._id)
     }
   },
   filters: {
@@ -36,7 +45,7 @@ export default {
       return text.substr(0, 140)
     }
   },
-  props: [ 'project' ]
+  props: [ 'project', 'isBookmarked' ]
 }
 </script>
 
@@ -45,6 +54,13 @@ export default {
 .project {
   padding: 15px;
   height: 430px;
+  position: relative;
+  .project__bookmark {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 10px;
+  }
   .project__box {
     background-color: white;
     box-shadow: 0px -2px 40px rgba(0, 0, 0, 0.1), 0px 2px 40px rgba(0,0,0, 0.1);
@@ -83,6 +99,8 @@ export default {
     .project__box__bottom {
       height: 50%;
       padding: 15px;
+      position: relative;
+      z-index: initial;
       .project__info {
         font-size: 0.8em;
         color: $baseRed;
