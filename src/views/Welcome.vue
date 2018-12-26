@@ -99,6 +99,13 @@ export default {
         path: this.$route.path
       }
     },
+    changeComponent () {
+      this.$router.push('/welcome/signin')
+      window.scroll({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      })
+    },
     startSlider () {
       setInterval(() => {
         if (!document.hidden) {
@@ -176,7 +183,7 @@ main {
       }
       #articles__selector-bars {
         height: 4px;
-        position: absolute;
+        // position: absolute;
         bottom: 10px;
         .articles__selector-bar {
           background: #f2f2f2;
@@ -189,6 +196,13 @@ main {
           left: 0px;
           z-index: 1;
           transition: transform 1.2s cubic-bezier(0.12, 0.41, 0.27, 0.16);
+        }
+      }
+      #lets-connect-button2{
+        margin-top: 50px;
+        display: none;
+        @media(max-width: 992px) {
+          display: block;
         }
       }
     }

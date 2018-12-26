@@ -2,7 +2,7 @@
   <header>
     <div class="container-responsive">
       <div id="header-logo">
-        <img @click="changeComponent(WelcomeIndex, true)" src="../../assets/img/logo.jpg" alt="HSD" />
+        <img @click="changeComponent(WelcomeIndex, '0px', true)" src="../../assets/img/logo.jpg" alt="HSD" />
       </div>
       <div id="header-burger-icon" @click="toogleReponsiveMenu">
         <div class="burger-icon-clickable">
@@ -34,14 +34,15 @@ export default {
     }
   },
   methods: {
-    changeComponent (path, skipToogleMenu) {
-      if (!skipToogleMenu) {
-        this.toogleReponsiveMenu()
-      }
+    changeComponent (path, position, closeMenu) {
+      if (closeMenu) {
+        this.responseMenuIsActive = false
+      } else this.toogleReponsiveMenu()
+
       this.$router.push(path)
       if (this.isResponsive) {
-        window.scrollTo(0, {
-          top: document.body.scrollHeight,
+        window.scroll({
+          top: position || document.body.scrollHeight,
           behavior: 'smooth'
         })
       }
@@ -77,7 +78,7 @@ header {
   grid-template-areas:  "logo . menu";
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto auto;
-  align-self: center;
+  // align-self: center;
   @media(max-width: 992px) {
     position: fixed;
     top: 0px;
@@ -121,7 +122,7 @@ header {
   #header-menu {
     font-size: 1em;
     display: flex;
-    height: auto;
+    // height: 100vh;
     justify-content: flex-end;
     align-items: center;
     margin: auto 0;
@@ -141,16 +142,17 @@ header {
     @media(max-width: 992px) {
       li {
         padding: 12px 0;
-        border-bottom: 2px solid $baseGrey;
+        // border-bottom: 2px solid $baseGrey;
         width: 100%;
         text-align: center;
         font-size: 15px;
+        font-family: 'Montserrat-SemiBold';
         &.close-menu {
           display: inline-flex;
         }
       }
       grid-column: auto-fill;
-      justify-content: space-around;
+      justify-content:space-evenly;
       display: flex;
       flex-direction: column;
       position: absolute;
