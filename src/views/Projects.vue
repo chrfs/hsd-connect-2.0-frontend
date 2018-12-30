@@ -39,6 +39,7 @@ export default {
       }).catch((res) => {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {
+          // TODO: SET NOTIFICATION
           // this.fields.notification.message = 'An unexpected error has occurred.'
           this.$store.dispatch('user/setAuthToken', null)
           return

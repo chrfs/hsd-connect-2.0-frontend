@@ -217,6 +217,7 @@ main {
     @media(max-width: 992px) {
       overflow: hidden;
       height: 100vh;
+      width: 100%
     }
     .component {
       position: absolute;

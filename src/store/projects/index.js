@@ -19,6 +19,14 @@ const userModule = {
     },
     [mutationTypes.SET_PROJECT] (state, project) {
       state.project = project
+    },
+    [mutationTypes.ADD_PROJECT_FEEDBACK_ENTRY] (state, feedbackEntry) {
+      state.project.feedback.push(feedbackEntry)
+    },
+    [mutationTypes.UPDATE_PROJECT_FEEDBACK_ENTRY] (state, feedbackEntry) {
+      state.project.feedback = state.project.feedback.map(el => {
+        return el._id === feedbackEntry._id ? Object.assign({}, el, feedbackEntry) : el
+      })
     }
   },
   actions: {
@@ -27,6 +35,12 @@ const userModule = {
     },
     setProject ({commit}, project) {
       commit(mutationTypes.SET_PROJECT, project)
+    },
+    updateProjectFeedbackEntry ({commit}, feedbackEntry) {
+      commit(mutationTypes.UPDATE_PROJECT_FEEDBACK_ENTRY, feedbackEntry)
+    },
+    addProjectFeedbackEntry ({commit}, feedbackEntry) {
+      commit(mutationTypes.ADD_PROJECT_FEEDBACK_ENTRY, feedbackEntry)
     }
   },
   namespaced: true

@@ -19,9 +19,11 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('/users/' + this.$store.getters['user/getUser']._id).then(({ data: { data } }) => {
-      // this.$store.dispatch('user/setUser', data.user)
-    })
+    if (this.authToken) {
+      this.$http.get('/users/' + this.$store.getters['user/getUser']._id).then(({ data: { data } }) => {
+        // this.$store.dispatch('user/setUser', data.user)
+      })
+    }
   }
 }
 </script>
@@ -130,7 +132,8 @@ input[type=checkbox] {
 textarea {
   max-width: inherit;
   height: 200px;
-  max-height: 300px;
+  min-height: 100px;
+  max-height: 400px;
   resize: vertical;
 }
 
@@ -158,6 +161,21 @@ button, input.button {
   line-height: 1.2em;
   font-weight: bold;
   padding-top: 10px
+}
+
+.image-container {
+  overflow: hidden;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .fa-icon {

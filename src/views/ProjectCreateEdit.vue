@@ -3,7 +3,7 @@
     <Navigation></Navigation>
     <main class="right-view">
       <h2>Projekt {{formStatus === 'create' ? 'anlegen' : 'bearbeiten'}}</h2>
-      <FormGenerator class="form" @updateForm="updateForm" :identifier="'project-' + formStatus" @submit="submit" :fieldValues="project" :fields="fields"></FormGenerator>
+      <FormGenerator class="form" @updateFields="updateFields" :identifier="'project-' + formStatus" @submit="submit" :fieldValues="project" :fields="fields"></FormGenerator>
     </main>
   </section>
 </template>
@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    updateForm (fields) {
+    updateFields (fields) {
       const currentFields = JSON.parse(JSON.stringify(fields || this.fields))
       this.fields = {}
       this.$nextTick(function () {
@@ -94,7 +94,7 @@ export default {
           Object.keys(data.errors).forEach(entry => {
             this.fields[entry].message = data.errors[entry]
           })
-          this.updateForm()
+          this.updateFields()
         }
       })
     },
@@ -102,11 +102,12 @@ export default {
       this.resetFormFieldMessages()
       this.$http.put('/projects/' + this.$route.params.id, project).then(({ data: { data } }) => {
         // TODO: SET NOTIFICATION
-        this.updateForm()
+        this.updateFields()
         this.$router.push('/projects/' + this.$route.params.id)
       }).catch((res) => {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {
+          // TODO: SET NOTIFICATION
           // this.fields.notification.message = 'An unexpected error has occurred.'
           // this.$store.dispatch('user/setAuthToken', null)
           return
@@ -118,7 +119,7 @@ export default {
           Object.keys(data.errors).forEach(entry => {
             this.fields[entry].message = data.errors[entry]
           })
-          this.updateForm()
+          this.updateFields()
         }
       })
     },

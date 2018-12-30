@@ -13,17 +13,17 @@
         </div>
         <div class="fileupload__background">
         </div>
-        <draggable class="fileupload" :list="field.value" @change="$emit('updateForm')">
-          <div class="file" v-for="file in field.value" @click="deleteFile($event, fieldName, file.name)" :key="file.name">
-          <font-awesome-icon class="file__delete border-round fa-icon" icon="times-circle"></font-awesome-icon>
-            <div class="file__img">
+        <draggable class="fileupload" :list="field.value" @change="$emit('updateFields')">
+          <div class="file" v-for="file in field.value" :key="file.name">
+          <font-awesome-icon class="file__delete border-round fa-icon" @click="deleteFile($event, fieldName, file.name)" icon="times-circle"></font-awesome-icon>
+            <div class="file__img" @click="$event.preventDefault()">
               <img :src="file.data || getImageURL(file.token)" :alt="file.name" draggable>
             </div>
             <p class="file__info">{{file.name}} <br>({{getFileSize(file.size)}})</p>
           </div>
         </draggable>
       </label>
-      <textarea v-if="isTextareaElement(field)" v-model="field.value" :required="field.isRequired"></textarea>
+      <textarea spellcheck="false" v-if="isTextareaElement(field)" v-model="field.value" :required="field.isRequired"></textarea>
       <p class="text--error" v-text="field.message"></p>
     </fieldset>
   </form>
@@ -62,9 +62,6 @@ export default {
       return field.inputType === 'checkbox'
     },
     prepareFields () {
-      this.fields.notification = {
-        noFormData: true
-      }
       Object.keys(this.fields).forEach(fieldName => {
         const field = this.fields[fieldName]
         field.message = ''
@@ -108,7 +105,7 @@ export default {
           field.value = this.fieldValues[fieldName]
         }
       })
-      this.$emit('updateForm')
+      this.$emit('updateFields')
     },
     getFileName (fileName = '', len = 5) {
       const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase()
@@ -127,6 +124,7 @@ export default {
     },
     startFileUpload (event, fieldName) {
       event.preventDefault()
+      console.log(event.target)
       if (event.target.complete) return
       this.processFileUpload(Array.from(event.target.files || event.dataTransfer.files), fieldName)
     },
@@ -139,9 +137,10 @@ export default {
     },
     processFileUpload (files, fieldName) {
       const field = this.fields[fieldName]
+      field.message = ''
       const file = files.shift()
       if (!file) {
-        this.$emit('updateForm')
+        this.$emit('updateFields')
         return
       }
       const reader = new FileReader()
@@ -171,7 +170,7 @@ export default {
     deleteFile (event, fieldName, fileName) {
       event.preventDefault()
       this.fields[fieldName].value = this.fields[fieldName].value.filter(file => file.name !== fileName)
-      this.$emit('updateForm')
+      this.$emit('updateFields')
     },
     getFormData () {
       const formData = Object.keys(this.fields).reduce((acc, fieldName) => {

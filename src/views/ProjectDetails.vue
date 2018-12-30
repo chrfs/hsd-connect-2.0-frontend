@@ -21,8 +21,8 @@
           <h3>Description:</h3>
           <p>{{project.description}}</p>
           <div class="project__meta">
-            <span class="project__meta__likes"><font-awesome-icon class="fa-icon" :icon="['far', 'heart']"></font-awesome-icon>{{project.likedBy ? project.likedBy.length : 0}}</span>
-            <span class="project__meta__comments"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{project.feedback && project.feedback.comment ? project.likes.length : 0}}</span>
+            <span class="project__meta__likes"><font-awesome-icon class="fa-icon" @click="likeProject" :icon="isLikedProject ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon>{{project.likedBy ? project.likedBy.length : 0}}</span>
+            <span class="project__meta__feedback"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{project.feedback && project.feedback.length ? project.feedback.length : 0}}</span>
             <span class="project__meta__bookmark"><font-awesome-icon class="fa-icon" @click="bookmarkProject" :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"></font-awesome-icon></span>
           </div>
         </div>
@@ -31,13 +31,17 @@
             <h4 class="project__info__header">Team</h4>
             <div class="project__info__content">
               <div class="project__member">
-                <img class="border-round" :src="getProjectOwnerImageURL" alt="Project Owner Image">
+                <div class="image-container">
+                  <img class="border-round" :src="getProjectOwnerImageURL" alt="Project Owner Image">
+                </div>
                 <p>{{project.user.firstname}} {{project.user.lastname}}</p>
               </div>
             </div>
             <div class="project__info__content" v-if="project.members.length">
               <div class="project__member" v-for="member in project.members" :key="member._id">
-                <img class="border-round" :src="getUserImageURL(member.image)" alt="Project Owner Image">
+                <div class="image-container">
+                  <img class="border-round" :src="getUserImageURL(member.image)" alt="Project Owner Image">
+                </div>
                 <p>{{project.user.firstname}} {{project.user.lastname}}</p>
               </div>
             </div>
@@ -52,6 +56,29 @@
             </div>
           </div>
         </div>
+        <div class="project__feedback__entries box-shadowed">
+          <div class="project__feedback__entry" v-for="feedback in project.feedback" :key="feedback._id">
+            <div class="image-container project__feedback__entry__user-image">
+              <img class="border-round" :src="getUserImageURL(feedback.user.image.token)" alt="User Image">
+            </div>
+            <p class="project__feedback__entry__author">{{feedback.user.firstname}} {{feedback.user.lastname}} | {{feedback.user.optionalInformation.major}}</p>
+            <p class="project__feedback__entry__content">{{feedback.content}}<br>
+              <span class="project__feedback__entry__content__created-at"> Erstellt am {{$moment(feedback.createdAt).format('L')}} </span>
+            </p>
+            <p class="project__feedback__entry__meta">
+            <span class="project__feedback__entry__meta__likes"><font-awesome-icon class="fa-icon" @click="likeProjectFeedback(feedback._id)" :icon="isLikedProjectFeedback(feedback._id) ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon>{{feedback.likedBy ? feedback.likedBy.length : 0}}</span>
+            <span class="project__feedback__entry__meta__comments"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{feedback && feedback.comments ? feedback.comments.length : 0}}</span>
+            </p>
+          </div>
+          <div class="project__feedback__create">
+            <div class="project__feedback__create__sub">
+              <h4>Post Feedback</h4>
+              <textarea spellcheck="false" v-model="newFeedback.content" placeholder="Write your thoughts.." class="project__feedback__create__textarea"></textarea>
+            </div>
+            <p class="text-error">{{newFeedback.message}}</p>
+            <button @click="postFeedback" class="project__feedback__create__button">Send</button>
+          </div>
+        </div>
       </section>
     </main>
   </section>
@@ -63,7 +90,11 @@ import Error from '../components/Error'
 export default {
   data: () => {
     return {
-      notFound: false
+      notFound: false,
+      newFeedback: {
+        content: '',
+        message: ''
+      }
     }
   },
   watch: {
@@ -80,8 +111,14 @@ export default {
       if (project._id !== this.projectId) return null
       return project
     },
+    user () {
+      return this.$store.getters['user/getUser']
+    },
     isBookmarkedProject () {
-      return this.$store.getters['user/getUser'].bookmarkedProjects.includes(this.project._id)
+      return this.user.bookmarkedProjects.includes(this.project._id)
+    },
+    isLikedProject () {
+      return this.project && this.project.likedBy.includes(this.user._id)
     },
     getProjectHeaderImageURL () {
       const projectImages = this.project ? this.project.images : []
@@ -94,11 +131,15 @@ export default {
     }
   },
   methods: {
+    isLikedProjectFeedback (feedbackId) {
+      const feedback = this.project.feedback.find(el => el._id === feedbackId)
+      return feedback && feedback.likedBy.includes(this.user._id)
+    },
     getProjectImageURL (imageToken) {
       return imageToken ? `${this.$APIHost}/projects/${this.projectId}/images/${imageToken}` : 'https://via.placeholder.com/800x200'
     },
     getUserImageURL (imageToken) {
-      return imageToken ? `${this.$APIHost}/user/${this.project.user._id}/images/${imageToken}` : 'https://via.placeholder.com/50x50'
+      return imageToken ? `${this.$APIHost}/user/${this.project.user._id}/images/${imageToken}` : 'https://via.placeholder.com/200x200'
     },
     fetchProject () {
       this.notFound = false
@@ -108,8 +149,42 @@ export default {
         this.notFound = true
       })
     },
+    postFeedback () {
+      this.newFeedback.message = ''
+      this.$http.post('/projects/' + this.project._id + '/feedback', { feedback: this.newFeedback }).then(({ data: { data } }) => {
+        // TODO: SET NOTIFICATION
+        this.$store.dispatch('projects/addProjectFeedbackEntry', data)
+        this.newFeedback.content = ''
+      }).catch((res) => {
+        const response = res.response
+        if (!response || !response.data || response.data.status >= 500) {
+          // this.fields.notification.message = 'An unexpected error has occurred.'
+          // this.$store.dispatch('user/setAuthToken', null)
+          return
+        }
+        const data = response.data
+        if (data.data) {
+          // TODO: SET NOTIFICATION
+          this.$router.push('/')
+        } else if (data.errors) {
+          Object.keys(data.errors).forEach(entry => {
+            this.newFeedback.message = data.errors.content
+          })
+        }
+      })
+    },
     bookmarkProject () {
       this.$store.dispatch('user/bookmarkProject', this.project._id)
+    },
+    likeProject () {
+      this.$http.put('/projects/' + this.project._id + '/like').then(({ data: { data } }) => {
+        this.$store.dispatch('projects/setProject', {...this.project, likedBy: data.likedBy})
+      })
+    },
+    likeProjectFeedback (feedbackId) {
+      this.$http.put('/projects/' + this.project._id + '/feedback/' + feedbackId + '/like').then(({ data: { data } }) => {
+        this.$store.dispatch('projects/updateProjectFeedbackEntry', {_id: feedbackId, ...data})
+      })
     }
   },
   mounted () {
@@ -123,7 +198,7 @@ export default {
 @import '../assets/scss/variables';
 .project {
     display: grid;
-    grid-template-areas: "header header" "description info";
+    grid-template-areas: "header header" "description info" "feedback .";
     grid-template-columns: 70% 30%;
     grid-template-rows: 300px auto;
     grid-gap: 20px;
@@ -168,6 +243,7 @@ export default {
     padding: 30px 40px;
     align-self: flex-start;
     background: white;
+    text-align: justify;
     h3 {
       font-size: 15px;
       margin: 0;
@@ -181,7 +257,14 @@ export default {
     .project__meta {
       display: flex;
       justify-content: flex-end;
+      margin-top: 25px;
+      > * {
+        min-width: 50px;
+      }
       .project__meta__bookmark {
+        cursor: pointer;
+      }
+      .project__meta__likes {
         cursor: pointer;
       }
     }
@@ -204,7 +287,6 @@ export default {
           overflow: hidden;
           width: 100px;
           height: 40px;
-          overflow: hidden;
           margin-right: 10px;
           img {
             width: 100px;
@@ -218,6 +300,64 @@ export default {
         color: $baseBlue;
         font-family: "Montserrat-Regular";
         letter-spacing: 0px;
+      }
+    }
+  }
+  .project__feedback__entries {
+    grid-area: feedback;
+    .project__feedback__entry {
+      display: grid;
+      min-height: 100px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid $baseLightGrey;
+      grid-template-areas: "image author" "image content" ". meta";
+      grid-template-columns: 80px 1fr;
+      padding: 30px 40px;
+      justify-content: center;
+      align-items: center;
+      .project__feedback__entry__author {
+        font-family: "Montserrat-SemiBold";
+        padding-bottom: 10px;
+        grid-area: author;
+      }
+      .project__feedback__entry__content {
+        grid-area: content;
+        .project__feedback__entry__content__created-at {
+          color: $baseGrey;
+          font-size: 0.7em;
+          margin-right: auto;
+        }
+      }
+      .project__feedback__entry__user-image {
+        grid-area: image;
+        margin: 0;
+      }
+      .project__feedback__entry__meta {
+        grid-area: meta;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: flex-end;
+        .project__feedback__entry__meta__likes, .project__feedback__entry__meta__comments {
+          .fa-icon {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .project__feedback__create {
+      .project__feedback__create__sub {
+        padding: 0px 25px;
+        border-top: 2px solid $baseBlue;
+      }
+      display: flex;
+      flex-direction: column;
+      background: white;
+      .project__feedback__create__textarea {
+        width: 100%;
+        height: 100px;
+      }
+      .project__feedback__create__button {
+        margin-top: 0px;
       }
     }
   }
