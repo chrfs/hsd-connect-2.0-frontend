@@ -69,6 +69,10 @@
             <span class="project__feedback__entry__meta__likes"><font-awesome-icon class="fa-icon" @click="likeProjectFeedback(feedback._id)" :icon="isLikedProjectFeedback(feedback._id) ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon>{{feedback.likedBy ? feedback.likedBy.length : 0}}</span>
             <span class="project__feedback__entry__meta__comments"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{feedback && feedback.comments ? feedback.comments.length : 0}}</span>
             </p>
+            <div class="project__feedback__comments">
+              <div class="project__comment" v-for="comment in project.feedback.comments" :key="comment._id">                
+              </div>
+            </div>
           </div>
           <div class="project__feedback__create">
             <div class="project__feedback__create__sub">
@@ -359,6 +363,8 @@ export default {
       .project__feedback__create__button {
         margin-top: 0px;
       }
+    }
+    .project__comment__entries {
     }
   }
 }

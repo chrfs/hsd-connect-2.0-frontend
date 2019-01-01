@@ -2,7 +2,7 @@
   <section class="container-split">
     <Navigation></Navigation>
     <main class="right-view">
-      <h2>Projects</h2>
+      <h2>{{$t("general.welcome")}}</h2>
        <Error v-if="!projects.length">
           <template slot="message">
             <p>We could not find any project.</p>

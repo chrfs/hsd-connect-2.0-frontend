@@ -21,7 +21,7 @@ export default {
   mounted () {
     if (this.authToken) {
       this.$http.get('/users/' + this.$store.getters['user/getUser']._id).then(({ data: { data } }) => {
-        // this.$store.dispatch('user/setUser', data.user)
+        this.$store.dispatch('user/setUser', data.user)
       })
     }
   }

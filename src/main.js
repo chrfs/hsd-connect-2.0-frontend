@@ -4,6 +4,7 @@ import 'moment/locale/de'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import i18n from './i18n'
 import './registerServiceWorker'
 import http from './http'
 import env from './config/env'
@@ -33,5 +34,6 @@ Vue.prototype.$APIHost = env.API_HOST
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
