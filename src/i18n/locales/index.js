@@ -12,7 +12,7 @@ const setupLocales = () => {
 }
 
 const locales = {
-  locale: store.getters['user/getUser'].settings.language || defaultLanguage,
+  locale: store.getters['user/getUser'].settings ? store.getters['user/getUser'].settings.language : defaultLanguage,
   messages: setupLocales()
 }
 
