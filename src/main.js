@@ -11,6 +11,7 @@ import env from './config/env'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import * as faIconsSolid from '@fortawesome/free-solid-svg-icons'
 import * as faIconsRegular from '@fortawesome/fontawesome-free-regular'
+import * as faIconsBrands from '@fortawesome/fontawesome-free-brands'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const loadFontAwesomeIcons = (fontAwesomeIcons) => {
@@ -22,6 +23,7 @@ const loadFontAwesomeIcons = (fontAwesomeIcons) => {
 }
 loadFontAwesomeIcons(faIconsSolid)
 loadFontAwesomeIcons(faIconsRegular)
+loadFontAwesomeIcons(faIconsBrands)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

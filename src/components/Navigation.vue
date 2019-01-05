@@ -14,7 +14,7 @@
     <router-link tag="button" to="/projects/create" class="side-panel__new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link>
 
     <ul class="side-panel__sub-list">
-      <li @click="resetAuthToken">Logout</li>
+      <li @click="logout">Logout</li>
       <router-link to="/about" tag="li" exact>Über HSDConnect</router-link>
       <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
     </ul>
@@ -36,8 +36,9 @@ export default {
     }
   },
   methods: {
-    resetAuthToken () {
+    logout () {
       this.$store.dispatch('user/setAuthToken', null)
+      this.$store.dispatch('user/setUser', {})
     }
   }
 }

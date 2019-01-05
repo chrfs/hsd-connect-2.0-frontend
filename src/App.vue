@@ -199,6 +199,10 @@ button, input.button {
   box-shadow: 0px 0px 100px rgba(214, 211, 212, 0.8);
 }
 
+.box-shadowed-lighter {
+  box-shadow: 0px 0px 100px rgba(214, 211, 212, 0.5);
+}
+
 .border-round {
   border-radius: 50%;
 }

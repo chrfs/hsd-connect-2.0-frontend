@@ -9,6 +9,7 @@
     "prettify": "prettier-standard \"src/**/*.js\" "
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",

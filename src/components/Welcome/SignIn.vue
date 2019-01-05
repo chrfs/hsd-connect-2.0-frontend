@@ -51,7 +51,7 @@ export default {
         this.$router.go('/')
         this.$store.dispatch('user/setAuthToken', data.authToken)
         this.$store.dispatch('user/setUser', data.user)
-        this.updateFields()
+        // this.updateFields()
       }).catch((res) => {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {

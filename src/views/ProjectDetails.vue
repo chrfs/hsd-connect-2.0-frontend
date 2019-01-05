@@ -21,12 +21,18 @@
           <h3>Description:</h3>
           <p>{{project.description}}</p>
           <div class="project__meta">
-            <span class="project__meta__likes"><font-awesome-icon class="fa-icon" @click="likeProject" :icon="isLikedProject ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon>{{project.likedBy ? project.likedBy.length : 0}}</span>
-            <span class="project__meta__feedback"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{project.feedback && project.feedback.length ? project.feedback.length : 0}}</span>
-            <span class="project__meta__bookmark"><font-awesome-icon class="fa-icon" @click="bookmarkProject" :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"></font-awesome-icon></span>
+            <div class="project__meta__info">
+              <span class="project__meta__likes">{{project.likedBy ? project.likedBy.length : 0}} Likes</span>
+              <span class="project__meta__comments">{{project.feedback ? project.feedback.length : 0}} Comments</span>
+            </div>
+            <div class="project__meta__buttons">
+              <span class="project__meta__likes"><font-awesome-icon @click="likeProject" class="fa-icon"  :icon="isLikedProject ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon></span>
+              <span class="project__meta__feedback"><font-awesome-icon @click="newFeedback.show = !newFeedback.show" class="fa-icon"  :icon="newFeedback.show ? ['fas', 'comment'] : ['far', 'comment']"></font-awesome-icon></span>
+              <span class="project__meta__bookmark"><font-awesome-icon @click="bookmarkProject" class="fa-icon" :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"></font-awesome-icon></span>
+          </div>
           </div>
         </div>
-        <div class="project__infos">
+        <div class="project__info__fields">
           <div class="project__info margin-bottom box-shadowed">
             <h4 class="project__info__header">Team</h4>
             <div class="project__info__content">
@@ -56,31 +62,44 @@
             </div>
           </div>
         </div>
-        <div class="project__feedback__entries box-shadowed">
-          <div class="project__feedback__entry" v-for="feedback in project.feedback" :key="feedback._id">
-            <div class="image-container project__feedback__entry__user-image">
+        <div v-show="newFeedback.show" class="project__feedback__create box-shadowed">
+          <div class="project__feedback__create__sub">
+            <h4>Post Feedback</h4>
+            <textarea spellcheck="false" v-model="newFeedback.content" placeholder="Write your thoughts.." class="project__feedback__create__textarea"></textarea>
+          </div>
+          <p class="text-error">{{newFeedback.message}}</p>
+          <button @click="postFeedback" class="project__feedback__create__button">Send</button>
+        </div>
+        <div class="project__feedback__entries">
+          <div class="project__feedback box-shadowed-lighter" v-for="feedback in project.feedback" :key="feedback._id">
+            <div class="image-container project__feedback__author-image">
               <img class="border-round" :src="getUserImageURL(feedback.user.image.token)" alt="User Image">
             </div>
-            <p class="project__feedback__entry__author">{{feedback.user.firstname}} {{feedback.user.lastname}} | {{feedback.user.optionalInformation.major}}</p>
-            <p class="project__feedback__entry__content">{{feedback.content}}<br>
-              <span class="project__feedback__entry__content__created-at"> Erstellt am {{$moment(feedback.createdAt).format('L')}} </span>
-            </p>
-            <p class="project__feedback__entry__meta">
-            <span class="project__feedback__entry__meta__likes"><font-awesome-icon class="fa-icon" @click="likeProjectFeedback(feedback._id)" :icon="isLikedProjectFeedback(feedback._id) ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon>{{feedback.likedBy ? feedback.likedBy.length : 0}}</span>
-            <span class="project__feedback__entry__meta__comments"><font-awesome-icon class="fa-icon" :icon="['far', 'comment']"></font-awesome-icon>{{feedback && feedback.comments ? feedback.comments.length : 0}}</span>
-            </p>
+            <p class="project__feedback__author-name">{{feedback.user.firstname}} {{feedback.user.lastname}}</p>
+            <p class="project__feedback__content">{{feedback.content}}</p>
+            <p class="project__feedback__created-at">{{$moment(feedback.createdAt).format('L')}}</p>
             <div class="project__feedback__comments">
-              <div class="project__comment" v-for="comment in project.feedback.comments" :key="comment._id">                
+              <div class="project__feedback__comment" v-for="comment in feedback.comments" :key="comment._id">
+                <p class="project__feedback__comment__created-at">{{$moment(comment.createdAt).format('L')}} </p>
+                <p class="project__feedback__comment__author-name">{{comment.user.firstname}} {{comment.user.lastname}}</p>
+                <p class="project__feedback__comment__content">{{comment.content}}</p>
               </div>
             </div>
-          </div>
-          <div class="project__feedback__create">
-            <div class="project__feedback__create__sub">
-              <h4>Post Feedback</h4>
-              <textarea spellcheck="false" v-model="newFeedback.content" placeholder="Write your thoughts.." class="project__feedback__create__textarea"></textarea>
+            <div class="project__meta">
+              <div class="project__meta__info">
+                <span class="project__meta__likes">{{feedback.likedBy ? feedback.likedBy.length : 0}} Likes</span>
+                <span class="project__meta__feedback">{{feedback.comments ? feedback.comments.length : 0}} Comments</span>
+              </div>
+              <div class="project__meta__buttons">
+                <span class="project__meta__likes"><font-awesome-icon @click="likeProjectFeedback(feedback._id)" class="fa-icon" :icon="isLikedProjectFeedback(feedback._id) ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon></span>
+                <span class="project__meta__feedback"><font-awesome-icon @click="feedbackComments[feedback._id].show = !feedbackComments[feedback._id].show" class="fa-icon" :icon="feedbackComments[feedback._id].show ? ['fas', 'comment'] : ['far', 'comment']"></font-awesome-icon></span>
+              </div>
             </div>
-            <p class="text-error">{{newFeedback.message}}</p>
-            <button @click="postFeedback" class="project__feedback__create__button">Send</button>
+            <div class="project__feedback__comment__create" v-show="feedbackComments[feedback._id].show">
+              <input class="project__feedback__comment__create__input" v-model="feedbackComments[feedback._id].content" placeholder="Write your comment here...">
+              <button @click="postFeedbackComment(feedback._id)" class="project__feedback__comment__create__button--send"><font-awesome-icon class="fa-icon" :icon="['fab', 'telegram-plane']"></font-awesome-icon></button>
+              <p class="text-error">{{newFeedback.message}}</p>
+            </div>
           </div>
         </div>
       </section>
@@ -97,11 +116,35 @@ export default {
       notFound: false,
       newFeedback: {
         content: '',
-        message: ''
+        message: '',
+        show: false
+      },
+      feedbackComments: {},
+      newFeedbackComment: {
+        content: '',
+        message: '',
+        show: false
       }
     }
   },
   watch: {
+    project: {
+      handler () {
+        if (!this.project.feedback) {
+          return
+        }
+        console.log('called')
+        this.feedbackComments = this.project.feedback.reduce((acc, {_id: feedbackId}) => {
+          if (this.feedbackComments[feedbackId]) {
+            acc[feedbackId] = this.feedbackComments[feedbackId]
+          } else {
+            acc[feedbackId] = JSON.parse(JSON.stringify(this.newFeedbackComment))
+          }
+          return acc
+        }, {})
+      },
+      deep: true
+    },
     projectId () {
       this.fetchProject()
     }
@@ -169,10 +212,34 @@ export default {
         const data = response.data
         if (data.data) {
           // TODO: SET NOTIFICATION
-          this.$router.push('/')
         } else if (data.errors) {
           Object.keys(data.errors).forEach(entry => {
             this.newFeedback.message = data.errors.content
+          })
+        }
+      })
+    },
+    postFeedbackComment (feedbackId) {
+      console.log(this.feedbackComments[feedbackId])
+      const feedbackComment = this.feedbackComments[feedbackId]
+      feedbackComment.message = ''
+      this.$http.post('/projects/' + this.project._id + '/feedback/' + feedbackId, { comment: feedbackComment }).then(({ data: { data } }) => {
+        // TODO: SET NOTIFICATION
+        this.$store.dispatch('projects/addProjectFeedbackEntry', data)
+        feedbackComment.content = ''
+      }).catch((res) => {
+        const response = res.response
+        if (!response || !response.data || response.data.status >= 500) {
+          // this.fields.notification.message = 'An unexpected error has occurred.'
+          // this.$store.dispatch('user/setAuthToken', null)
+          return
+        }
+        const data = response.data
+        if (data.data) {
+          // TODO: SET NOTIFICATION
+        } else if (data.errors) {
+          Object.keys(data.errors).forEach(entry => {
+            feedbackComment.message = data.errors.content
           })
         }
       })
@@ -201,13 +268,13 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
 .project {
-    display: grid;
-    grid-template-areas: "header header" "description info" "feedback .";
-    grid-template-columns: 70% 30%;
-    grid-template-rows: 300px auto;
-    grid-gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-areas: "header header" "description info" "feedbackCreate ." "feedback .";
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 300px auto;
+  grid-gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
   .project__header {
     position: relative;
     grid-area: header;
@@ -258,22 +325,30 @@ export default {
       font-size: 0.9em;
       white-space: pre-wrap;
     }
-    .project__meta {
+  }
+  .project__meta {
+    grid-area: meta;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+    .project__meta__info {
+      font-size: 0.8rem;
       display: flex;
       justify-content: flex-end;
-      margin-top: 25px;
-      > * {
-        min-width: 50px;
+      .project__meta__likes, .project__meta__comments {
+        padding: 0px 10px 0px 0px;
+        color: $baseGrey;
       }
-      .project__meta__bookmark {
+    }
+    .project__meta__buttons {
+      .fa-icon {
         cursor: pointer;
-      }
-      .project__meta__likes {
-        cursor: pointer;
+        color: $baseRed;
       }
     }
   }
-  .project__infos {
+  .project__info__fields {
     .project__info {
       grid-area: info;
       align-self: flex-start;
@@ -307,64 +382,115 @@ export default {
       }
     }
   }
+  .project__feedback__create {
+    grid-area: feedbackCreate;
+    background: white;
+    .project__feedback__create__sub {
+      padding: 0px 25px;
+    }
+    display: flex;
+    flex-direction: column;
+    background: white;
+    .project__feedback__create__textarea {
+      width: 100%;
+      height: 100px;
+    }
+    .project__feedback__create__button {
+      margin-top: 0px;
+    }
+  }
   .project__feedback__entries {
     grid-area: feedback;
-    .project__feedback__entry {
+    background: transparent;
+    .project__feedback {
       display: grid;
       min-height: 100px;
-      padding-bottom: 10px;
+      margin-bottom: 10px;
       border-bottom: 1px solid $baseLightGrey;
-      grid-template-areas: "image author" "image content" ". meta";
+      border-top: 1px solid $baseLightGrey;
+      grid-template-areas:  "authorImage authorName createdAt"
+                            "authorImage content content"
+                            ". comments comments"
+                            "meta meta meta"
+                            "writeNewComment writeNewComment writeNewComment";
       grid-template-columns: 80px 1fr;
-      padding: 30px 40px;
+      padding: 20px;
       justify-content: center;
       align-items: center;
-      .project__feedback__entry__author {
+      .project__feedback__author-name {
         font-family: "Montserrat-SemiBold";
         padding-bottom: 10px;
-        grid-area: author;
+        grid-area: authorName;
       }
-      .project__feedback__entry__content {
+      .project__feedback__content {
         grid-area: content;
-        .project__feedback__entry__content__created-at {
-          color: $baseGrey;
-          font-size: 0.7em;
-          margin-right: auto;
-        }
+        margin-bottom: 25px;
       }
-      .project__feedback__entry__user-image {
-        grid-area: image;
+      .project__feedback__created-at {
+        color: $baseGrey;
+        font-size: 0.7rem;
+        margin-right: auto;
+      }
+      .project__feedback__author-image {
+        align-self: flex-start;
+        grid-area: authorImage;
         margin: 0;
       }
-      .project__feedback__entry__meta {
-        grid-area: meta;
-        font-size: 0.8rem;
-        display: flex;
-        justify-content: flex-end;
-        .project__feedback__entry__meta__likes, .project__feedback__entry__meta__comments {
-          .fa-icon {
-            cursor: pointer;
-          }
+    }
+    .project__feedback__comments {
+      grid-area: comments;
+      .project__feedback__comment {
+        margin-bottom: 15px;
+        border-left: 1px solid $baseGrey;
+        display: grid;
+        grid-template-areas: "authorName createdAt" "content content";
+        grid-template-columns: 1fr;
+        padding: 0px 10px;
+        font-size: 0.9rem;
+        .project__feedback__comment__author-name {
+          font-family: "Montserrat-SemiBold";
+          grid-area: authorName;
+        }
+        .project__feedback__comment__content {
+          grid-area: content;
+          padding-bottom: 2px;
+        }
+        .project__feedback__comment__created-at {
+          grid-area: createdAt;
+          font-size: 0.7rem;
+          margin-right: auto;
+          color: $baseGrey;
         }
       }
     }
-    .project__feedback__create {
-      .project__feedback__create__sub {
-        padding: 0px 25px;
-        border-top: 2px solid $baseBlue;
-      }
-      display: flex;
-      flex-direction: column;
-      background: white;
-      .project__feedback__create__textarea {
+    .project__feedback__comment__create {
+      display: grid;
+      grid-area: writeNewComment;
+      margin-top: 15px;
+      position: relative;
+      grid-template-areas:"input button" "error error";
+      grid-auto-columns: 1fr auto;
+      .project__feedback__comment__create__input {
+        grid-area: input;
         width: 100%;
-        height: 100px;
+        height: 100%;
       }
-      .project__feedback__create__button {
-        margin-top: 0px;
+      .project__feedback__comment__create__button--send {
+        margin: 0px;
+        padding: 5px;
+        position: absolute;
+        right: 0px;
+        background: none;
+        width: auto;
+        margin-left: 10px;
+        grid-area: button;
+        .fa-icon {
+          color: black;
+        }
       }
-    }
-    .project__comment__entries {
+      .text-error {
+        grid-area: error;
+      }
     }
   }
 }
