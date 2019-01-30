@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import VueKoaRouter from 'vue-router'
+import VueRouter from 'vue-router'
 import routes from './routes'
 
 Vue.use(VueKoaRouter)
 
-const router = new VueKoaRouter({
+const router = new VueRouter({
   routes,
   linkExactActiveClass: 'active-link'
 })
