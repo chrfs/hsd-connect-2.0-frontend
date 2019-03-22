@@ -14,7 +14,7 @@ import * as faIconsRegular from '@fortawesome/fontawesome-free-regular'
 import * as faIconsBrands from '@fortawesome/fontawesome-free-brands'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const loadFontAwesomeIcons = (fontAwesomeIcons) => {
+const loadFontAwesomeIcons = (fontAwesomeIcons: any) => {
   Object.keys(fontAwesomeIcons).forEach(faIconName => {
     if (faIconName.startsWith('fa') && fontAwesomeIcons[faIconName].iconName) {
       library.add(fontAwesomeIcons[faIconName])
@@ -27,7 +27,7 @@ loadFontAwesomeIcons(faIconsBrands)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.config.productionTip = env.Type === 'production'
+Vue.config.productionTip = env.TYPE === 'production'
 Vue.prototype.$http = http
 moment.locale('de')
 Vue.prototype.$moment = moment

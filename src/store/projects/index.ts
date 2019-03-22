@@ -1,4 +1,5 @@
 import * as mutationTypes from './mutationTypes'
+import { Feedback, Project } from '../models/Project'
 
 const userModule = {
   state: {
@@ -6,40 +7,40 @@ const userModule = {
     project: {}
   },
   getters: {
-    getProjects (state) {
+    getProjects (state: any): Project[] {
       return state.projects
     },
-    getProject (state) {
+    getProject (state: any): Project {
       return state.project
     }
   },
   mutations: {
-    [mutationTypes.SET_PROJECTS] (state, projects) {
+    [mutationTypes.SET_PROJECTS] (state: any, projects: Project[]) {
       state.projects = projects
     },
-    [mutationTypes.SET_PROJECT] (state, project) {
+    [mutationTypes.SET_PROJECT] (state: any, project: Project) {
       state.project = project
     },
-    [mutationTypes.ADD_PROJECT_FEEDBACK_ENTRY] (state, feedbackEntry) {
+    [mutationTypes.ADD_PROJECT_FEEDBACK_ENTRY] (state: any, feedbackEntry: Feedback) {
       state.project.feedback.push(feedbackEntry)
     },
-    [mutationTypes.UPDATE_PROJECT_FEEDBACK_ENTRY] (state, feedbackEntry) {
-      state.project.feedback = state.project.feedback.map(el => {
+    [mutationTypes.UPDATE_PROJECT_FEEDBACK_ENTRY] (state: any, feedbackEntry: Feedback) {
+      state.project.feedback = state.project.feedback.map((el: Feedback) => {
         return el._id === feedbackEntry._id ? Object.assign({}, el, feedbackEntry) : el
       })
     }
   },
   actions: {
-    setProjects ({ commit }, projects) {
+    setProjects ({ commit }: any, projects: Project[]) {
       commit(mutationTypes.SET_PROJECTS, projects)
     },
-    setProject ({commit}, project) {
+    setProject ({ commit }: any, project: Project) {
       commit(mutationTypes.SET_PROJECT, project)
     },
-    updateProjectFeedbackEntry ({commit}, feedbackEntry) {
+    updateProjectFeedbackEntry ({ commit }: any, feedbackEntry: Feedback) {
       commit(mutationTypes.UPDATE_PROJECT_FEEDBACK_ENTRY, feedbackEntry)
     },
-    addProjectFeedbackEntry ({commit}, feedbackEntry) {
+    addProjectFeedbackEntry ({ commit }: any, feedbackEntry: Feedback) {
       commit(mutationTypes.ADD_PROJECT_FEEDBACK_ENTRY, feedbackEntry)
     }
   },

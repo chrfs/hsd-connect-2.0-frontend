@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-export default (env => {
+export default ((env: string) => {
   switch (env) {
     case 'development': {
       return {

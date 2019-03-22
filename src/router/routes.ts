@@ -1,12 +1,12 @@
 import store from '../store'
-import Welcome from '../views/Welcome'
-import Projects from '../views/Projects'
-import ProjectDetails from '../views/ProjectDetails'
-import ProjectCreateEdit from '../views/ProjectCreateEdit'
-import NotFound from '../views/NotFound'
+import Welcome from '../views/Welcome.vue'
+import Projects from '../views/Projects.vue'
+import ProjectDetails from '../views/ProjectDetails.vue'
+import ProjectCreateEdit from '../views/ProjectCreateEdit.vue'
+import NotFound from '../views/NotFound.vue'
 
-const ensureAuthenticated = (equalsBoolean, redirectTo) => {
-  return (to, from, next) => {
+const ensureAuthenticated = (equalsBoolean: boolean, redirectTo: string) => {
+  return (to: any, from: any, next: any) => {
     if (!!store.getters['user/getAuthToken'] === equalsBoolean) {
       next(redirectTo)
       return

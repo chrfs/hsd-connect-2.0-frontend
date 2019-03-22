@@ -4,7 +4,7 @@ const languages = ['de', 'en']
 const defaultLanguage = 'de'
 
 const setupLocales = () => {
-  return languages.reduce((acc, lang) => {
+  return languages.reduce((acc: any, lang: string) => {
     const locale = require('./lang/' + lang + '.json')
     acc[lang] = locale
     return acc
