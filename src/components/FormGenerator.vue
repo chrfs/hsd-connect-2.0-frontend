@@ -24,6 +24,7 @@
         </draggable>
       </label>
       <textarea spellcheck="false" v-if="isTextareaElement(field)" v-model="field.value" :required="field.isRequired"></textarea>
+      <span>{{isTextareaElement(field) ? field.value.length + ' Zeichen':''}}</span>
       <p class="text--error" v-text="field.message"></p>
     </fieldset>
   </form>

@@ -21,8 +21,10 @@
   </header>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   data: () => {
     return {
       WelcomeIndex: '/welcome',
@@ -34,7 +36,7 @@ export default {
     }
   },
   methods: {
-    changeComponent (path, position, closeMenu) {
+    changeComponent (path: string, position: number, closeMenu: boolean) {
       if (closeMenu) {
         this.responseMenuIsActive = false
       } else this.toogleReponsiveMenu()
@@ -52,19 +54,19 @@ export default {
     }
   },
   computed: {
-    isResponsive () {
+    isResponsive (): boolean {
       return this.windowWidth < 992
     },
-    showMenu () {
+    showMenu (): boolean {
       return this.isResponsive ? this.responseMenuIsActive : true
     }
   },
-  mounted () {
+  mounted (): void {
     window.addEventListener('resize', () => {
       this.windowWidth = window.innerWidth
     })
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -7,11 +7,12 @@
   </section>
 </template>
 
-<script>
-import FormGenerator from '../FormGenerator'
+<script lang="ts">
+import Vue from 'vue'
+import FormGenerator from '../FormGenerator.vue'
 
-export default {
-  data: () => {
+export default Vue.extend({
+  data: (): any => {
     return {
       fields: {
         email: {
@@ -36,23 +37,23 @@ export default {
     }
   },
   methods: {
-    updateFields (fields) {
+    updateFields (fields: any) {
       const currentFields = JSON.parse(JSON.stringify(fields || this.fields))
       this.fields = {}
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         this.fields = JSON.parse(JSON.stringify(currentFields))
       })
     },
-    submitLogin (user) {
+    submitLogin (user: any) {
       this.resetFormFieldMessages()
-      this.$http.post('/users/auth', user).then(({ data: { data } }) => {
+      this.$http.post('/users/auth', user).then(({ data: { data } }: any) => {
         // TODO: SET NOTIFICATION
         this.resetFormFieldValues()
         this.$router.go('/')
         this.$store.dispatch('user/setAuthToken', data.authToken)
         this.$store.dispatch('user/setUser', data.user)
         // this.updateFields()
-      }).catch((res) => {
+      }).catch((res: any) => {
         const response = res.response
         if (!response || !response.data || response.data.status >= 500) {
           // TODO: SET NOTIFICATION
@@ -85,7 +86,7 @@ export default {
       this.updateFields()
     },
     getFieldValues () {
-      return Object.keys(this.fields).reduce((acc, fieldName) => {
+      return Object.keys(this.fields).reduce((acc: any, fieldName: string) => {
         acc[fieldName] = this.fields[fieldName].value
         return acc
       }, {})
@@ -93,8 +94,7 @@ export default {
   },
   components: { FormGenerator },
   props: ['isActive']
-}
-
+})
 </script>
 
 <style lang="scss">

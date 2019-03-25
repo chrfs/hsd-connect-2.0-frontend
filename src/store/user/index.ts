@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import * as mutationTypes from './mutationTypes'
-import { User } from '../models/User'
+import { UserNamespace } from '../models/User'
 
 const userModule = {
   state: {
     authToken: null,
-    user: {} as User
+    user: {} as UserNamespace.UserInterface
   },
   getters: {
     getAuthToken (state: any): string {

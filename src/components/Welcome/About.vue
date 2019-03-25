@@ -14,7 +14,9 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   data: () => {
     return {}
   },
@@ -23,7 +25,7 @@ export default {
       this.$router.push('/welcome/signin')
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

@@ -45,6 +45,7 @@
     "lint-staged": "^8.1.4",
     "node-sass": "^4.9.0",
     "postcss-flexbugs-fixes": "^4.1.0",
+    "prettier-standard": "^9.1.1",
     "sass-loader": "^7.1.0",
     "ts-jest": "^23.0.0",
     "typescript": "^3.2.1",
