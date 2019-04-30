@@ -1,158 +1,191 @@
 <template>
   <main>
-    <div id="welcome__left">
+    <div class="welcome__left">
       <WelcomeHeader></WelcomeHeader>
       <div class="article__slider">
         <div class="article">
-          <transition-group :name="'translate-article-'+slider.activeSlideDirection" mode="out-in">
-              <article v-show="articleIndex === slider.activeIndex" v-for="(article, articleIndex) in slider.articles" v-bind:key="articleIndex">
-                <h2 class="article__headline" v-html="article.title"></h2>
-                <p class="article_paragraph" v-html="article.description"></p>
-              </article>
+          <transition-group :name="'translate-article-' + slider.activeSlideDirection" mode="out-in">
+            <article
+              v-show="articleIndex === slider.activeIndex"
+              v-for="(article, articleIndex) in slider.articles"
+              v-bind:key="article.title + articleIndex"
+            >
+              <h2 class="article__headline" v-html="article.title"></h2>
+              <p class="article_paragraph" v-html="article.description"></p>
+            </article>
           </transition-group>
-            <div id="articles__selector-bars">
-              <span class="articles__selector-bar" v-for="(articleBar, articleBarIndex) in slider.articles" :style="{left: ((slider.articleBarIndex)*slider.activeBarWidth) + 'px', width: slider.activeBarWidth+'px'}" v-bind:key="articleBarIndex"></span>
-              <span class="articles__selector-bar article--active" :style="{transform: 'translateX('+((slider.activeIndex)*slider.activeBarWidth) + 'px)', width: slider.activeBarWidth+'px'}"></span>
-            </div>
+          <div id="articles__selector-bars">
+            <span
+              class="articles__selector-bar"
+              v-for="(articleBar, articleBarIndex) in slider.articles"
+              :style="{
+                left: slider.articleBarIndex * slider.activeBarWidth + 'px',
+                width: slider.activeBarWidth + 'px'
+              }"
+              v-bind:key="articleBarIndex"
+            ></span>
+            <span
+              class="articles__selector-bar article--active"
+              :style="{
+                transform: 'translateX(' + slider.activeIndex * slider.activeBarWidth + 'px)',
+                width: slider.activeBarWidth + 'px'
+              }"
+            ></span>
+          </div>
         </div>
       </div>
     </div>
-    <aside id="welcome__right">
-      <WelcomeIndex class="component" :class="{'component--show': isActiveComponent('WelcomeIndex')}"></WelcomeIndex>
-      <WelcomeSignUp class="component" :class="{'component--show': isActiveComponent('WelcomeSignUp')}" :isActive="isActiveComponent('WelcomeSignUp')"></WelcomeSignUp>
-      <WelcomeSignIn class="component" :class="{'component--show': isActiveComponent('WelcomeSignIn')}" :isActive="isActiveComponent('WelcomeSignIn')"></WelcomeSignIn>
-      <WelcomeAbout class="component" :class="{'component--show': isActiveComponent('WelcomeAbout')}"></WelcomeAbout>
+    <aside class="welcome__right">
+      <WelcomeIndex class="welcome__component" :class="{ 'welcome__component--show': isActiveComponent('WelcomeIndex') }">
+      </WelcomeIndex>
+      <WelcomeSignInUp
+        :isSignUp="true"
+        class="welcome__component"
+        :class="{ 'welcome__component--show': isActiveComponent('WelcomeSignUp') }"
+        :isActive="true"
+      ></WelcomeSignInUp>
+      <WelcomeSignInUp
+        :isSignIn="true"
+        class="welcome__component"
+        :class="{ 'welcome__component--show': isActiveComponent('WelcomeSignIn') }"
+        :isActive="true"
+      ></WelcomeSignInUp>
+      <WelcomeAbout class="welcome__component" :class="{ 'welcome__component--show': isActiveComponent('WelcomeAbout') }">
+      </WelcomeAbout>
     </aside>
   </main>
 </template>
 
 <script>
-import WelcomeHeader from '../components/Welcome/Header.vue'
-import WelcomeIndex from '../components/Welcome/Index.vue'
-import WelcomeSignIn from '../components/Welcome/SignIn.vue'
-import WelcomeSignUp from '../components/Welcome/SignUp.vue'
-import WelcomeAbout from '../components/Welcome/About.vue'
+import WelcomeAbout from '../components/Welcome/About.vue';
+import WelcomeHeader from '../components/Welcome/Header.vue';
+import WelcomeIndex from '../components/Welcome/Index.vue';
+import WelcomeSignInUp from '../components/Welcome/SignInUp.vue';
 
 export default {
-  data: () => {
-    return {
-      slider: {
-        articles: [
-          {
-            title: 'Projekte zusammen <span class="red-colored">meistern</span>',
-            description: `Setze deine Hochschulprojekte mit Studierenden aus anderen Fachbereichen gemeinsam um. Poste jetzt dein Projekt!
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
-          },
-          {
-            title: 'Gemeinsam an Aufgaben <span class="red-colored">wachsen</span>',
-            description: `Herausfordernde Projektaufgaben gemeinsam im Team lösen!
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
-          },
-          {
-            title: 'Erfahrungen <span class="red-colored">austauschen</span>',
-            description: `Erlebe Gruppenarbeiten neu! Such dir neue Projekte aus anderen Fachbereichen und erweitere deinen Horizont! +
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.+
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
-          },
-          {
-            title: 'Studierende besser <span class="red-colored">kennenlernen</span>',
-            description: `Lerne neue Kommilitonen der Hochschule kennen. Finde dein Projektteam!+
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.+
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
-          },
-          {
-            title: 'Ziele <span class="red-colored">erreichen</span>',
-            description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!+
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.+
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
-          }
-        ],
-        activeIndex: 2,
-        activeBarWidth: 50,
-        activeSlideDirection: 'right'
-      },
-      components: {
-        '/welcome': 'WelcomeIndex',
-        '/welcome/signin': 'WelcomeSignIn',
-        '/welcome/signup': 'WelcomeSignUp',
-        '/welcome/about': 'WelcomeAbout'
-      },
-      activeComponent: {
-        name: 'WelcomeIndex',
-        path: '/welcome'
-      }
+  data: () => ({
+    slider: {
+      articles: [
+        {
+          title: 'Projekte zusammen <span class="red-colored">meistern</span>',
+          description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua.+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+             aliquip ex ea commodo consequat.`
+        },
+        {
+          title: 'Gemeinsam an Aufgaben <span class="red-colored">wachsen</span>',
+          description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua.+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+             aliquip ex ea commodo consequat.`
+        },
+        {
+          title: 'Erfahrungen <span class="red-colored">austauschen</span>',
+          description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua.+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+             aliquip ex ea commodo consequat.`
+        },
+        {
+          title: 'Studierende besser <span class="red-colored">kennenlernen</span>',
+          description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua.+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+             aliquip ex ea commodo consequat.`
+        },
+        {
+          title: 'Ziele <span class="red-colored">erreichen</span>',
+          description: `Gemeinsam an einem Strang ziehen und Projekte erfolgreich beenden!
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua.+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+             aliquip ex ea commodo consequat.`
+        }
+      ],
+      activeIndex: 2,
+      activeBarWidth: 50,
+      activeSlideDirection: 'right'
+    },
+    components: {
+      '/welcome': 'WelcomeIndex',
+      '/welcome/signin': 'WelcomeSignIn',
+      '/welcome/signup': 'WelcomeSignUp',
+      '/welcome/about': 'WelcomeAbout'
+    },
+    activeComponent: {
+      name: 'WelcomeIndex',
+      path: '/welcome'
     }
-  },
+  }),
   watch: {
-    $route () {
+    $route() {
       if (this.$route.path !== this.activeComponent.path) {
-        this.setActiveComponent()
+        this.setActiveComponent();
       }
     }
   },
   methods: {
-    setActiveComponent () {
+    setActiveComponent() {
       this.activeComponent = {
         name: this.components[this.$route.path],
         path: this.$route.path
-      }
+      };
     },
-    changeComponent () {
-      this.$router.push('/welcome/signin')
+    changeComponent() {
+      this.$router.push('/welcome/signin');
       window.scroll({
         top: document.body.scrollHeight,
         behavior: 'smooth'
-      })
+      });
     },
-    startSlider () {
+    startSlider() {
       setInterval(() => {
         if (!document.hidden) {
-          const nextSlide =
-            this.slider.activeIndex + 1 >= this.slider.articles.length
-              ? 0
-              : this.slider.activeIndex + 1
-          this.changeSlide(nextSlide)
+          const nextSlide = this.slider.activeIndex + 1 >= this.slider.articles.length ? 0 : this.slider.activeIndex + 1;
+          this.changeSlide(nextSlide);
         }
-      }, 4000)
+      }, 4000);
     },
-    changeSlide (articleIndex) {
-      this.slider.activeSlideDirection =
-        articleIndex > this.slider.activeIndex ? 'right' : 'left'
-      this.slider.activeIndex = articleIndex
+    changeSlide(articleIndex) {
+      this.slider.activeSlideDirection = articleIndex > this.slider.activeIndex ? 'right' : 'left';
+      this.slider.activeIndex = articleIndex;
     },
-    isActiveComponent (componentName) {
-      return this.activeComponent.name === componentName
+    isActiveComponent(componentName) {
+      return this.activeComponent.name === componentName;
     }
   },
-  mounted () {
-    this.setActiveComponent()
-    this.startSlider()
+  mounted() {
+    this.setActiveComponent();
+    this.startSlider();
   },
-  components: { WelcomeHeader, WelcomeIndex, WelcomeSignIn, WelcomeSignUp, WelcomeAbout }
-}
+  components: {
+    WelcomeHeader,
+    WelcomeIndex,
+    WelcomeSignInUp,
+    WelcomeAbout
+  }
+};
 </script>
 
 <style lang="scss">
 @import '../assets/scss/variables';
 main {
   display: grid;
-  grid-template-areas:  "left right";
+  grid-template-areas: 'left right';
   grid-template-columns: minmax(400px, 60%) minmax(400px, 40%);
   height: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  @media(max-width: 992px) {
-    grid-template-areas: "left" "right";
+  @media (max-width: 992px) {
+    grid-template-areas: 'left' 'right';
     grid-template-rows: 1fr minmax(600px, 1fr);
     grid-template-columns: 1fr;
   }
-  #welcome__left {
+  .welcome__left {
     display: grid;
     grid-area: left;
     /* autoprefixer: off */
-    grid-template-areas:  "header"  "articles";
+    grid-template-areas: 'header' 'articles';
     grid-template-rows: 80px minmax(350px, 1fr);
     position: relative;
     padding: 20px 25px;
@@ -171,10 +204,10 @@ main {
         padding-bottom: 20px;
         max-width: 100%;
         height: 220px;
-        @media(max-width: 992px) {
+        @media (max-width: 992px) {
           height: 250px;
         }
-        @media(max-width: 500px) {
+        @media (max-width: 500px) {
           height: 300px;
         }
         .article__headline {
@@ -191,52 +224,45 @@ main {
           float: left;
         }
         .article--active {
-          background: #e40529;
+          background: $baseRed;
           position: absolute;
           left: 0px;
           z-index: 1;
           transition: transform 1.2s cubic-bezier(0.12, 0.41, 0.27, 0.16);
         }
       }
-      #lets-connect-button2{
-        margin-top: 50px;
-        display: none;
-        @media(max-width: 992px) {
-          display: block;
-        }
-      }
     }
   }
 
-  #welcome__right {
+  .welcome__right {
     padding: 0px;
     position: relative;
     grid-area: right;
     width: 40vw;
     min-width: 400px;
-    @media(max-width: 992px) {
+    @media (max-width: 992px) {
       overflow: hidden;
       height: 100vh;
-      width: 100%
+      width: 100%;
     }
-    .component {
+    .welcome__component {
       position: absolute;
       transform: translateX(100%);
+      top: 0px;
       z-index: 0;
-      transition: transform .5s cubic-bezier(.55,.62,.36,.34);
-      @media(max-width: 992px) {
+      transition: transform 0.5s cubic-bezier(0.55, 0.62, 0.36, 0.34);
+      @media (max-width: 992px) {
         transform: translateY(100%);
       }
-      &.component--show {
+      &.welcome__component--show {
         transform: translate(0%);
         z-index: 1;
-        @media(max-width: 992px) {
-        transform: translate(0%);
-      }
+        @media (max-width: 992px) {
+          transform: translate(0%);
+        }
       }
     }
-    .welcome__right__background {
-      background-image: $blueGradient;
+    .welcome__background {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -249,25 +275,9 @@ main {
         transform: translateX(0px);
       }
     }
-    h4, p {
-      width: 90%;
-      color: white;
-    }
-    button {
-      width: 90%;
-      display: block;
-    }
-    .welcome__right__content {
+    .welcome__content {
       width: 320px;
-      h4, input, label, fieldset {
-        color: white;
-        width: 320px;
-        border-color: white;
-        font-family: "Montserrat-Thin";
-      }
-      input {
-        margin: 3px 0px 0px;
-      }
+      color: white;
     }
   }
 
@@ -280,7 +290,8 @@ main {
     position: absolute;
     top: 0px;
   }
-  .translate-article-right-enter, .translate-article-right-leave-to {
+  .translate-article-right-enter,
+  .translate-article-right-leave-to {
     transform: translateX(-10px);
     opacity: 0;
   }
@@ -294,7 +305,8 @@ main {
     position: absolute;
     top: 0px;
   }
-  .translate-article-left-enter, .translate-article-left-leave-to {
+  .translate-article-left-enter,
+  .translate-article-left-leave-to {
     transform: translateX(10px);
     opacity: 0;
   }

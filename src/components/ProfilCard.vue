@@ -7,25 +7,24 @@
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
-  .submenu-list {
-    width: 300px;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    li {
-      padding: 5px 0px;
-      border-bottom: 1px solid $baseGrey;
-    }
+.submenu-list {
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  li {
+    padding: 5px 0px;
+    border-bottom: 1px solid $baseGrey;
   }
+}
 
-  .submenu-list li:last-child {
-    border: none;
-  }
+.submenu-list li:last-child {
+  border: none;
+}
 </style>

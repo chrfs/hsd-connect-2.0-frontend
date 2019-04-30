@@ -1,8 +1,7 @@
-import Image from './Image'
-import { UserNamespace } from '../models/User'
+import { UserInterface } from '../models/User';
+import Image from './Image';
 
-export namespace ProjectNamespace {
-  export interface ProjectInterface {
+export interface ProjectInterface {
     _id: string;
     user: string;
     title: string;
@@ -15,7 +14,7 @@ export namespace ProjectNamespace {
     updatedAt: Date;
     createdAt: Date;
   }
-  export interface ProjectFeedbackInterface {
+export interface ProjectFeedbackInterface {
     _id: string;
     project: string;
     user: string;
@@ -26,11 +25,10 @@ export namespace ProjectNamespace {
     updatedAt: Date;
   }
 
-  export interface ProjectFeedbackCommentInterface {
+export interface ProjectFeedbackCommentInterface {
     _id: string;
-    user: UserNamespace.UserInterface;
+    user: UserInterface;
     content: string;
     updatedAt: Date;
     createdAt: Date;
   }
-}

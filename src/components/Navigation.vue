@@ -1,17 +1,29 @@
 <template>
   <section class="side-panel left-view">
     <div class="side-panel__logo">
-     <router-link to="/" tag="a"><img class="side-panel__logo__img"  src="../assets/img/logo.png" alt="HSD Logo"></router-link>
+      <router-link to="/" tag="a"><img class="side-panel__logo__img" src="../assets/img/logo.png" alt="HSD Logo"/></router-link>
     </div>
     <ul class="side-panel__main-list">
       <router-link to="/" tag="li" exact><font-awesome-icon class="fa-icon" icon="th"></font-awesome-icon>Projekte</router-link>
-      <router-link :to="'/user/' + userId" tag="li" exact><font-awesome-icon class="fa-icon" icon="user"></font-awesome-icon>Profil</router-link>
-      <router-link :to="'/user/' + userId + '/messages'" tag="li" exact><font-awesome-icon class="fa-icon" icon="envelope"></font-awesome-icon>Nachrichten</router-link>
-      <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="file-alt"></font-awesome-icon>Eigene Projekte</router-link>
-      <router-link :to="'/user/' + userId + '/projects'" tag="li" exact><font-awesome-icon class="fa-icon" icon="users"></font-awesome-icon>Eigene Gruppen</router-link>
-      <router-link :to="'/user/' + userId + '/bookmarks'" tag="li" exact><font-awesome-icon class="fa-icon" icon="bookmark"></font-awesome-icon>Merkliste</router-link>
+      <router-link :to="'/user/' + userId" tag="li" exact
+        ><font-awesome-icon class="fa-icon" icon="user"></font-awesome-icon>Profil</router-link
+      >
+      <router-link :to="'/user/' + userId + '/messages'" tag="li" exact
+        ><font-awesome-icon class="fa-icon" icon="envelope"></font-awesome-icon>Nachrichten</router-link
+      >
+      <router-link :to="'/user/' + userId + '/projects'" tag="li" exact
+        ><font-awesome-icon class="fa-icon" icon="file-alt"></font-awesome-icon>Eigene Projekte</router-link
+      >
+      <router-link :to="'/user/' + userId + '/projects'" tag="li" exact
+        ><font-awesome-icon class="fa-icon" icon="users"></font-awesome-icon>Eigene Gruppen</router-link
+      >
+      <router-link :to="'/user/' + userId + '/bookmarks'" tag="li" exact
+        ><font-awesome-icon class="fa-icon" icon="bookmark"></font-awesome-icon>Merkliste</router-link
+      >
     </ul>
-    <router-link tag="button" to="/projects/create" class="side-panel__new-project"><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link>
+    <router-link tag="button" to="/projects/create" class="side-panel__new-project"
+      ><font-awesome-icon class="fa-icon" icon="plus-square"></font-awesome-icon>Projekt anlegen</router-link
+    >
 
     <ul class="side-panel__sub-list">
       <li @click="logout">Logout</li>
@@ -19,9 +31,9 @@
       <router-link to="/toolbox" tag="li" exact>Toolbox</router-link>
     </ul>
     <div class="side-panel__footer">
-      <p>Hochschule Düsseldorf &#9400; 2018<br>
-        <router-link to="/imprint" exact>Impressum</router-link> |
-        <router-link to="/privacy" exact>Datenschutz</router-link> |
+      <p>
+        Hochschule Düsseldorf &#9400; 2018<br />
+        <router-link to="/imprint" exact>Impressum</router-link> | <router-link to="/privacy" exact>Datenschutz</router-link> |
         <router-link to="/contact" exact>Kontakt</router-link>
       </p>
     </div>
@@ -31,17 +43,17 @@
 <script>
 export default {
   computed: {
-    userId () {
-      return this.$store.getters['user/getUser']._id
+    userId() {
+      return this.$store.getters['user/getUser']._id;
     }
   },
   methods: {
-    logout () {
-      this.$store.dispatch('user/setAuthToken', null)
-      this.$store.dispatch('user/setUser', {})
+    logout() {
+      this.$store.dispatch('user/setAuthToken', null);
+      this.$store.dispatch('user/setUser', {});
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -72,7 +84,8 @@ export default {
       cursor: pointer;
     }
   }
-  .side-panel__main-list, .side-panel__sub-list {
+  .side-panel__main-list,
+  .side-panel__sub-list {
     margin: 25px auto 25px;
     display: flex;
     flex-direction: column;
@@ -84,7 +97,7 @@ export default {
       text-transform: uppercase;
       color: white;
       &:hover {
-        transition: all .4s ease-in-out;
+        transition: all 0.4s ease-in-out;
         cursor: pointer;
         border-left: 2px solid $baseRed;
         background-color: #3e4159;
@@ -95,7 +108,7 @@ export default {
       background-color: #3e4159;
     }
   }
-  .side-panel__sub-list{
+  .side-panel__sub-list {
     border-top: 1px solid #313e5a;
     border-bottom: 1px solid #313e5a;
     margin-top: auto;
@@ -112,15 +125,15 @@ export default {
     margin-top: 0;
     text-align: left;
     padding-left: 50px;
-    box-shadow: 0px -2px 20px rgba(125, 135, 185, 0.6),
-                0px 2px 20px rgba(19, 25, 54, 0.6);
+    box-shadow: 0px -2px 20px rgba(125, 135, 185, 0.6), 0px 2px 20px rgba(19, 25, 54, 0.6);
   }
   .side-panel__footer {
     font-size: 0.6em;
     text-align: left;
     padding-bottom: 10px;
     margin-left: 50px;
-    p, a {
+    p,
+    a {
       color: #848484;
       line-height: 2em;
     }

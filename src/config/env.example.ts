@@ -1,19 +1,18 @@
-/* eslint-disable func-names */
 export default (env => {
   switch (env) {
     case 'development': {
       return {
         TYPE: 'development',
         API_HOST: 'http://localhost:3000/api/v1'
-      }
+      };
     }
     case 'production': {
-      return {}
+      return {};
     }
     default: {
-      /* eslint-disable no-console */
-      console.error('Your environment is invalid: ', env)
-      return {}
+      // tslint:disable:no-console
+      console.error('Your environment is invalid: ', env);
+      return {};
     }
   }
-})(process.env.NODE_ENV)
+})(process.env.NODE_ENV);

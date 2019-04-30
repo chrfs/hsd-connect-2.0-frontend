@@ -1,19 +1,19 @@
-import store from '../store'
-import Welcome from '../views/Welcome.vue'
-import Projects from '../views/Projects.vue'
-import ProjectDetails from '../views/ProjectDetails.vue'
-import ProjectCreateEdit from '../views/ProjectCreateEdit.vue'
-import NotFound from '../views/NotFound.vue'
+import store from '../store';
+import NotFound from '../views/NotFound.vue';
+import ProjectCreateEdit from '../views/ProjectCreateEdit.vue';
+import ProjectDetails from '../views/ProjectDetails.vue';
+import Projects from '../views/Projects.vue';
+import Welcome from '../views/Welcome.vue';
 
 const ensureAuthenticated = (equalsBoolean: boolean, redirectTo: string) => {
   return (to: any, from: any, next: any) => {
     if (!!store.getters['user/getAuthToken'] === equalsBoolean) {
-      next(redirectTo)
-      return
+      next(redirectTo);
+      return;
     }
-    next()
-  }
-}
+    next();
+  };
+};
 
 const routes = [
   {
@@ -74,6 +74,6 @@ const routes = [
     path: '/*',
     component: NotFound
   }
-]
+];
 
-export default routes
+export default routes;

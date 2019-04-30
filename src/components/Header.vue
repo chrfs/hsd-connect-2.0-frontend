@@ -1,15 +1,15 @@
 <template>
   <header class="row">
     <div class="col-6 col-sm-6  col-lg-2 flex-justify header__logo ">
-      <img src="../assets/img/logo.jpg" alt="Hochschule Düsseldorf CI" >
+      <img src="../assets/img/logo.jpg" alt="Hochschule Düsseldorf CI" />
     </div>
     <div class="col-6 col-sm-6 col-lg-10 flex-justify">
       <div class="header__submenus flex-justify">
         <div class="header__profile">
-          <img class="border-round" src="../assets/img/profile_image.jpg" alt="Profile-Igage">
+          <img class="border-round" src="../assets/img/profile_image.jpg" alt="Profile-Igage" />
         </div>
         <div class="header__profile">
-          <img class="border-round" src="../assets/img/profile_image.jpg" alt="Profile-Igage">
+          <img class="border-round" src="../assets/img/profile_image.jpg" alt="Profile-Igage" />
         </div>
       </div>
     </div>
@@ -17,10 +17,7 @@
 </template>
 
 <script>
-import ProfilCard from './ProfilCard'
-export default {
-  components: { ProfilCard }
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>
@@ -38,7 +35,7 @@ header {
     align-items: center;
     height: inherit;
     min-height: $headerHeight;
-   img { 
+    img {
       width: 125px;
     }
   }
@@ -58,5 +55,4 @@ header {
     }
   }
 }
-
 </style>

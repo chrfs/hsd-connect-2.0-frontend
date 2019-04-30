@@ -1,72 +1,86 @@
 <template>
   <header>
     <div class="container-responsive">
-      <div id="header-logo">
+      <div class="header-logo">
         <img @click="changeComponent(WelcomeIndex, '0px', true)" src="../../assets/img/logo.jpg" alt="HSD" />
       </div>
-      <div id="header-burger-icon" @click="toogleReponsiveMenu">
-        <div class="burger-icon-clickable">
-          <div class="burger-icon-bars"></div>
+      <div class="header-burger__icon" @click="toogleReponsiveMenu">
+        <div class="burger-icon__clickable">
+          <div class="burger-icon__bars"></div>
         </div>
       </div>
     </div>
     <transition name="translate-header">
-      <ul id="header-menu" v-show="showMenu">
+      <ul
+        class="header-menu"
+        :class="isResponsive && resizingDone ? (responseMenuIsActive ? 'header-menu--open' : 'header-menu--close') : ''"
+      >
         <li @click="changeComponent(WelcomeSignIn)">Login</li>
         <li @click="changeComponent(WelcomeSignUp)">Registrieren</li>
         <li @click="changeComponent(WelcomeAbout)">Über HSDConnect</li>
-        <li @click="toogleReponsiveMenu" class="close-menu"><font-awesome-icon icon="times" /></li>
+        <li @click="toogleReponsiveMenu" class="header-menu__close-icon">
+          <font-awesome-icon icon="times" />
+        </li>
       </ul>
     </transition>
   </header>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
-  data: () => {
-    return {
-      WelcomeIndex: '/welcome',
-      WelcomeSignIn: '/welcome/signin',
-      WelcomeSignUp: '/welcome/signup',
-      WelcomeAbout: '/welcome/about',
-      responseMenuIsActive: true,
-      windowWidth: window.innerWidth
+  data: () => ({
+    WelcomeIndex: '/welcome',
+    WelcomeSignIn: '/welcome/signin',
+    WelcomeSignUp: '/welcome/signup',
+    WelcomeAbout: '/welcome/about',
+    responseMenuIsActive: false,
+    windowWidth: window.innerWidth,
+    resizingDone: true
+  }),
+  watch: {
+    windowWidth(newValue) {
+      this.responseMenuIsActive = false;
     }
   },
   methods: {
-    changeComponent (path: string, position: number, closeMenu: boolean) {
+    changeComponent(path: string, position: number, closeMenu: boolean) {
       if (closeMenu) {
-        this.responseMenuIsActive = false
-      } else this.toogleReponsiveMenu()
+        this.responseMenuIsActive = false;
+      } else {
+        this.toogleReponsiveMenu();
+      }
 
-      this.$router.push(path)
+      this.$router.push(path);
       if (this.isResponsive) {
         window.scroll({
           top: position || document.body.scrollHeight,
           behavior: 'smooth'
-        })
+        });
       }
     },
-    toogleReponsiveMenu () {
-      this.responseMenuIsActive = !this.responseMenuIsActive
+    toogleReponsiveMenu() {
+      this.responseMenuIsActive = !this.responseMenuIsActive;
     }
   },
   computed: {
-    isResponsive (): boolean {
-      return this.windowWidth < 992
-    },
-    showMenu (): boolean {
-      return this.isResponsive ? this.responseMenuIsActive : true
+    isResponsive(): boolean {
+      return this.windowWidth < 992;
     }
   },
-  mounted (): void {
+  mounted(): void {
+    let resizeId: any;
     window.addEventListener('resize', () => {
-      this.windowWidth = window.innerWidth
-    })
+      this.resizingDone = false;
+      clearTimeout(resizeId);
+      resizeId = setTimeout(() => {
+        this.resizingDone = true;
+      }, 500);
+      this.windowWidth = window.innerWidth;
+    });
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -77,30 +91,30 @@ header {
   text-transform: uppercase;
   display: grid;
   /* autoprefixer: off */
-  grid-template-areas:  "logo . menu";
+  grid-template-areas: 'logo . menu';
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto auto;
   // align-self: center;
-  @media(max-width: 992px) {
+  @media (max-width: 992px) {
     position: fixed;
     top: 0px;
     left: 0px;
     z-index: 2;
     width: 100vw;
     .container-responsive {
-      grid-template-areas: "logo . burgericon";
+      grid-template-areas: 'logo . burgericon';
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 60px;
       display: grid;
       z-index: 2;
       width: inherit;
-      background: white;
+      background: $baseWhite;
       padding: 0px 20px;
       box-shadow: 0px -4px 10px 3px $baseBlue;
       // border-bottom: 2px solid $baseBlue;
     }
   }
-  #header-logo {
+  .header-logo {
     grid-area: logo;
     align-self: center;
     img {
@@ -109,22 +123,21 @@ header {
       cursor: pointer;
     }
   }
-  #header-burger-icon {
+  .header-burger__icon {
     display: none;
     grid-area: burgericon;
     align-self: center;
-    .burger-icon-clickable {
+    .burger-icon__clickable {
       display: flex;
       margin-left: auto;
     }
-    @media(max-width: 992px) {
+    @media (max-width: 992px) {
       display: block;
     }
   }
-  #header-menu {
+  .header-menu {
     font-size: 1em;
     display: flex;
-    // height: 100vh;
     justify-content: flex-end;
     align-items: center;
     margin: auto 0;
@@ -132,29 +145,18 @@ header {
     li {
       color: $baseBlue;
       padding: 0px 20px;
-      &.close-menu {
+      &.header-menu__close-icon {
         display: none;
         justify-content: center;
         font-size: 1.4em;
         > svg {
-          fill: $baseBlue
+          fill: $baseBlue;
         }
       }
     }
-    @media(max-width: 992px) {
-      li {
-        padding: 12px 0;
-        // border-bottom: 2px solid $baseGrey;
-        width: 100%;
-        text-align: center;
-        font-size: 15px;
-        font-family: 'Montserrat-SemiBold';
-        &.close-menu {
-          display: inline-flex;
-        }
-      }
+    @media (max-width: 992px) {
       grid-column: auto-fill;
-      justify-content:space-evenly;
+      justify-content: space-evenly;
       display: flex;
       flex-direction: column;
       position: absolute;
@@ -162,25 +164,33 @@ header {
       top: 60px;
       left: 0px;
       right: 0px;
-      background: white;
+      background: $baseWhite;
       border-bottom: 1px solid $baseBlue;
+      transform: translateY(-100%);
+      li {
+        padding: 12px 0;
+        width: 100%;
+        height: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        font-family: 'Montserrat-SemiBold';
+        &.header-menu__close-icon {
+          display: inline-flex;
+        }
+      }
+      &--close,
+      &--open {
+        transition: transform 0.3s ease-in-out;
+      }
+      &--close {
+        transform: translateY(-100%);
+      }
+      &--open {
+        transform: translateY(0%);
+      }
     }
   }
 }
-
-  .translate-header-enter-active {
-    transition: opacity .3s cubic-bezier(.41,.57,.43,.52), transform .3s cubic-bezier(.41,.57,.43,.52), visibility .3s ease-in-out;;
-    transform: translateX(0px);
-  }
-  .translate-header-leave-active {
-    transition: opacity .3s cubic-bezier(.41,.57,.43,.52), transform .3s cubic-bezier(.41,.57,.43,.52), visibility .3s ease-in-out;;
-    opacity: 1;
-    transform: translateY(0px);
-    visibility: visible;
-  }
-  .translate-header-enter, .translate-header-leave-to {
-    opacity: 0;
-    transform: translateY(-50%);
-    visibility: hidden;
-  }
 </style>

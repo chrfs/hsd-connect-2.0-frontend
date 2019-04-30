@@ -7,25 +7,25 @@
 <script>
 export default {
   watch: {
-    authToken (authToken) {
+    authToken(authToken) {
       if (!authToken) {
-        this.$router.push('/welcome/signin')
+        this.$router.push('/welcome/signin');
       }
     }
   },
   computed: {
-    authToken () {
-      return this.$store.getters['user/getAuthToken']
+    authToken() {
+      return this.$store.getters['user/getAuthToken'];
     }
   },
-  mounted () {
+  mounted() {
     if (this.authToken) {
-      this.$http.get('/users/' + this.$store.getters['user/getUser']._id).then(({ data: { data } }) => {
-        this.$store.dispatch('user/setUser', data.user)
-      })
+      this.$http.get(`/users/${this.$store.getters['user/getUser']._id}`).then(({ data: { data } }) => {
+        this.$store.dispatch('user/setUser', data.user);
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -34,7 +34,7 @@ export default {
 
 body {
   min-width: 375px;
-  font-size: 1.0em;
+  font-size: 1em;
   max-width: 100vw;
   color: $baseBlue;
   min-height: 375px;
@@ -78,6 +78,7 @@ h2 {
 }
 
 h3 {
+  font-family: 'Montserrat-Regular';
   font-size: 1.2em;
   letter-spacing: 1px;
   line-height: 1.4em;
@@ -89,44 +90,13 @@ h4 {
   font-size: 0.9em;
   line-height: 1.4em;
   text-transform: uppercase;
+  font-family: 'Montserrat-Regular';
   margin: 10px 0px;
 }
 
 p {
   font-size: 0.9em;
   line-height: 1.3em;
-}
-
-label {
-  font-size: .9em;
-  font-family: 'Montserrat-Medium';
-  text-transform: uppercase;
-  margin: 10px 0px;
-  display: block
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-fieldset {
-  margin: 10px 0px;
-}
-
-input, textarea, select {
-  height: 25px;
-  border-bottom: 2px solid #000;
-  background: none;
-  font-size: 0.9em;
-  margin: 0px auto 10px auto;
-  border-bottom: 1px solid $baseBlue;
-}
-
-input[type=checkbox] {
-  width: auto;
-  margin: 10px 0px;
-  height: auto;
 }
 
 textarea {
@@ -138,29 +108,27 @@ textarea {
 }
 
 ::placeholder {
-  color:    #000;
+  color: #000;
 }
 
-button, input.button {
-  background-color: $baseRed;
-  padding: 15px 25px;
-  color: white;
-  text-transform: uppercase;
-  font-size: 0.9em;
-  letter-spacing: 0.20em;
-  font-weight: bolder;
-  cursor: pointer;
-  margin-top: 25px;
-  height: auto;
-  border: none;
-}
 
-.text--error {
-  color: #E14D2E !important;
-  font-size: 0.85em;
-  line-height: 1.2em;
-  font-weight: bold;
-  padding-top: 10px
+.text {
+  &--error,
+  &--success {
+    font-size: 0.85em;
+    line-height: 1.2em;
+    font-weight: bold;
+    padding-top: 10px;
+    font-family: 'Montserrat-SemiBold';
+  }
+
+  &--error {
+    color: $baseRed;
+  }
+
+  &--success {
+    color: $baseGreen;
+  }
 }
 
 .image-container {
@@ -187,12 +155,12 @@ button, input.button {
 }
 
 .margin-bottom {
-   margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .red-colored {
   color: $baseRed;
-  font-family:'Montserrat-Bold';
+  font-family: 'Montserrat-Bold';
 }
 
 .box-shadowed {
@@ -207,20 +175,25 @@ button, input.button {
   border-radius: 50%;
 }
 
-.burger-icon-clickable {
+.w--100 {
+  width: 100%;
+}
+
+.burger-icon__clickable {
   height: 15px;
   width: 25px;
   cursor: pointer;
-  .burger-icon-bars {
+  .burger-icon__bars {
     width: inherit;
     height: 3px;
     background: #4e4b4b;
     transform: translateY(200%);
-    &::after, &::before {
+    &::after,
+    &::before {
       width: inherit;
       height: 3px;
       background: #4e4b4b;
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       bottom: 200%;
@@ -236,20 +209,71 @@ button, input.button {
   width: 100%;
   max-width: 1400px;
   align-content: flex-start;
-  font-family: 'Montserrat-Medium';
-  font-size: 1.0em;
-  * {
-    width: 100%
-  }
-  input.button{
-    font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat-Thin';
+  font-size: 1em;
+  margin-top: 2em;
+  label {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    margin: 10px 0px;
+    display: block;
   }
 
+  fieldset {
+    margin: 10px 0px;
+  }
+
+  input,
+  textarea,
+  select {
+    height: 25px;
+    border-bottom: 2px solid #000;
+    background: none;
+    font-size: 0.9em;
+    margin: 3px 0px 10px;
+    border-bottom: 1px solid $baseBlue;
+    display: block;
+    width: 100%;
+  }
+
+  input[type='checkbox'] {
+    width: auto;
+    margin: 10px 0px;
+    height: auto;
+  }
+  &__color {
+    &--inversed {
+      input {
+        color: white;
+
+        border-color: white;
+      }
+    }
+  }
+}
+
+
+button,
+input.button {
+  background-color: $baseRed;
+  padding: 15px 25px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.2em;
+  font-weight: bolder;
+  cursor: pointer;
+  margin-top: 25px;
+  height: auto;
+  border: none;
+  width: 100%;
 }
 
 .container-split {
   display: grid;
-  grid-template-areas: "navigation main-view";
+  grid-template-areas: 'navigation main-view';
   grid-template-columns: 350px calc(100vw - 380px);
   grid-template-rows: 100vh;
   .left-view {

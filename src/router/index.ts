@@ -1,20 +1,20 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import routes from './routes'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import routes from './routes';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes,
   linkExactActiveClass: 'active-link'
-})
+});
 
-router.beforeEach(function (to, from, next) {
+router.beforeEach((to, from, next) => {
   if (to.meta.beforeEnter && to.meta.beforeEnter.ensureAuthenticated) {
-    to.meta.beforeEnter.ensureAuthenticated(to, from, next)
-    return
+    to.meta.beforeEnter.ensureAuthenticated(to, from, next);
+    return;
   }
-  next()
-})
+  next();
+});
 
-export default router
+export default router;

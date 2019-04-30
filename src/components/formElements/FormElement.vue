@@ -1,14 +1,15 @@
 <template>
-  <fielset>
+  <fieldset class="form__fieldset">
     <label v-html="label"></label>
-    <slot @change="emitChange"></slot>
-  </fielset>
+    <slot />
+  </fieldset>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
+  data: () => ({}),
   props: {
     label: {
       type: String,
@@ -18,15 +19,8 @@ export default Vue.extend({
       type: Boolean,
       default: () => false
     }
-  },
-  methods: {
-    emitChange (key: string, value: any) {
-      this.$emit('change', key, value)
-    }
   }
-})
+});
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

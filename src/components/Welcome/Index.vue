@@ -1,52 +1,50 @@
 <template>
-    <div id="lets-connect__symbol__background" class="lets-connect">
-        <button id="lets-connect__button" @click="changeComponent">Let's connect</button>
+  <div class="lets-connect">
+    <div class="lets-connect__background">
+      <button class="lets-connect__button" @click="changeComponent">Let's connect</button>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
-  data: () => {
-    return {}
-  },
   methods: {
-    changeComponent (): void {
-      this.$router.push('/welcome/signin')
+    changeComponent(): void {
+      this.$router.push('/welcome/signin');
     }
   }
-})
+});
 </script>
 
 <style lang="scss">
 @import '../../assets/scss/variables';
 
 .lets-connect {
-    background-image: url('../../assets/img/welcome/symbol_connect_white.svg'),$blueGradient;
+  height: 100%;
+  width: 100%;
+  min-height: 300px;
+  background: white;
+  &__background {
     height: 100%;
-    width: 100%;
+    background-image: url('../../assets/img/welcome/symbol_connect_white.svg'), $blueGradient;
     position: relative;
-    &#lets-connect__symbol__background {
-      background-size: cover;
-      position: relative;
-      min-height: 300px;
-      @media (max-width: 991px){
-        transform: translateX(0px);
-      }
+    background-size: cover;
+    @media(max-width: 992px) {
+      transform: translateY(24px);
     }
-
-  #lets-connect__button{
+  }
+  &__button {
+    margin: 0px;
     position: absolute;
     bottom: 20%;
     width: 300px;
     transform: translateX(-50%);
-    @media(max-width: 992px) {
-      transform: translate(-50%, 75%);
-      z-index: 2;
+    @media (max-width: 992px) {
+      transform: translate(-50%, 50%);
       bottom: 100%;
       left: 50%;
-      display:none;
     }
   }
 }

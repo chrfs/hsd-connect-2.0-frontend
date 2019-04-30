@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import vuexPersistentStorage from 'vuex-persistedstate'
-import user from './user'
-import projects from './projects'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import vuexPersistentStorage from 'vuex-persistedstate';
+import projects from './projects';
+import user from './user';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
@@ -18,4 +18,4 @@ export default new Vuex.Store({
       paths: ['user']
     })
   ]
-})
+});

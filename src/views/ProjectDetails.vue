@@ -3,102 +3,149 @@
     <Navigation></Navigation>
     <main class="right-view">
       <Error v-if="notFound">
-          <template slot="message">
-            <p>We could not find the project you are looking for.</p>
-          </template>
-          <template slot="action">
-            <button @click="$router.push('/')">Go Back</button>
-          </template>
+        <template slot="message">
+          <p>We could not find the project you are looking for.</p>
+        </template>
+        <template slot="action">
+          <button @click="$router.push('/')">Go Back</button>
+        </template>
       </Error>
       <section v-if="project" class="project">
-        <header class="project__header" :style="{'background-image': 'url(' + getProjectHeaderImageURL + ')'}">
+        <header class="project__header" :style="{ 'background-image': 'url(' + getProjectHeaderImageURL + ')' }">
           <div class="project__status">
-            <p>{{$moment(project.createdAt).format('L')}}</p>
+            <p>{{ $moment(project.createdAt).format('L') }}</p>
           </div>
-          <h3>{{project.title}}</h3>
+          <h3>{{ project.title }}</h3>
         </header>
         <div class="project__description box-shadowed">
           <h3>Description:</h3>
-          <p>{{project.description}}</p>
+          <p>{{ project.description }}</p>
           <div class="project__meta">
-            <div class="project__meta__info">
-              <span class="project__meta__likes">{{project.likedBy ? project.likedBy.length : 0}} Likes</span>
-              <span class="project__meta__comments">{{project.feedback ? project.feedback.length : 0}} Comments</span>
+            <div class="project__meta--info">
+              <span class="project__meta--likes">{{ project.likedBy ? project.likedBy.length : 0 }} Likes</span>
+              <span class="project__meta__comments">{{ project.feedback ? project.feedback.length : 0 }} Comments</span>
             </div>
             <div class="project__meta__buttons">
-              <span class="project__meta__likes"><font-awesome-icon @click="likeProject" class="fa-icon"  :icon="isLikedProject ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon></span>
-              <span class="project__meta__feedback"><font-awesome-icon @click="newFeedback.show = !newFeedback.show" class="fa-icon"  :icon="newFeedback.show ? ['fas', 'comment'] : ['far', 'comment']"></font-awesome-icon></span>
-              <span class="project__meta__bookmark"><font-awesome-icon @click="bookmarkProject" class="fa-icon" :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"></font-awesome-icon></span>
-          </div>
+              <span class="project__meta--likes">
+                <font-awesome-icon
+                  @click="likeProject"
+                  class="fa-icon"
+                  :icon="isLikedProject ? ['fas', 'heart'] : ['far', 'heart']"
+                ></font-awesome-icon>
+              </span>
+              <span class="project__meta--feedback">
+                <font-awesome-icon
+                  @click="newFeedback.show = !newFeedback.show"
+                  class="fa-icon"
+                  :icon="newFeedback.show ? ['fas', 'comment'] : ['far', 'comment']"
+                ></font-awesome-icon>
+              </span>
+              <span class="project__meta--bookmark">
+                <font-awesome-icon
+                  @click="bookmarkProject"
+                  class="fa-icon"
+                  :icon="isBookmarkedProject ? ['fas', 'bookmark'] : ['far', 'bookmark']"
+                ></font-awesome-icon>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="project__info__fields">
+        <div class="project__fields">
           <div class="project__info margin-bottom box-shadowed">
-            <h4 class="project__info__header">Team</h4>
-            <div class="project__info__content">
-              <div class="project__member">
+            <h4 class="project__info-header">Team</h4>
+            <div class="project__info-content">
+              <div class="project__members">
                 <div class="image-container">
-                  <img class="border-round" :src="getProjectOwnerImageURL" alt="Project Owner Image">
+                  <img class="border-round" :src="getProjectOwnerImageURL" alt="Project Owner Image" />
                 </div>
-                <p>{{project.user.firstname}} {{project.user.lastname}}</p>
+                <p>{{ project.user.firstname }} {{ project.user.lastname }}</p>
               </div>
             </div>
-            <div class="project__info__content" v-if="project.members.length">
-              <div class="project__member" v-for="member in project.members" :key="member._id">
+            <div class="project__info-content" v-if="project.members.length">
+              <div class="project__members" v-for="member in project.members" :key="member._id">
                 <div class="image-container">
-                  <img class="border-round" :src="getUserImageURL(member.image)" alt="Project Owner Image">
+                  <img class="border-round" :src="getUserImageURL(member.image)" alt="Project Owner Image" />
                 </div>
-                <p>{{project.user.firstname}} {{project.user.lastname}}</p>
+                <p>{{ project.user.firstname }} {{ project.user.lastname }}</p>
               </div>
             </div>
-            <button v-if="project.searchingParticipants" class="project__member__join">JOIN THE TEAM</button>
+            <button v-if="project.searchingParticipants" class="project__join">
+              JOIN THE TEAM
+            </button>
           </div>
-          <div class="project__info box-shadowed">
-            <h4 class="project__info__header">Media</h4>
-            <div class="project__info__content" v-if="project.images.length">
+          <div class="project__info box-shadowed" v-if="project.images.length">
+            <h4 class="project__info-header">Media</h4>
+            <div class="project__info-content" v-if="project.images.length">
               <div class="project__image" v-for="image in project.images" :key="image._id">
-                <img :src="getProjectImageURL(image.token)" alt="Project Image">
+                <img :src="getProjectImageURL(image.token)" alt="Project Image" />
               </div>
             </div>
           </div>
         </div>
-        <div v-show="newFeedback.show" class="project__feedback__create box-shadowed">
-          <div class="project__feedback__create__sub">
+        <div v-show="newFeedback.show" class="feedback__create box-shadowed">
+          <div class="feedback__create-box">
             <h4>Post Feedback</h4>
-            <textarea spellcheck="false" v-model="newFeedback.content" placeholder="Write your thoughts.." class="project__feedback__create__textarea"></textarea>
+            <textarea
+              spellcheck="false"
+              v-model="newFeedback.content"
+              placeholder="Write your thoughts.."
+              class="feedback__textarea"
+            ></textarea>
+            <p class="text-error">{{ newFeedback.message }}</p>
           </div>
-          <p class="text-error">{{newFeedback.message}}</p>
-          <button @click="postFeedback" class="project__feedback__create__button">Send</button>
+          <button @click="postFeedback" class="feedback__create-button">Send</button>
         </div>
-        <div class="project__feedback__entries">
-          <div class="project__feedback box-shadowed-lighter" v-for="feedback in project.feedback" :key="feedback._id">
-            <div class="image-container project__feedback__author-image">
-              <img class="border-round" :src="getUserImageURL(feedback.user.image.token)" alt="User Image">
+        <div class="feedback__entries">
+          <div class="feedback box-shadowed-lighter" v-for="feedback in project.feedback" :key="feedback._id">
+            <div class="image-container feedback__author-image">
+              <img
+                class="border-round"
+                :src="getUserImageURL(feedback.user.image ? feedback.user.image.token : null)"
+                alt="User Image"
+              />
             </div>
-            <p class="project__feedback__author-name">{{feedback.user.firstname}} {{feedback.user.lastname}}</p>
-            <p class="project__feedback__content">{{feedback.content}}</p>
-            <p class="project__feedback__created-at">{{$moment(feedback.createdAt).format('L')}}</p>
-            <div class="project__feedback__comments">
-              <div class="project__feedback__comment" v-for="comment in feedback.comments" :key="comment._id">
-                <p class="project__feedback__comment__created-at">{{$moment(comment.createdAt).format('L')}} </p>
-                <p class="project__feedback__comment__author-name">{{comment.user.firstname}} {{comment.user.lastname}}</p>
-                <p class="project__feedback__comment__content">{{comment.content}}</p>
+            <p class="feedback__author-name">{{ feedback.user.firstname }} {{ feedback.user.lastname }}</p>
+            <p class="feedback__content">{{ feedback.content }}</p>
+            <p class="feedback__created-at">{{ $moment(feedback.createdAt).format('L') }}</p>
+            <div class="feedback__comments">
+              <div class="feedback__comment" v-for="comment in feedback.comments" :key="comment._id">
+                <p class="comment__created-at">{{ $moment(comment.createdAt).format('L') }}</p>
+                <p class="comment__author-name">{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                <p class="comment__content">{{ comment.content }}</p>
               </div>
             </div>
             <div class="project__meta">
-              <div class="project__meta__info">
-                <span class="project__meta__likes">{{feedback.likedBy ? feedback.likedBy.length : 0}} Likes</span>
-                <span class="project__meta__feedback">{{feedback.comments ? feedback.comments.length : 0}} Comments</span>
+              <div class="project__meta--info">
+                <span class="project__meta--likes">{{ feedback.likedBy ? feedback.likedBy.length : 0 }} Likes</span>
+                <span class="project__meta--feedback">{{ feedback.comments ? feedback.comments.length : 0 }} Comments</span>
               </div>
               <div class="project__meta__buttons">
-                <span class="project__meta__likes"><font-awesome-icon @click="likeProjectFeedback(feedback._id)" class="fa-icon" :icon="isLikedProjectFeedback(feedback._id) ? ['fas', 'heart'] : ['far', 'heart']"></font-awesome-icon></span>
-                <span class="project__meta__feedback"><font-awesome-icon @click="feedbackComments[feedback._id].show = !feedbackComments[feedback._id].show" class="fa-icon" :icon="feedbackComments[feedback._id].show ? ['fas', 'comment'] : ['far', 'comment']"></font-awesome-icon></span>
+                <span class="project__meta--likes">
+                  <font-awesome-icon
+                    @click="likeProjectFeedback(feedback._id)"
+                    class="fa-icon"
+                    :icon="isLikedProjectFeedback(feedback._id) ? ['fas', 'heart'] : ['far', 'heart']"
+                  ></font-awesome-icon>
+                </span>
+                <span class="project__meta--feedback">
+                  <font-awesome-icon
+                    @click="feedbackComments[feedback._id].show = !feedbackComments[feedback._id].show"
+                    class="fa-icon"
+                    :icon="feedbackComments[feedback._id].show ? ['fas', 'comment'] : ['far', 'comment']"
+                  ></font-awesome-icon>
+                </span>
               </div>
             </div>
-            <div class="project__feedback__comment__create" v-show="feedbackComments[feedback._id].show">
-              <input class="project__feedback__comment__create__input" v-model="feedbackComments[feedback._id].content" placeholder="Write your comment here...">
-              <button @click="postFeedbackComment(feedback._id)" class="project__feedback__comment__create__button--send"><font-awesome-icon class="fa-icon" :icon="['fab', 'telegram-plane']"></font-awesome-icon></button>
-              <p class="text-error">{{newFeedback.message}}</p>
+            <div class="comment__create" v-show="feedbackComments[feedback._id].show">
+              <input
+                class="comment__create__input"
+                v-model="feedbackComments[feedback._id].content"
+                placeholder="Write your comment here..."
+              />
+              <button @click="postFeedbackComment(feedback._id)" class="comment__create-button">
+                <font-awesome-icon class="fa-icon" :icon="['fab', 'telegram-plane']"></font-awesome-icon>
+              </button>
+              <p class="text-error">{{ feedbackComments[feedback._id].message }}</p>
             </div>
           </div>
         </div>
@@ -108,168 +155,184 @@
 </template>
 
 <script>
-import Navigation from '../components/Navigation.vue'
-import Error from '../components/Error'
+import Error from '../components/Error.vue';
+import Navigation from '../components/Navigation.vue';
+
 export default {
-  data: () => {
-    return {
-      notFound: false,
-      newFeedback: {
-        content: '',
-        message: '',
-        show: false
-      },
-      feedbackComments: {},
-      newFeedbackComment: {
-        content: '',
-        message: '',
-        show: false
-      }
-    }
-  },
+  data: () => ({
+    notFound: false,
+    newFeedback: {
+      content: '',
+      message: '',
+      show: false
+    },
+    feedbackComments: {},
+    newFeedbackComment: {
+      content: '',
+      message: '',
+      show: false
+    },
+    initialized: false
+  }),
   watch: {
     project: {
-      handler () {
+      handler() {
         if (!this.project.feedback) {
-          return
+          return;
         }
-        console.log('called')
-        this.feedbackComments = this.project.feedback.reduce((acc, {_id: feedbackId}) => {
+
+        this.feedbackComments = this.project.feedback.reduce((acc, { _id: feedbackId }) => {
           if (this.feedbackComments[feedbackId]) {
-            acc[feedbackId] = this.feedbackComments[feedbackId]
+            acc[feedbackId] = this.feedbackComments[feedbackId];
           } else {
-            acc[feedbackId] = JSON.parse(JSON.stringify(this.newFeedbackComment))
+            acc[feedbackId] = JSON.parse(JSON.stringify(this.newFeedbackComment));
           }
-          return acc
-        }, {})
+          return acc;
+        }, {});
       },
       deep: true
     },
-    projectId () {
-      this.fetchProject()
+    projectId() {
+      this.fetchProject();
     }
   },
   computed: {
-    projectId () {
-      return this.$route.params.id
+    projectId() {
+      return this.$route.params.id;
     },
-    project () {
-      const project = this.$store.getters['projects/getProject']
-      if (project._id !== this.projectId) return null
-      return project
+    project() {
+      const project = this.$store.getters['projects/getProject'];
+      if (project._id !== this.projectId) {
+        return null;
+      }
+      return project;
     },
-    user () {
-      return this.$store.getters['user/getUser']
+    user() {
+      return this.$store.getters['user/getUser'];
     },
-    isBookmarkedProject () {
-      return this.user.bookmarkedProjects.includes(this.project._id)
+    isBookmarkedProject() {
+      return this.user.bookmarkedProjects.includes(this.project._id);
     },
-    isLikedProject () {
-      return this.project && this.project.likedBy.includes(this.user._id)
+    isLikedProject() {
+      return this.project && this.project.likedBy.includes(this.user._id);
     },
-    getProjectHeaderImageURL () {
-      const projectImages = this.project ? this.project.images : []
-      const imageToken = projectImages.length ? projectImages[0].token : null
-      return this.getProjectImageURL(imageToken)
+    getProjectHeaderImageURL() {
+      const projectImages = this.project ? this.project.images : [];
+      const imageToken = projectImages.length ? projectImages[0].token : null;
+      return this.getProjectImageURL(imageToken);
     },
-    getProjectOwnerImageURL () {
-      const imageToken = this.project && this.project.user.image ? this.project.user.image.token : null
-      return this.getUserImageURL(imageToken)
+    getProjectOwnerImageURL() {
+      const imageToken = this.project && this.project.user.image ? this.project.user.image.token : null;
+      return this.getUserImageURL(imageToken);
     }
   },
   methods: {
-    isLikedProjectFeedback (feedbackId) {
-      const feedback = this.project.feedback.find(el => el._id === feedbackId)
-      return feedback && feedback.likedBy.includes(this.user._id)
+    isLikedProjectFeedback(feedbackId) {
+      const feedback = this.project.feedback.find(el => el._id === feedbackId);
+      return feedback && feedback.likedBy.includes(this.user._id);
     },
-    getProjectImageURL (imageToken) {
-      return imageToken ? `${this.$APIHost}/projects/${this.projectId}/images/${imageToken}` : 'https://via.placeholder.com/800x200'
+    getProjectImageURL(imageToken) {
+      return imageToken
+        ? `${this.$APIHost}/projects/${this.projectId}/images/${imageToken}`
+        : 'https://via.placeholder.com/800x200';
     },
-    getUserImageURL (imageToken) {
-      return imageToken ? `${this.$APIHost}/user/${this.project.user._id}/images/${imageToken}` : 'https://via.placeholder.com/200x200'
+    getUserImageURL(imageToken) {
+      return imageToken
+        ? `${this.$APIHost}/user/${this.project.user._id}/images/${imageToken}`
+        : 'https://via.placeholder.com/200x200';
     },
-    fetchProject () {
-      this.notFound = false
-      this.$http.get('/projects/' + this.projectId, { pageId: this.pageId }).then(({data: { data }}) => {
-        this.$store.dispatch('projects/setProject', data)
-      }).catch((res) => {
-        this.notFound = true
-      })
+    fetchProject() {
+      this.notFound = false;
+      this.$http
+        .get(`/projects/${this.projectId}`, { pageId: this.pageId })
+        .then(({ data: { data } }) => {
+          this.$store.dispatch('projects/setProject', data);
+        })
+        .catch(res => {
+          this.notFound = true;
+        });
     },
-    postFeedback () {
-      this.newFeedback.message = ''
-      this.$http.post('/projects/' + this.project._id + '/feedback', { feedback: this.newFeedback }).then(({ data: { data } }) => {
-        // TODO: SET NOTIFICATION
-        this.$store.dispatch('projects/addProjectFeedbackEntry', data)
-        this.newFeedback.content = ''
-      }).catch((res) => {
-        const response = res.response
-        if (!response || !response.data || response.data.status >= 500) {
-          // this.fields.notification.message = 'An unexpected error has occurred.'
-          // this.$store.dispatch('user/setAuthToken', null)
-          return
-        }
-        const data = response.data
-        if (data.data) {
+    postFeedback() {
+      this.newFeedback.message = '';
+      this.$http
+        .post(`/projects/${this.project._id}/feedback`, {
+          feedback: this.newFeedback
+        })
+        .then(({ data: { data } }) => {
           // TODO: SET NOTIFICATION
-        } else if (data.errors) {
-          Object.keys(data.errors).forEach(entry => {
-            this.newFeedback.message = data.errors.content
-          })
-        }
-      })
+          this.$store.dispatch('projects/addProjectFeedbackEntry', data);
+          this.newFeedback.content = '';
+        })
+        .catch(res => {
+          const { response } = res;
+          if (response.data.status === 401 || response.data.name === 'TokenExpiredError') {
+            this.$store.dispatch('user/setAuthToken', null);
+            this.$router.push('/');
+            return;
+          }
+          const { data } = response;
+          if (data.errors) {
+            this.newFeedback.message = data.errors.content;
+          }
+        });
     },
-    postFeedbackComment (feedbackId) {
-      console.log(this.feedbackComments[feedbackId])
-      const feedbackComment = this.feedbackComments[feedbackId]
-      feedbackComment.message = ''
-      this.$http.post('/projects/' + this.project._id + '/feedback/' + feedbackId, { comment: feedbackComment }).then(({ data: { data } }) => {
-        // TODO: SET NOTIFICATION
-        this.$store.dispatch('projects/addProjectFeedbackEntry', data)
-        feedbackComment.content = ''
-      }).catch((res) => {
-        const response = res.response
-        if (!response || !response.data || response.data.status >= 500) {
-          // this.fields.notification.message = 'An unexpected error has occurred.'
-          // this.$store.dispatch('user/setAuthToken', null)
-          return
-        }
-        const data = response.data
-        if (data.data) {
+    postFeedbackComment(feedbackId) {
+      const feedbackComment = this.feedbackComments[feedbackId];
+      feedbackComment.message = '';
+      this.$http
+        .post(`/projects/${this.project._id}/feedback/${feedbackId}/comment`, {
+          comment: feedbackComment
+        })
+        .then(({ data: { data } }) => {
           // TODO: SET NOTIFICATION
-        } else if (data.errors) {
-          Object.keys(data.errors).forEach(entry => {
-            feedbackComment.message = data.errors.content
-          })
-        }
-      })
+          this.$store.dispatch('projects/updateProjectFeedbackEntry', data);
+          feedbackComment.content = '';
+        })
+        .catch(res => {
+          const { response } = res;
+          if ((response.data && response.data.status === 401) || response.data.name === 'TokenExpiredError') {
+            this.$store.dispatch('user/setAuthToken', null);
+            this.$router.push('/');
+            return;
+          }
+          const { data } = response;
+          if (data.errors) {
+            this.feedbackComments[feedbackId].message = data.errors.content;
+          }
+        });
     },
-    bookmarkProject () {
-      this.$store.dispatch('user/bookmarkProject', this.project._id)
+    bookmarkProject() {
+      this.$store.dispatch('user/bookmarkProject', this.project._id);
     },
-    likeProject () {
-      this.$http.put('/projects/' + this.project._id + '/like').then(({ data: { data } }) => {
-        this.$store.dispatch('projects/setProject', {...this.project, likedBy: data.likedBy})
-      })
+    likeProject() {
+      this.$http.put(`/projects/${this.project._id}/like`).then(({ data: { data } }) => {
+        this.$store.dispatch('projects/setProject', {
+          ...this.project,
+          likedBy: data.likedBy
+        });
+      });
     },
-    likeProjectFeedback (feedbackId) {
-      this.$http.put('/projects/' + this.project._id + '/feedback/' + feedbackId + '/like').then(({ data: { data } }) => {
-        this.$store.dispatch('projects/updateProjectFeedbackEntry', {_id: feedbackId, ...data})
-      })
+    likeProjectFeedback(feedbackId) {
+      this.$http.put(`/projects/${this.project._id}/feedback/${feedbackId}/like`).then(({ data: { data } }) => {
+        this.$store.dispatch('projects/updateProjectFeedbackEntry', {
+          _id: feedbackId,
+          ...data
+        });
+      });
     }
   },
-  mounted () {
-    this.fetchProject()
+  mounted() {
+    this.fetchProject();
   },
   components: { Navigation, Error }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/variables';
 .project {
   display: grid;
-  grid-template-areas: "header header" "description info" "feedbackCreate ." "feedback .";
+  grid-template-areas: 'header header' 'description info' 'feedbackCreate .' 'feedback .';
   grid-template-columns: 70% 30%;
   grid-template-rows: 300px auto;
   grid-gap: 20px;
@@ -285,7 +348,6 @@ export default {
     display: flex;
     h3 {
       color: white;
-      font-family: "Montserrat-Regular";
       padding: 8px 12px;
       margin-top: auto;
       background: $baseBlue;
@@ -313,13 +375,12 @@ export default {
     flex-direction: column;
     padding: 30px 40px;
     align-self: flex-start;
-    background: white;
+    background: $baseWhite;
     text-align: justify;
     h3 {
       font-size: 15px;
       margin: 0;
       padding-bottom: 10px;
-      font-family: "Montserrat-Regular"
     }
     p {
       font-size: 0.9em;
@@ -332,11 +393,12 @@ export default {
     justify-content: space-between;
     align-items: flex-end;
     margin-top: 10px;
-    .project__meta__info {
+    .project__meta--info {
       font-size: 0.8rem;
       display: flex;
       justify-content: flex-end;
-      .project__meta__likes, .project__meta__comments {
+      .project__meta--likes,
+      .project__meta__comments {
         padding: 0px 10px 0px 0px;
         color: $baseGrey;
       }
@@ -348,18 +410,18 @@ export default {
       }
     }
   }
-  .project__info__fields {
+  .project__fields {
     .project__info {
       grid-area: info;
       align-self: flex-start;
-      background: white;
+      background: $baseWhite;
       width: 100%;
-      .project__info__header {
+      .project__info-header {
         border-bottom: 1px solid $baseLightGrey;
         padding: 30px 40px 10px;
         margin: 0px;
       }
-      .project__info__content {
+      .project__info-content {
         padding: 10px 40px;
         display: flex;
         .project__image {
@@ -373,89 +435,90 @@ export default {
           }
         }
       }
-      .project__member__join {
+      .project__join {
         width: 100%;
-        background: $baseLightGrey;
-        color: $baseBlue;
-        font-family: "Montserrat-Regular";
+        background: $baseRed;
+        color: $baseWhite;
+        font-family: 'Montserrat-Regular';
         letter-spacing: 0px;
       }
     }
   }
-  .project__feedback__create {
+  .feedback__create {
     grid-area: feedbackCreate;
-    background: white;
-    .project__feedback__create__sub {
+    background: $baseWhite;
+    .feedback__create-box {
       padding: 0px 25px;
     }
     display: flex;
     flex-direction: column;
-    background: white;
-    .project__feedback__create__textarea {
+    background: $baseWhite;
+    .feedback__textarea {
       width: 100%;
       height: 100px;
     }
-    .project__feedback__create__button {
+    .feedback__create-button {
       margin-top: 0px;
     }
   }
-  .project__feedback__entries {
+  .feedback__entries {
     grid-area: feedback;
     background: transparent;
-    .project__feedback {
+    .feedback {
       display: grid;
       min-height: 100px;
       margin-bottom: 10px;
       border-bottom: 1px solid $baseLightGrey;
       border-top: 1px solid $baseLightGrey;
-      grid-template-areas:  "authorImage authorName createdAt"
-                            "authorImage content content"
-                            ". comments comments"
-                            "meta meta meta"
-                            "writeNewComment writeNewComment writeNewComment";
+      grid-template-areas:
+        'authorImage authorName createdAt'
+        'authorImage content content'
+        '. comments comments'
+        'meta meta meta'
+        'writeNewComment writeNewComment writeNewComment';
       grid-template-columns: 80px 1fr;
       padding: 20px;
       justify-content: center;
       align-items: center;
-      .project__feedback__author-name {
-        font-family: "Montserrat-SemiBold";
+      .feedback__author-name {
+        font-family: 'Montserrat-SemiBold';
         padding-bottom: 10px;
         grid-area: authorName;
       }
-      .project__feedback__content {
+      .feedback__content {
         grid-area: content;
         margin-bottom: 25px;
       }
-      .project__feedback__created-at {
+      .feedback__created-at {
         color: $baseGrey;
         font-size: 0.7rem;
         margin-right: auto;
       }
-      .project__feedback__author-image {
+      .feedback__author-image {
         align-self: flex-start;
         grid-area: authorImage;
         margin: 0;
       }
     }
-    .project__feedback__comments {
+    .feedback__comments {
       grid-area: comments;
-      .project__feedback__comment {
+      .feedback__comment {
         margin-bottom: 15px;
         border-left: 1px solid $baseGrey;
         display: grid;
-        grid-template-areas: "authorName createdAt" "content content";
+        grid-template-areas: 'authorName createdAt' 'content content';
         grid-template-columns: 1fr;
         padding: 0px 10px;
         font-size: 0.9rem;
-        .project__feedback__comment__author-name {
-          font-family: "Montserrat-SemiBold";
+        .comment__author-name {
+          font-family: 'Montserrat-SemiBold';
           grid-area: authorName;
         }
-        .project__feedback__comment__content {
+        .comment__content {
           grid-area: content;
           padding-bottom: 2px;
         }
-        .project__feedback__comment__created-at {
+        .comment__created-at {
           grid-area: createdAt;
           font-size: 0.7rem;
           margin-right: auto;
@@ -463,19 +526,19 @@ export default {
         }
       }
     }
-    .project__feedback__comment__create {
+    .comment__create {
       display: grid;
       grid-area: writeNewComment;
       margin-top: 15px;
       position: relative;
-      grid-template-areas:"input button" "error error";
+      grid-template-areas: 'input button' 'error error';
       grid-auto-columns: 1fr auto;
-      .project__feedback__comment__create__input {
+      .comment__create__input {
         grid-area: input;
         width: 100%;
         height: 100%;
       }
-      .project__feedback__comment__create__button--send {
+      .comment__create-button {
         margin: 0px;
         padding: 5px;
         position: absolute;
